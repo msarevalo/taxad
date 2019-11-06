@@ -3,6 +3,11 @@
 <title>Taxad | Taxis</title>
 
 @section('formulario')
+	@if(session('sinMarca'))
+        <div class="alert alert-danger">
+            {{session('sinMarca')}}
+        </div>
+    @endif
     <div class="container">
         <form action="{{route('marca.crear')}}" method="post">
             @csrf

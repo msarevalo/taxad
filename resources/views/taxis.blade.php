@@ -10,7 +10,6 @@
     @endif
     <div class="container">
         <a href="{{ route('taxi.crea') }}" class="btn btn-primary">Crear Vehiculo</a>
-        <a href="{{ route('marcas') }}" class="btn btn-primary">Marcas</a>
     </div>
     <h1>Estos son nuestros taxis:</h1>
 
@@ -47,7 +46,7 @@
                     @php($contador=0)
                     @foreach($conductores as $conductor)
                         @if($conductor->idTaxi==$taxi->id)
-                            {{$conductor->nombres}} {{$conductor->apellidos}};     
+                            {{$conductor->name}} {{$conductor->lastname}};     
                             @php($contador++)
                         @endif
                     @endforeach

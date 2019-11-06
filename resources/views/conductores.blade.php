@@ -18,17 +18,15 @@
     </div>
     <h1>Estos son nuestros conductores:</h1>
 
-    @foreach($conductores as $conductor)
-        <!--<a href="{{ route('conductor', $conductor) }}" class="h4 text-danger">{{$conductor}}</a><br>-->
-    @endforeach
-
 
     <table class="table">
         <thead>
         <tr>
             <th scope="col">#</th>
             <th scope="col">Documento</th>
-            <th scope="col">Nombre</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Nombre Completo</th>
+            <th scope="col">Perfil</th>
             <th scope="col">Estado</th>
             <th scope="col">Fecha Creacion</th>
             <th scope="col">Acciones</th>
@@ -40,21 +38,31 @@
             <th scope="row">{{$conductor->id}}</th>
             <td>
                 <a href="{{route('conductor.detalle', $conductor)}}">
-                    {{$conductor->documento}}
+                    {{$conductor->document}}
                 </a>
             </td>
             <td>
                 <a href="{{route('conductor.detalle', $conductor)}}">
-                    {{$conductor->nombres . " " .  $conductor->apellidos}}
+                    {{$conductor->username}}
                 </a>
             </td>
-            @if($conductor->estado==1)
-                <td>Activo</td>
-            @elseif($conductor->estado==0)
-                <td>Inactivo</td>
-            @else
-                <td>Por Aprobar</td>
-            @endif
+            <td>
+                <a href="{{route('conductor.detalle', $conductor)}}">
+                    {{$conductor->name . " " .  $conductor->lastname . " " . $conductor->lastname2}}
+                </a>
+            </td>
+            <td>
+                @foreach($perfiles as $perfil)
+                    @if($conductor->perfil==$perfil->id)
+                        {{$perfil->nombrePerfil}}
+                    @endif
+                @endforeach
+            </td>
+            @foreach($estados as $estado)
+                @if($conductor->estado==$estado->id)
+                    <td>{{$estado->estado}}</td>
+                @endif
+            @endforeach
             <td>{{$conductor->created_at}}</td>
             <td>
                 @if($conductor->estado==2)

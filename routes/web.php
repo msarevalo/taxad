@@ -62,7 +62,7 @@ Route::get('/taxis/edita/{id?}', 'PagesController@editatax')->name('taxi.edita')
 
 Route::put('/taxis/{id}', 'PagesController@editartax')->name('taxi.editar');
 
-Route::post('/taxis/{id}', 'PagesController@asignartax')->name('taxi.asignar');
+Route::post('/taxis/asigna/{id}', 'PagesController@asignartax')->name('taxi.asignar');
 
 /**********************************************
  **********************************************

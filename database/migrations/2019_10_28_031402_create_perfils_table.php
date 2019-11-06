@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConductoresTaxisTable extends Migration
+class CreatePerfilsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateConductoresTaxisTable extends Migration
      */
     public function up()
     {
-        Schema::create('conductores__taxis', function (Blueprint $table) {
+        Schema::create('perfils', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('idTaxi');
-            $table->integer('idCond');
+            $table->string('nombrePerfil');
             $table->timestamps();
-            //$table->primary(['idTaxi', 'idCond']); 
         });
+
+        DB::table('perfils')->insert(array('nombrePerfil'=>'Superadmin'));
+        DB::table('perfils')->insert(array('nombrePerfil'=>'Admin'));
+        DB::table('perfils')->insert(array('nombrePerfil'=>'Conductor'));
     }
 
     /**
@@ -29,6 +31,6 @@ class CreateConductoresTaxisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductores__taxis');
+        Schema::dropIfExists('perfils');
     }
 }

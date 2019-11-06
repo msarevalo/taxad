@@ -1,28 +1,116 @@
 @extends('autenticacion')
 
 <title>Taxad | Conductores</title>
-
 @section('formulario')
     <div class="container">
         <form action="{{route('conductor.editar', $conductor->id)}}" method="post">
             @method('PUT')
             @csrf
-            <input type="number" name="documento" value="{{$conductor->documento}}" disabled class="form-control mb-2" required>
-            <input type="text" name="nombres" value="{{$conductor->nombres}}" placeholder="Nombres" class="form-control mb-2" required>
-            <input type="text" name="apellidos" value="{{$conductor->apellidos}}" placeholder="Apellidos" class="form-control mb-2" required>
-            <select class="form-control mb-2" name="estado" required>
-                @if($conductor->estado==1)
-                    <option selected value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                @elseif($conductor->estado==2)
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                @else
-                    <option value="1">Activo</option>
-                    <option selected value="0">Inactivo</option>
-                @endif
-            </select>
-            <button class="btn btn-primary btn-block" type="submit">Agregar</button>
+            <div class="form-group row">
+                <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
+
+                <div class="col-md-6">
+                    <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ $conductor->username }}" disabled required autocomplete="username" autofocus>
+
+                    @error('username')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="document" class="col-md-4 col-form-label text-md-right">{{ __('Documento') }}</label>
+
+                <div class="col-md-6">
+                    <input id="document" type="number" class="form-control @error('document') is-invalid @enderror" name="document" value="{{ $conductor->document }}" disabled required autocomplete="document" autofocus>
+
+                    @error('document')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nombres') }}</label>
+
+                <div class="col-md-6">
+                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $conductor->name }}" required autocomplete="name" autofocus>
+
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+
+                <div class="col-md-6">
+                    <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $conductor->lastname }}" required autocomplete="lastname" autofocus>
+
+                    @error('lastname')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="lastname2" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
+
+                <div class="col-md-6">
+                    <input id="lastname2" type="text" class="form-control @error('lastname2') is-invalid @enderror" name="lastname2" value="{{ $conductor->lastname2 }}" required autocomplete="lastname2" autofocus>
+
+                    @error('lastname2')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Correo') }}</label>
+
+                <div class="col-md-6">
+                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $conductor->email }}" required autocomplete="email">
+
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Estado') }}</label>
+
+                <div class="col-md-6">
+                    <select class="form-control mb-2" name="estado" required>
+                        @foreach($estados as $estado)
+                            @if($estado->id==$conductor->estado)
+                                <option style="text-transform: capitalize" value="{{$estado->id}}" selected>{{$estado->estado}}</option>
+                            @else
+                                <option style="text-transform: capitalize" value="{{$estado->id}}">{{$estado->estado}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Registrar') }}
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 @endsection

@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>TaxAd</title>
+        <link rel="shortcut icon" href="http://localhost/taxad/resources/img/logo.ico" />
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -78,19 +79,20 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
-                    TaxAd
+                <div class="title m-b-md" style="margin-top: -100px">
+                    <img src="http://localhost/taxad/resources/img/logo100x100.png">
                 </div>
 
                 <div class="links">
-                    <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('registro') }}">Registro</a>
+                    @if (Route::has('login'))
+                    @auth
                     <a href="{{ route('conductor') }}">Conductores</a>
                     <a href="{{ route('taxis') }}">Taxis</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    @else
+                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('register') }}">Registro</a>
+                    @endauth
+                    @endif
                 </div>
             </div>
         </div>
