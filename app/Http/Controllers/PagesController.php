@@ -16,7 +16,7 @@ class PagesController extends Controller
     }
 
     public function inicio(){
-        return view('welcome');
+        return view('login');
     }
 
     public function login(){
@@ -27,6 +27,21 @@ class PagesController extends Controller
         return view('registro');
     }
 
+    public function cambiar(Request $request){
+        if ($request->npass===$request->rpass) {
+            $usuario = App\User::findOrFail(Auth::user()->id);
+            $usuario->password=Hash::make($request->npass);
+            $usuario->nuevo='0';
+
+            $usuario->save();
+
+            return redirect('home');
+
+        }else{
+            return redirect('/')->with('error', 'Las constraseñas no coinsiden');            
+        }
+    }
+
     /*********************************************
      *********************************************
      * Creacion y administracion de conductores***
@@ -35,7 +50,7 @@ class PagesController extends Controller
 
     public function conductor(){
         if (Auth::user()->perfil!==3) {
-            $conductores = App\User::where('id', '!=', Auth::user()->id)->paginate(5);
+            $conductores = App\User::where([['id', '!=', Auth::user()->id], ['perfil', '=', '3']])->paginate(5);
             $perfiles = App\Perfil::all();
             $estados = App\estados_conductor::all();
 
@@ -55,60 +70,83 @@ class PagesController extends Controller
     public function detalle($id=null){
         $conductor = App\User::findOrFail($id);
 
-        return view('conductores.detalle', compact('conductor'));
+        if ($conductor->perfil==3) {
+            return view('conductores.detalle', compact('conductor'));
+        }else{
+            return redirect('conductores');
+        }
+
+        
     }
 
     public function editacon($id){
         $conductor = App\User::findOrFail($id);
         $perfiles = App\Perfil::where('id', '=', '3')->get();
-        $estados = App\estados_conductor::all();
+        $estados = App\estados_conductor::where('id', '<', '2')->get();
 
-        return view('conductores.edita', compact('conductor', 'perfiles', 'estados'));
+        if ($conductor->perfil==3) {
+            return view('conductores.edita', compact('conductor', 'perfiles', 'estados'));
+        }else{
+            return redirect('conductores');
+        }
+        
     }
 
     public function crearcond(Request $request){
        // return$request->all();
 
-        $apellido1=explode(" ", $request['lastname']);
-        $usuario = $request['name'][0] . $apellido1[0];
+        $verificacion = App\User::where('document', '=', $request->document)->first();
+        $verificacion2 = App\User::where('email', '=', $request->email)->first();
 
-        $existe = App\User::where('username', '=', $usuario)->first();;
+        //var_dump($verificacion2);exit();
+        if ($verificacion==null) {
+            if ($verificacion2==null) {
+                $apellido1=explode(" ", $request['lastname']);
+                $usuario = $request['name'][0] . $apellido1[0];
 
-        $contador1 = strlen($request['name'])-1;
-        $contador2 = strlen($request['lastname2'])-1;
+                $existe = App\User::where('username', '=', $usuario)->first();;
 
-        $cont1 = 0;
-        $cont2=0;
+                $contador1 = strlen($request['name'])-1;
+                $contador2 = strlen($request['lastname2'])-1;
 
-        while ($existe!==null) {
-            if ($cont1==$cont2) {
-                $usuario = substr($request['name'],0, -$contador1) . $apellido1[0] . substr($request['lastname2'],0, -$contador2);
-                $existe = App\User::where('username', '=', $usuario)->first();
-                $contador1--;
-                $cont1++;
+                $cont1 = 0;
+                $cont2=0;
+
+                while ($existe!==null) {
+                    if ($cont1==$cont2) {
+                        $usuario = substr($request['name'],0, -$contador1) . $apellido1[0] . substr($request['lastname2'],0, -$contador2);
+                        $existe = App\User::where('username', '=', $usuario)->first();
+                        $contador1--;
+                        $cont1++;
+                    }else{
+                        $usuario = substr($request['name'],0, -$contador1) . $apellido1[0] . substr($request['lastname2'],0, -$contador2);
+                        $existe = App\User::where('username', '=', $usuario)->first();
+                        $contador2--;
+                        $cont2++;
+                    }
+                }
+
+                $conductor = new App\User;
+                $conductor->username=strtolower($usuario);
+                $conductor->document=$request->document;
+                $conductor->name=$request->name;
+                $conductor->lastname=$request->lastname;
+                $conductor->lastname2=$request->lastname2;
+                $conductor->email=$request->email;
+                $conductor->password=Hash::make($request['document']);
+                $conductor->perfil='3';
+                $conductor->estado='1';
+                $conductor->nuevo='1';
+
+                $conductor->save();
+
+                return redirect('conductores')->with('mensaje', 'Conductor ' . $request->name . ' ' . $request->lastname . ' creado con exito');
             }else{
-                $usuario = substr($request['name'],0, -$contador1) . $apellido1[0] . substr($request['lastname2'],0, -$contador2);
-                $existe = App\User::where('username', '=', $usuario)->first();
-                $contador2--;
-                $cont2++;
+                return redirect('conductores')->with('documento', 'El correo que ingresaste ya existe, verifica los datos');    
             }
+        }else{
+            return redirect('conductores')->with('documento', 'El documento que ingresaste ya existe, verifica los datos');
         }
-
-        $conductor = new App\User;
-        $conductor->username=strtolower($usuario);
-        $conductor->document=$request->document;
-        $conductor->name=$request->name;
-        $conductor->lastname=$request->lastname;
-        $conductor->lastname2=$request->lastname2;
-        $conductor->email=$request->email;
-        $conductor->password=Hash::make($request['document']);
-        $conductor->perfil='3';
-        $conductor->estado='1';
-        $conductor->nuevo='1';
-
-        $conductor->save();
-
-        return redirect('conductores')->with('mensaje', 'Conductor ' . $request->name . ' ' . $request->lastname . ' creado con exito');
     }
 
     public function editarcond(Request $request, $id){
@@ -121,6 +159,14 @@ class PagesController extends Controller
         $conductor->estado = $request->estado;
 
         $conductor->save();
+
+        $vehiculo = App\Conductores_Taxi::where('idCond', '=', $id)->first();
+        if ($vehiculo!==null) {
+            if ($request->estado==0) {
+                $vehiculo->estado='0';
+                $vehiculo->save();
+            }
+        }
 
         return redirect('conductores')->with('mensaje', 'Conductor ' . $request->name . ' actualizado con exito');
 
@@ -145,6 +191,122 @@ class PagesController extends Controller
 
     }
 
+    /*************************************************
+     *************************************************
+     * Creacion y administracion de Administradores***
+     *************************************************
+     *************************************************/
+
+    public function administrador(){
+        if (Auth::user()->perfil!==3) {
+            $administradores = App\User::where([['id', '!=', Auth::user()->id], ['perfil', '>=', Auth::user()->perfil], ['perfil', '!=', '3']])->paginate(5);
+            $perfiles = App\Perfil::all();
+            $estados = App\estados_conductor::all();
+
+            return view('administradores', compact('administradores', 'perfiles', 'estados'));
+        }else{
+            return redirect('home');
+        }
+    }
+
+    public function creaadmin(){
+        $perfiles = App\Perfil::where([['id', '>=', Auth::user()->perfil], ['id', '!=', '3']])->get();
+
+        return view('administradores.create', compact('perfiles'));
+    }
+
+    public function crearadmin(Request $request){
+       // return$request->all();
+        $verificacion = App\User::where('document', '=', $request->document)->first();
+        $verificacion2 = App\User::where('email', '=', $request->email)->first();
+
+        //var_dump($verificacion2);exit();
+        if ($verificacion==null) {
+            if ($verificacion2==null) {
+                $apellido1=explode(" ", $request['lastname']);
+                $usuario = $request['name'][0] . $apellido1[0];
+
+                $existe = App\User::where('username', '=', $usuario)->first();;
+
+                $contador1 = strlen($request['name'])-1;
+                $contador2 = strlen($request['lastname2'])-1;
+
+                $cont1 = 0;
+                $cont2=0;
+
+                while ($existe!==null) {
+                    if ($cont1==$cont2) {
+                        $usuario = substr($request['name'],0, -$contador1) . $apellido1[0] . substr($request['lastname2'],0, -$contador2);
+                        $existe = App\User::where('username', '=', $usuario)->first();
+                        $contador1--;
+                        $cont1++;
+                    }else{
+                        $usuario = substr($request['name'],0, -$contador1) . $apellido1[0] . substr($request['lastname2'],0, -$contador2);
+                        $existe = App\User::where('username', '=', $usuario)->first();
+                        $contador2--;
+                        $cont2++;
+                    }
+                }
+
+                $conductor = new App\User;
+                $conductor->username=strtolower($usuario);
+                $conductor->document=$request->document;
+                $conductor->name=$request->name;
+                $conductor->lastname=$request->lastname;
+                $conductor->lastname2=$request->lastname2;
+                $conductor->email=$request->email;
+                $conductor->password=Hash::make($request['document']);
+                $conductor->perfil=$request->perfil;
+                $conductor->estado='1';
+                $conductor->nuevo='1';
+
+                $conductor->save();
+
+                return redirect('administradores')->with('mensaje', 'Administrador ' . $request->name . ' ' . $request->lastname . ' creado con exito');
+            }else{
+                return redirect('administradores')->with('documento', 'El correo que ingresaste ya existen, verifica los datos');    
+            }
+        }else{
+            return redirect('administradores')->with('documento', 'El documento que ingresaste ya existen, verifica los datos');
+        }
+    }
+
+    public function detalleadmin($id=null){
+        $conductor = App\User::findOrFail($id);
+
+        if ($conductor->perfil!==3) {
+            return view('administradores.detalle', compact('conductor'));
+        }else{
+            return redirect('administradores');
+        } 
+    }
+
+    public function editaadmin($id){
+        $conductor = App\User::findOrFail($id);
+        $perfiles = App\Perfil::where([['id', '>=', Auth::user()->perfil], ['id', '!=', '3']])->get();
+        $estados = App\estados_conductor::all();
+
+        if ($conductor->perfil!==3) {
+            return view('administradores.edita', compact('conductor', 'perfiles', 'estados'));
+        }else{
+            return redirect('administradores');
+        }
+    }
+
+    public function editaradmin(Request $request, $id){
+        $conductor = App\User::findOrFail($id);
+        $conductor->name = $request->name;
+        $conductor->lastname = $request->lastname;
+        $conductor->lastname2 = $request->lastname2;
+        $conductor->email = $request->email;
+        $conductor->perfil = $request->perfil;
+        $conductor->estado = $request->estado;
+
+        $conductor->save();
+
+        return redirect('administradores')->with('mensaje', 'Conductor ' . $request->name . ' actualizado con exito');
+    }
+
     /*********************************************
      *********************************************
      * Creacion y administracion de taxis*********
@@ -160,8 +322,8 @@ class PagesController extends Controller
 
         $conductores = DB::table('conductores__taxis')
             ->join('users', 'users.id', '=', 'conductores__taxis.idCond')
-            ->select('conductores__taxis.idTaxi', 'users.name', 'users.lastname')
-            ->where('users.estado', '=', '1')
+            ->select('conductores__taxis.idTaxi', 'conductores__taxis.estado', 'users.name', 'users.lastname')
+            ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['conductores__taxis.estado', '=', '1']])
             ->get();
 
         return view('taxis', compact('taxdet', 'conductores'));
@@ -182,7 +344,7 @@ class PagesController extends Controller
         if ($marca!==null) {
             return view('taxis.create', compact('marcas'));
         }else{
-            return redirect('taxis/marcas/create')->with('sinMarca', 'Es necesario la creacion de una marca para poder crear un vehiculo');
+            return redirect('marcas/create')->with('sinMarca', 'Es necesario la creacion de una marca para poder crear un vehiculo');
         }
 
     }
@@ -203,15 +365,26 @@ class PagesController extends Controller
 
     public function editatax($id){
         $taxi = App\Taxi::findOrFail($id);
-        $marcas = App\Marcas_Taxi::where('estado', 1)->orderBy('marca', 'asc')->get();
 
-        return view('taxis.edita', compact('taxi', 'marcas'));
+        $marcas = App\Marcas_Taxi::where('estado', '1')->orderBy('marca', 'asc')->get();
+
+        $conductores = App\User::where([['estado', '=', '1'], ['perfil', '=', '3']])->orderBy('name', 'asc')->get();
+
+        $asignacion = App\Conductores_Taxi::where([['estado', '=', '1'], ['idTaxi', '=', $id]])->get();
+
+        $soat = App\documento::where([['vehiculo', '=', $id], ['tipo', '=', '1']])->orderBy('created_at', 'desc')->first();
+
+        $tp = App\documento::where([['vehiculo', '=', $id], ['tipo', '=', '2']])->orderBy('created_at', 'desc')->first();
+
+        $tarjeton = App\documento::where([['vehiculo', '=', $id], ['tipo', '=', '3']])->orderBy('created_at', 'desc')->first();
+
+        return view('taxis.edita', compact('taxi', 'marcas', 'conductores', 'asignacion', 'soat', 'tp', 'tarjeton'));
     }
 
     public function asignatax($id){
         $taxi = App\Taxi::findOrFail($id);
-        $conductores = App\User::where([['estado', '=', 1], ['perfil', '=', 3]])->orderBy('name', 'asc')->get();
-        $conductor = App\User::where([['estado', '=', 1], ['perfil', '=', 3]])->first();
+        $conductores = App\User::where([['estado', '=', '1'], ['perfil', '=', '3']])->orderBy('name', 'asc')->get();
+        $conductor = App\User::where([['estado', '=', '1'], ['perfil', '=', '3']])->first();
 
         if ($conductor!==null) {
             return view('taxis.asigna', compact('taxi', 'conductores'));
@@ -221,16 +394,34 @@ class PagesController extends Controller
     }
 
     public function asignartax(Request $request, $id){
-        
-        for ($i=0; $i < sizeof($request->idCond); $i++) { 
-            $asignar = new App\Conductores_Taxi();
-            $asignar->idTaxi=$id;
-            $asignar->idCond=$request->idCond[$i];
+        if (!empty($request->idCond)) {
+            if (sizeof($request->idCond)<=4){
+            
+                for ($i=0; $i < sizeof($request->idCond); $i++) { 
+                    $comprobar = App\Conductores_Taxi::where([['idCond', '=', $request->idCond[$i]], ['idTaxi', '=', $id]])->first();
 
-            $asignar->save();
-        }        
+                    if ($comprobar==null) {
+                        $asignar = new App\Conductores_Taxi();
+                        $asignar->idTaxi=$id;
+                        $asignar->idCond=$request->idCond[$i];
+                        $asignar->estado='1';
 
-        return redirect('taxis')->with('mensaje', 'Asignacion realizada con exito');
+                        $asignar->save();
+                    }else{
+                        $comprobar->estado='1';
+                        $comprobar->save();
+                    }
+
+                    
+                }        
+
+                return redirect('taxis')->with('mensaje', 'Asignacion realizada con exito');
+            }else{
+                return redirect(route('taxi.asignar', $id))->with('error', 'No se pueden asignar mas de 4 conductores a un vehiculo');
+            }
+        }else{
+            return redirect(route('taxi.asignar', $id))->with('error', 'No has seleccionado ningun conductor');
+        }
     }
 
     public function editartax(Request $request, $id){
@@ -246,7 +437,97 @@ class PagesController extends Controller
 
         $taxi->save();
 
-        return redirect('taxis')->with('mensaje', 'Taxi ' . $request->marca . ' - ' . $taxi->placa . ' actualizado con exito');
+        for ($i=0; $i < sizeof($request->idCond); $i++) { 
+            $comprobar = App\Conductores_Taxi::where([['idCond', '=', $request->idCond[$i]], ['idTaxi', '=', $id]])->first();
+
+            if ($comprobar==null) {
+                $asignar = new App\Conductores_Taxi();
+                $asignar->idTaxi=$id;
+                $asignar->idCond=$request->idCond[$i];
+                $asignar->estado='1';
+
+                $asignar->save();
+            }else{
+                $comprobar->estado='1';
+                $comprobar->save();
+            }
+        }
+
+        $asignaciones = App\Conductores_Taxi::where('estado', '=', '1')->get();
+
+        foreach ($asignaciones as $asigna) {
+            $valor = in_array($asigna->idCond, $request->idCond);
+            if ($valor==null) {
+                $taxi = App\Conductores_Taxi::findOrFail($asigna->id);
+                $taxi->estado='0';
+                $taxi->save();
+            }
+        }
+
+        return redirect('taxis')->with('mensaje', 'Taxi ' . $request->modelo . ' - ' . $taxi->placa . ' actualizado con exito');
+    }
+
+    public function soat($id){
+        $taxi = App\Taxi::findOrFail($id);
+        $tipos = App\Tipo_documento::all();
+
+        return view('taxis/documento', compact('taxi', 'tipos'));
+    }
+
+    public function soatcargar(Request $request, $id){
+        //return $request;
+        if ($request->hasFile('soat')) {
+            $file = $request->file('soat');
+            if ($request->tipo==1) {
+                $name = 'soat-'.$id.'-'.time().'.pdf';
+                $file->move(public_path().'/documentos/soat/', $name);
+            }elseif ($request->tipo==2) {
+                $name = 'tp-'.$id.'-'.time().'.pdf';
+                $file->move(public_path().'/documentos/tp/', $name);
+            }else{
+                $name = 'tarjeton-'.$id.'-'.time().'.pdf';
+                $file->move(public_path().'/documentos/tarjeton/', $name);
+            }
+        }
+        $documento = new App\Documento();
+        $documento->tipo = $request->tipo;
+        $documento->vehiculo = $id;
+        $documento->documento = $name;
+        $documento->save();
+
+        return redirect('taxis/edita/'.$id)->with('cargado', 'El SOAT fue cargado con exito');
+    }
+
+    public function reporta($id){
+        $taxi = App\Taxi::findOrFail($id);
+
+        return view('taxis/reportar', compact('taxi'));
+    }
+
+    public function reportar(Request $request){
+        $reporte = new App\Registro();
+        $reporte->vehiculo='1';
+        $reporte->semana=$request->semana;
+        $reporte->domingo=$request->producidoD . ';' . $request->gastosD . ';' . $request->otrosD;
+        $reporte->lunes=$request->producidoL . ';' . $request->gastosL . ';' . $request->otrosL;
+        $reporte->martes=$request->producidoM . ';' . $request->gastosM . ';' . $request->otrosM;
+        $reporte->miercoles=$request->producidoMi . ';' . $request->gastosMi . ';' . $request->otrosMi;
+        $reporte->jueves=$request->producidoJ . ';' . $request->gastosJ . ';' . $request->otrosJ;
+        $reporte->viernes=$request->producidoV . ';' . $request->gastosV . ';' . $request->otrosV;
+        $reporte->sabado=$request->producidoS . ';' . $request->gastosS . ';' . $request->otrosS;
+        
+        $prod = $request->producidoD + $request->producidoL + $request->producidoM + $request->producidoMi + $request->producidoJ + $request->producidoV + $request->producidoS;
+        $gastos = $request->gastosD + $request->otrosD + $request->gastosL + $request->otrosL + $request->gastosM + $request->otrosM + $request->gastosMi + $request->otrosMi + $request->gastosJ + $request->otrosJ + $request->gastosV + $request->otrosV + $request->gastosS + $request->otrosS;
+
+        $pago = $prod - $gastos;
+
+        $reporte->producido=$prod;
+        $reporte->gastos=$gastos;
+        $reporte->pago=$pago;
+
+        $reporte->save();
+
+        return redirect('taxis')->with('mensaje', 'Reporte de la semana ' . $request->semana . ' creado con exito');
     }
 
     /*************************************************
@@ -274,7 +555,7 @@ class PagesController extends Controller
 
         $marca->save();
 
-        return redirect('taxis/marcas')->with('mensaje', 'Marca ' . $request->marca . ' creada con exito');
+        return redirect(route('marcas'))->with('mensaje', 'Marca ' . $request->marca . ' creada con exito');
     }
 
     public function detallemarca($id=null){
@@ -290,12 +571,39 @@ class PagesController extends Controller
     }
 
     public function editarmarca(Request $request, $id){
-        $marca = App\Marcas_Taxi::findOrFail($id);
-        $marca->marca = $request->marca;
-        $marca->estado = $request->estado;
+        $vehiculos = App\taxi::where('marca', '=', $id)->first();
+        var_dump($vehiculos);
+        if ($request->estado==0) {
+            if ($vehiculos==null) {
+                $marca = App\Marcas_Taxi::findOrFail($id);
+                $marca->marca = $request->marca;
+                $marca->estado = $request->estado;
 
-        $marca->save();
+                $marca->save();
 
-        return redirect('taxis/marcas')->with('mensaje', 'Taxi ' . $request->marca . ' actualizada con exito');
+                return redirect('taxis/marcas')->with('mensaje', 'Marca ' . $request->marca . ' actualizada con exito');
+            }else{
+                return redirect('taxis/marcas')->with('error', 'No se puede inactivar la marca ' . $request->marca . ' pues tiene vehiculos asociados');
+            }
+        }else{
+            $marca = App\Marcas_Taxi::findOrFail($id);
+                $marca->marca = $request->marca;
+                $marca->estado = $request->estado;
+
+                $marca->save();
+
+                return redirect('taxis/marcas')->with('mensaje', 'Marca ' . $request->marca . ' actualizada con exito');
+        }
+        
+    }
+
+    /*************************************************
+     *************************************************
+     ********************Calendario*******************
+     *************************************************
+     *************************************************/
+
+    public function calendario(){
+        return view('calendar');
     }
 }

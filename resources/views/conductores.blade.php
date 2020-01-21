@@ -6,17 +6,31 @@
     @if(session('mensaje'))
         <div class="alert alert-success">
             {{session('mensaje')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
     @if(session('mensaje-delete'))
         <div class="alert alert-danger">
             {{session('mensaje-delete')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if(session('documento'))
+        <div class="alert alert-danger">
+            {{session('documento')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
     <div class="container">
         <a href="{{ route('conductor.crea') }}" class="btn btn-primary">Crear</a>
     </div>
-    <h1>Estos son nuestros conductores:</h1>
+    <h1>Listado Conductores:</h1>
 
 
     <table class="table">
@@ -67,16 +81,16 @@
             <td>
                 @if($conductor->estado==2)
                     <a href="{{route('conductor.permitir', $conductor)}}" style="text-decoration: none">
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="http://localhost/taxad/resources/img/aprobar.png" style="width: 130%; text-decoration: none"></button>
+                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/aprobar.png" style="width: 130%; text-decoration: none"></button>
                     </a>
                     <form action="{{route('conductor.negar', $conductor)}}" method="post" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="http://localhost/taxad/resources/img/negar.png" style="width: 150%; text-decoration: none"></button>
+                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/negar.png" style="width: 150%; text-decoration: none"></button>
                     </form>
                 @else
                     <a href="{{route('conductor.edita', $conductor)}}" style="text-decoration: none">
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="http://localhost/taxad/resources/img/edit.png" style="width: 230%"></button>
+                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/edit.png" style="width: 230%" title="Editar"></button>
                     </a>
                 @endif
             </td>

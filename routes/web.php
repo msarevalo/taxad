@@ -13,6 +13,8 @@
 
 Route::get('/', 'Home@inicio')->name('home');
 
+Route::post('/', 'PagesController@cambiar')->name('cambiar');
+
 Route::get('/login', 'PagesController@login')->name('login');
 
 Route::get('/registro', 'PagesController@registro')->name('registro');
@@ -42,6 +44,25 @@ Route::get('/conductores/{id}', 'PagesController@permitir')->name('conductor.per
 Route::delete('/conductores/{id}', 'PagesController@negar')->name('conductor.negar');
 
 
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Administradores***
+ *************************************************
+ *************************************************/
+
+Route::get('/administradores', 'PagesController@administrador')->name('admin');
+
+Route::get('/administradores/create', 'PagesController@creaadmin')->name('admin.crea');
+
+Route::post('/administradores', 'PagesController@crearadmin')->name('admin.crear');
+
+Route::get('/administradores/detalle/{id?}', 'PagesController@detalleadmin')->name('admin.detalle');
+
+Route::get('/administradores/edita/{id?}', 'PagesController@editaadmin')->name('admin.edita');
+
+Route::put('/administradores/{id}', 'PagesController@editaradmin')->name('admin.editar');
+
+
 /*********************************************
  *********************************************
  * Creacion y administracion de taxis*********
@@ -64,23 +85,31 @@ Route::put('/taxis/{id}', 'PagesController@editartax')->name('taxi.editar');
 
 Route::post('/taxis/asigna/{id}', 'PagesController@asignartax')->name('taxi.asignar');
 
+Route::get('/taxis/documento/{id}', 'PagesController@soat')->name('taxi.soat');
+
+Route::post('/taxis/documento/{id?}', 'PagesController@soatcargar')->name('taxi.soatcargar');
+
+Route::get('/taxis/reporta/{id}', 'PagesController@reporta')->name('taxi.reporta');
+
+Route::post('/taxis/reporta', 'PagesController@reportar')->name('taxi.reportar');
+
 /**********************************************
  **********************************************
  * Creacion y administracion de marcas taxis***
  **********************************************
  **********************************************/
 
-Route::get('taxis/marcas', 'PagesController@marca')->name('marcas');
+Route::get('/marcas', 'PagesController@marca')->name('marcas');
 
-Route::get('/taxis/marcas/create', 'PagesController@creamarca')->name('marca.crea');
+Route::get('/marcas/create', 'PagesController@creamarca')->name('marca.crea');
 
-Route::post('/taxis/marcas', 'PagesController@crearmarca')->name('marca.crear');
+Route::post('/marcas', 'PagesController@crearmarca')->name('marca.crear');
 
-Route::get('/taxis/marcas/detalle/{id?}', 'PagesController@detallemarca')->name('marca.detalle');
+Route::get('/marcas/detalle/{id?}', 'PagesController@detallemarca')->name('marca.detalle');
 
-Route::get('/taxis/marcas/edita/{id?}', 'PagesController@editamarca')->name('marca.edita');
+Route::get('/marcas/edita/{id?}', 'PagesController@editamarca')->name('marca.edita');
 
-Route::put('/taxis/marcas/{id}', 'PagesController@editarmarca')->name('marca.editar');
+Route::put('/marcas/{id?}', 'PagesController@editarmarca')->name('marca.editar');
 
 
 /**********************************************
@@ -93,14 +122,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
+/**********************************************
+ **********************************************
+ ******************Calendario******************
+ **********************************************
+ **********************************************/
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/calendar', 'PagesController@Calendario')->name('calendario');

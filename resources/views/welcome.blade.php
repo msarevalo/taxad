@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>TaxAd</title>
-        <link rel="shortcut icon" href="http://localhost/taxad/resources/img/logo.ico" />
+        <link rel="shortcut icon" href="../../img/logo.ico" />
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -80,7 +80,7 @@
 
             <div class="content">
                 <div class="title m-b-md" style="margin-top: -100px">
-                    <img src="http://localhost/taxad/resources/img/logo100x100.png">
+                    <img src="../../img/logo100x100.png">
                 </div>
 
                 <div class="links">

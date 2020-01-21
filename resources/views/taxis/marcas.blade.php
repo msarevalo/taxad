@@ -6,12 +6,23 @@
     @if(session('mensaje'))
         <div class="alert alert-success">
             {{session('mensaje')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{session('error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
     <div class="container">
         <a href="{{ route('marca.crea') }}" class="btn btn-primary">Crear Marca</a>
     </div>
-    <h1>Estos son las marcas de taxis:</h1>
+    <h1>Listado de Marcas de Taxis:</h1>
 
     <table class="table">
         <thead>
@@ -40,7 +51,7 @@
                 <td>{{$marca->created_at}}</td>
                 <td>
                     <a href="{{route('marca.edita', $marca)}}">
-                        <img src="http://localhost/taxad/resources/img/edit.png" style="width: 5%">
+                        <img src="../../img/edit.png" style="width: 5%" title="Editar">
                     </a>
                 </td>
             </tr>

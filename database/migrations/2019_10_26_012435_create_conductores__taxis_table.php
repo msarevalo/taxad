@@ -17,6 +17,7 @@ class CreateConductoresTaxisTable extends Migration
             $table->bigIncrements('id');
             $table->integer('idTaxi');
             $table->integer('idCond');
+            $table->integer('estado');
             $table->timestamps();
             //$table->primary(['idTaxi', 'idCond']); 
         });

@@ -6,14 +6,17 @@
     @if(session('mensaje'))
         <div class="alert alert-success">
             {{session('mensaje')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
     @endif
     <div class="container">
         <a href="{{ route('taxi.crea') }}" class="btn btn-primary">Crear Vehiculo</a>
     </div>
-    <h1>Estos son nuestros taxis:</h1>
+    <h1>Listado de Taxis:</h1>
 
-    <table class="table">
+    <table class="table col-8">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -60,15 +63,22 @@
                     <td>Inactivo</td>
                 @endif
                 <td>{{$taxi->created_at}}</td>
-                <td>
+                <td>                    
                     <a href="{{route('taxi.edita', $taxi->id)}}" style="text-decoration: none">
-                        <img src="http://localhost/taxad/resources/img/edit.png" style="width: 5%">
+                        <img src="../../img/edit.png" style="width: 20%" title="Editar">
                     </a>
-                    @if($contador==0)
-                        <a href="{{route('taxi.asigna', $taxi->id)}}" style="text-decoration: none">
-                            <img src="http://localhost/taxad/resources/img/asignar.png" style="width: 5%">
+                    
+                    @if($taxi->estado==1 && $contador!=0)
+                        <a href="{{route('taxi.reporta', $taxi->id)}}" style="text-decoration: none">
+                            <img src="../../img/ingresos.png" style="width: 20%" title="Reportar">
                         </a>
                     @endif
+                    @if($contador==0)
+                        <a href="{{route('taxi.asigna', $taxi->id)}}" style="text-decoration: none">
+                            <img src="../../img/asignar.png" style="width: 15%">
+                        </a>
+                    @endif
+                    
                 </td>
             </tr>
         @endforeach

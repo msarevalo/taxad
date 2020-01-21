@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Hash;
 
 class CreateUsersTable extends Migration
 {
@@ -28,6 +29,9 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        $contraseña = Hash::make('ninguna123.');
+        DB::table('users')->insert(array('username'=>'admin', 'document'=>'123', 'name'=>'admin', 'lastname'=>'', 'lastname2'=>'', 'email'=>'admin@taxad.com', 'password'=>$contraseña, 'estado'=>'1', 'perfil'=>'1', 'nuevo'=>'0'));
     }
 
     /**

@@ -7,29 +7,150 @@
         <form action="{{route('taxi.editar', $taxi->id)}}" method="post">
             @method('PUT')
             @csrf
-            <input type="text" name="placa" value="{{$taxi->placa}}" disabled class="form-control mb-2" required>
-            <select style="text-transform: capitalize" name="marca" class="form-control mb-2">
-                <option selected disabled>Seleccione una opcion</option>
-                @foreach($marcas as $marca)
-                    @if($marca->marca==$taxi->marca)
-                        <option style="text-transform: capitalize" value="{{$marca->marca}}" selected>{{$marca->marca}}</option>
+            <div class="form-group row">
+                <label for="placa" class="col-md-4 col-form-label text-md-right">{{ __('Placa') }}</label>
+
+                <div class="col-md-6">
+                    <input id="placa" type="text" class="form-control @error('placa') is-invalid @enderror" name="placa" required autocomplete="placa" autofocus value="{{$taxi->placa}}" disabled>
+
+                    @error('document')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Marca') }}</label>
+
+                <div class="col-md-6">
+                    <select class="form-control mb-2" name="marca" required style="text-transform: capitalize">
+                        <option selected disabled>Seleccione una marca</option>
+                        @foreach($marcas as $marca)
+                            @if($marca->id==$taxi->marca)
+                                <option style="text-transform: capitalize" value="{{$marca->id}}" selected>{{$marca->marca}}</option>
+                            @else
+                                <option style="text-transform: capitalize" value="{{$marca->id}}">{{$marca->marca}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Conductores') }}</label>
+
+                <div class="col-md-6">
+                    <select class="form-control mb-2" name="idCond[]" required style="text-transform: capitalize" multiple="multiple">
+                        <option selected disabled>Seleccione un conductor</option>
+                        @foreach($conductores as $conductor)
+                            @php($usuario="")
+                            @foreach($asignacion as $asigna)
+                                @if($conductor->id===$asigna->idCond)
+                                    <option selected style="text-transform: capitalize" value="{{$conductor->id}}">{{$conductor->name}} {{$conductor->lastname}}</option>
+                                    @php($usuario=$conductor->id)
+                                @endif
+                            @endforeach
+                            @if($conductor->id!==$usuario)
+                                <option style="text-transform: capitalize" value="{{$conductor->id}}">{{$conductor->name}} {{$conductor->lastname}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="modelo" class="col-md-4 col-form-label text-md-right">{{ __('Modelo') }}</label>
+
+                <div class="col-md-6">
+                    <input id="modelo" type="text" class="form-control @error('modelo') is-invalid @enderror" name="modelo" value="{{$taxi->modelo}}" required autocomplete="modelo" autofocus>
+
+                    @error('modelo')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="serie" class="col-md-4 col-form-label text-md-right">{{ __('Serie') }}</label>
+
+                <div class="col-md-6">
+                    <input id="serie" type="number" class="form-control @error('serie') is-invalid @enderror" name="serie" value="{{$taxi->serie}}" required autocomplete="serie" autofocus min="2000" name="serie">
+
+                    @error('serie')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Estado') }}</label>
+
+                <div class="col-md-6">
+                    <select class="form-control mb-2" name="estado" required>
+                    @if($taxi->estado==1)
+                        <option selected value="1">Activo</option>
+                        <option value="0">Inactivo</option>
                     @else
-                        <option style="text-transform: capitalize" value="{{$marca->marca}}">{{$marca->marca}}</option>
+                        <option value="1">Activo</option>
+                        <option value="0" selected>Inactivo</option>
                     @endif
-                @endforeach
-            </select>
-            <input type="text" name="modelo" placeholder="Modelo" value="{{$taxi->modelo}}" class="form-control mb-2" required>
-            <input type="number" min="2000" name="serie" placeholder="Serie" value="{{$taxi->serie}}" class="form-control mb-2" required>
-            <select style="text-transform: capitalize" name="estado" class="form-control mb-2">
-                @if($taxi->estado==1)
-                    <option selected value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                @else
-                    <option value="1">Activo</option>
-                    <option value="0" selected>Inactivo</option>
-                @endif
-            </select>
-            <button class="btn btn-primary btn-block" type="submit">Agregar</button>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row mb-0">
+                <div class="col-md-6 offset-md-4">
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Editar') }}
+                    </button>
+                </div>
+            </div>
         </form>
+
+        <table class="table">
+            <tr>
+                <td>
+                    @if($soat==null)
+                        <label for="name" class="col-6">{{ __('No has cargado aun el SOAT para este vehiculo') }}</label>
+                    @else
+                        <label for="name" class="col-3">{{ __('SOAT') }}</label>
+                        <a href="../../documentos/soat/{{$soat->documento}}" class="col-6" style="text-decoration: none;" target="_blank">
+                            <img src="../../img/pdf.png" style="width: 3.5%"> {{$soat->documento}}
+                        </a>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if($tp==null)
+                        <label for="name" class="col-6">{{ __('No has cargado aun el TP para este vehiculo') }}</label>
+                    @else
+                        <label for="name" class="col-3">{{ __('Tarjeta de Propiedad') }}</label>
+                        <a href="../../documentos/tp/{{$tp->documento}}" class="col-6" style="text-decoration: none;" target="_blank">
+                            <img src="../../img/pdf.png" style="width: 5%"> {{$tp->documento}}
+                        </a>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if($tarjeton==null)
+                        <label for="name" class="col-6">{{ __('No has cargado aun el Tarjeton para este vehiculo') }}</label>
+                    @else
+                        <label for="name" class="col-3">{{ __('Tarjeton') }}</label>
+                        <a href="../../documentos/tarjeton/{{$tarjeton->documento}}" class="col-6" style="text-decoration: none;" target="_blank">
+                            <img src="../../img/pdf.png" style="width: 5%"> {{$tarjeton->documento}}
+                        </a>
+                    @endif
+                </td>
+            </tr>
+        </table>
+        <a href="{{ route('taxi.soat', $taxi->id) }}" class="btn btn-primary btn-block">Cargar/Actualizar Documentos</a>
     </div>
 @endsection
