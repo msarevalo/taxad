@@ -501,33 +501,40 @@ class PagesController extends Controller
     public function reporta($id){
         $taxi = App\Taxi::findOrFail($id);
 
-        return view('taxis/reportar', compact('taxi'));
+        return view('taxis/reportar', compact('taxi', '$id'));
     }
 
-    public function reportar(Request $request){
-        $reporte = new App\Registro();
-        $reporte->vehiculo='1';
-        $reporte->semana=$request->semana;
-        $reporte->domingo=$request->producidoD . ';' . $request->gastosD . ';' . $request->otrosD;
-        $reporte->lunes=$request->producidoL . ';' . $request->gastosL . ';' . $request->otrosL;
-        $reporte->martes=$request->producidoM . ';' . $request->gastosM . ';' . $request->otrosM;
-        $reporte->miercoles=$request->producidoMi . ';' . $request->gastosMi . ';' . $request->otrosMi;
-        $reporte->jueves=$request->producidoJ . ';' . $request->gastosJ . ';' . $request->otrosJ;
-        $reporte->viernes=$request->producidoV . ';' . $request->gastosV . ';' . $request->otrosV;
-        $reporte->sabado=$request->producidoS . ';' . $request->gastosS . ';' . $request->otrosS;
-        
-        $prod = $request->producidoD + $request->producidoL + $request->producidoM + $request->producidoMi + $request->producidoJ + $request->producidoV + $request->producidoS;
-        $gastos = $request->gastosD + $request->otrosD + $request->gastosL + $request->otrosL + $request->gastosM + $request->otrosM + $request->gastosMi + $request->otrosMi + $request->gastosJ + $request->otrosJ + $request->gastosV + $request->otrosV + $request->gastosS + $request->otrosS;
+    public function reportar(Request $request, $id){
+        $validacion = App\Registro::where([['semana', '=', $request->semana], ['vehiculo', '=', $id]])->first();
 
-        $pago = $prod - $gastos;
+        if ($validacion==null) {
+            
+            $reporte = new App\Registro();
+            $reporte->vehiculo=$id;
+            $reporte->semana=$request->semana;
+            $reporte->domingo=$request->producidoD . ';' . $request->gastosD . ';' . $request->otrosD;
+            $reporte->lunes=$request->producidoL . ';' . $request->gastosL . ';' . $request->otrosL;
+            $reporte->martes=$request->producidoM . ';' . $request->gastosM . ';' . $request->otrosM;
+            $reporte->miercoles=$request->producidoMi . ';' . $request->gastosMi . ';' . $request->otrosMi;
+            $reporte->jueves=$request->producidoJ . ';' . $request->gastosJ . ';' . $request->otrosJ;
+            $reporte->viernes=$request->producidoV . ';' . $request->gastosV . ';' . $request->otrosV;
+            $reporte->sabado=$request->producidoS . ';' . $request->gastosS . ';' . $request->otrosS;
+            
+            $prod = $request->producidoD + $request->producidoL + $request->producidoM + $request->producidoMi + $request->producidoJ + $request->producidoV + $request->producidoS;
+            $gastos = $request->gastosD + $request->otrosD + $request->gastosL + $request->otrosL + $request->gastosM + $request->otrosM + $request->gastosMi + $request->otrosMi + $request->gastosJ + $request->otrosJ + $request->gastosV + $request->otrosV + $request->gastosS + $request->otrosS;
 
-        $reporte->producido=$prod;
-        $reporte->gastos=$gastos;
-        $reporte->pago=$pago;
+            $pago = $prod - $gastos;
 
-        $reporte->save();
+            $reporte->producido=$prod;
+            $reporte->gastos=$gastos;
+            $reporte->pago=$pago;
 
-        return redirect('taxis')->with('mensaje', 'Reporte de la semana ' . $request->semana . ' creado con exito');
+            $reporte->save();
+
+            return redirect('taxis')->with('mensaje', 'Reporte de la semana ' . $request->semana . ' creado con exito');
+        }else{
+            return redirect('taxis.reporta')->with('error', 'Ya se encuentra un registro para esta semana con este vehiculo');
+        }
     }
 
     /*************************************************

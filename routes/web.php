@@ -91,7 +91,7 @@ Route::post('/taxis/documento/{id?}', 'PagesController@soatcargar')->name('taxi.
 
 Route::get('/taxis/reporta/{id}', 'PagesController@reporta')->name('taxi.reporta');
 
-Route::post('/taxis/reporta', 'PagesController@reportar')->name('taxi.reportar');
+Route::put('/taxis/reporta/{id}', 'PagesController@reportar')->name('taxi.reportar');
 
 /**********************************************
  **********************************************

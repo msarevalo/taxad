@@ -13,6 +13,7 @@
 @endif
 @php($dia=date("Y-m-d"))
 <form action="{{ route('taxi.reportar', $taxi->id) }}" method="post">
+            @method('PUT')
             @csrf
 	<div class="form-group row">
 	    <label for="placa" class="col-md-4 col-form-label text-md-right">{{ __('Placa') }}</label>
@@ -725,8 +726,6 @@
 	<!--<input type="date" name="inicio" id="inicio" value="">
 	<input type="date" name="fin" id="fin">-->
 
-
-	<div id="resultado"></div>
 @endsection
 
 @section('scripts')
