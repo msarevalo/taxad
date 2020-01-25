@@ -331,6 +331,7 @@ class PagesController extends Controller
 
     public function detalletax($id=null){
         $taxi = App\Taxi::findOrFail($id);
+        //$marcas = App\Marca::where('estado', '=', '1')->get()
 
         return view('taxis.detalle', compact('taxi'));
     }
