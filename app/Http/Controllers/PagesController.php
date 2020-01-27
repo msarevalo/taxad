@@ -331,9 +331,16 @@ class PagesController extends Controller
 
     public function detalletax($id=null){
         $taxi = App\Taxi::findOrFail($id);
-        //$marcas = App\Marca::where('estado', '=', '1')->get()
+        $marcas = App\Marcas_Taxi::where('estado', 1)->get();
+        $conductores = DB::table('conductores__taxis')
+            ->join('users', 'users.id', '=', 'conductores__taxis.idCond')
+            ->select('conductores__taxis.idTaxi', 'conductores__taxis.estado', 'users.name', 'users.lastname', 'users.id')
+            ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['conductores__taxis.estado', '=', '1']])
+            ->get();
 
-        return view('taxis.detalle', compact('taxi'));
+        $registros = App\Registro::where('vehiculo', '=', $id)->orderBy('semana', 'desc')->limit(8)->get();
+
+        return view('taxis.detalle', compact('taxi', 'marcas', 'conductores', 'registros'));
     }
 
     public function creatax(){

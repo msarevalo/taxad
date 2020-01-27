@@ -3,7 +3,7 @@
 <title>Taxad | Taxi</title>
 
 @section('formulario')
-    <h1>Detalle del taxi {{$taxi->placa}}:</h1>
+    <h3>Detalle del taxi {{$taxi->placa}}:</h3>
     <table class="table col-8">
       <thead>
         <tr>
@@ -12,6 +12,7 @@
           <th scope="col">Marca</th>
           <th scope="col">Modelo</th>
           <th scope="col">Serie</th>
+          <th scope="col">Conductores</th>
           <th scope="col">Estado</th>
         </tr>
       </thead>
@@ -20,10 +21,23 @@
           <td>{{$taxi->id}}</td>
           <td>{{$taxi->placa}}</td>
           <td>
-            {{$taxi->marca}}
+            @foreach($marcas as $marca)
+              @if($marca->id==$taxi->marca)
+                {{$marca->marca}}
+              @endif
+            @endforeach
           </td>
           <td>{{$taxi->modelo}}</td>
           <td>{{$taxi->serie}}</td>
+          <td>
+            @php($contador=0)
+            @foreach($conductores as $conductor)
+              @if($conductor->idTaxi==$taxi->id)
+                <a href="{{route('conductor.detalle', $conductor->id)}}"> {{$conductor->name}} {{$conductor->lastname}}</a> ;
+                @php($contador++)
+              @endif
+            @endforeach
+          </td>
           <td>
             @if($taxi->estado==1)
                 Activo
@@ -83,23 +97,26 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
+          ['Semana', 'Producido', 'Gastos', 'Pago', 'Promedio'],
+          @php($contador=0)
+          @foreach($registros as $registro)
+            ['{{$registro->semana}}', {{$registro->producido}}, {{$registro->gastos}}, {{$registro->pago}}, {{$registro->producido}}],
+            @php($contador=$registro->id)
+          @endforeach
         ]);
 
         var options = {
           title : 'Producido vs Gastos - Ultimos 2 Mes',
-          vAxis: {title: 'Cups'},
-          hAxis: {title: 'Month'},
+          vAxis: {title: 'Dinero'},
+          hAxis: {title: 'Semana'},
           seriesType: 'bars',
-          series: {5: {type: 'line'}}        };
+          series: {3: {type: 'line'}}        };
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div_barras'));
-        chart.draw(data, options);
+        @if($contador!=0)
+          chart.draw(data, options);
+        @endif
+        
       }
 
     </script>
