@@ -97,10 +97,10 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-          ['Semana', 'Producido', 'Gastos', 'Pago', 'Promedio'],
+          ['Semana', 'Producido', 'Gastos', 'Pago'],
           @php($contador=0)
           @foreach($registros as $registro)
-            ['{{$registro->semana}}', {{$registro->producido}}, {{$registro->gastos}}, {{$registro->pago}}, {{$registro->producido}}],
+            ['{{$registro->semana}}', {{$registro->producido}}, {{$registro->gastos}}, {{$registro->pago}}],
             @php($contador=$registro->id)
           @endforeach
         ]);
@@ -110,7 +110,7 @@
           vAxis: {title: 'Dinero'},
           hAxis: {title: 'Semana'},
           seriesType: 'bars',
-          series: {3: {type: 'line'}}        };
+          };
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div_barras'));
         @if($contador!=0)
