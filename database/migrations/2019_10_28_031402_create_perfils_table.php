@@ -22,6 +22,7 @@ class CreatePerfilsTable extends Migration
         DB::table('perfils')->insert(array('nombrePerfil'=>'Superadmin'));
         DB::table('perfils')->insert(array('nombrePerfil'=>'Admin'));
         DB::table('perfils')->insert(array('nombrePerfil'=>'Conductor'));
+        DB::table('perfils')->insert(array('nombrePerfil'=>'Socio'));
     }
 
     /**

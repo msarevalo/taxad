@@ -1,5 +1,7 @@
 @extends('autenticacion')
 
+<title>Taxad | Calendario</title>
+
 @section('formulario')
 <html>
   <head>
@@ -20,15 +22,16 @@
       font-weight: bold;
     }
     .header-calendar{
-      background: #EE192D;color:white;
+      background: #132644;color:white;
+      height: 60px;
     }
     .box-day{
       border:1px solid #E3E9E5;
-      height:150px;
+      height:110px;
     }
     .box-dayoff{
       border:1px solid #E3E9E5;
-      height:150px;
+      height:110px;
       background-color: #ccd1ce;
     }
     </style>
@@ -37,23 +40,31 @@
   <body>
 
     <div class="container">
-      <div style="height:50px"></div>
-      <h1>< tutofox /> <small>Oh my code!</small></h1>
       <p class="lead">
-      <h3>Calendario - evento</h3>
-      <a class="btn btn-default"  href="{{ asset('/evento/form') }}">Crear un evento</a>
-
-
-      <hr>
-
+      <a class="btn btn-primary"  href="{{ asset('/calendario/form') }}">Crear un evento</a><br><br>
+      <table>
+        <tbody>
+          <tr>
+            <td style="background-color: #7e9ccc; color: #FFFFFF; width: 50px; text-align: center;">
+              Bajo
+            </td>
+            <td style="background-color: #b3b053; color: #FFFFFF; width: 50px; text-align: center;">
+              Medio
+            </td>
+            <td style="background-color: #b35353; color: #FFFFFF; width: 50px; text-align: center;">
+              Alto
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <div class="row header-calendar"  >
 
         <div class="col" style="display: flex; justify-content: space-between; padding: 10px;">
-          <a  href="{{ asset('/evento/index/') }}/<?= $data['last']; ?>" style="margin:10px;">
+          <a  href="{{ asset('calendario/') }}/<?= $data['last']; ?>" style="margin:5px;">
             <i class="fas fa-chevron-circle-left" style="font-size:30px;color:white;"></i>
           </a>
-          <h2 style="font-weight:bold;margin:10px;"><?= $mespanish; ?> <small><?= $data['year']; ?></small></h2>
-          <a  href="{{ asset('evento/index/') }}/<?= $data['next']; ?>" style="margin:10px;">
+          <h2 style="font-weight:bold;margin:5px;"><?= $mespanish; ?> <small><?= $data['year']; ?></small></h2>
+          <a  href="{{ asset('calendario/') }}/<?= $data['next']; ?>" style="margin:5px;">
             <i class="fas fa-chevron-circle-right" style="font-size:30px;color:white;"></i>
           </a>
         </div>
@@ -79,9 +90,19 @@
               {{ $dayweek['dia']  }}
               <!-- evento -->
               @foreach  ($dayweek['evento'] as $event) 
-                  <a class="badge badge-primary" href="{{ asset('/evento/details/') }}/{{ $event->id }}">
+                  @if($event->prioridad==3)
+                    <a class="badge badge-primary" style="background-color: #7e9ccc" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
                     {{ $event->titulo }}
-                  </a>
+                    </a>
+                  @elseif($event->prioridad==2)
+                    <a class="badge badge-primary" style="background-color: #b3b053" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                    {{ $event->titulo }}
+                    </a>
+                  @else
+                    <a class="badge badge-primary" style="background-color: #b35353" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                    {{ $event->titulo }}
+                    </a>
+                  @endif
               @endforeach
             </div>
           @else
@@ -95,18 +116,6 @@
       @endforeach
 
     </div> <!-- /container -->
-
-    <!-- Footer -->
-<footer class="page-footer font-small blue pt-4">
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">
-    Developed by Artyom from
-    <a href="https://www.tutofox.com/">  < tutofox/></a>
-  </div>
-  <!-- Copyright -->
-
-</footer>
-<!-- Footer -->
 
   </body>
 </html>

@@ -97,7 +97,7 @@
       function drawVisualization() {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-          ['Semana', 'Producido', 'Gastos', 'Pago'],
+          ['Semana', 'Producido', 'Gastos', 'Entrada'],
           @php($contador=0)
           @foreach($registros as $registro)
             ['{{$registro->semana}}', {{$registro->producido}}, {{$registro->gastos}}, {{$registro->pago}}],

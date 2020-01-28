@@ -128,4 +128,19 @@ Route::get('/home', 'HomeController@index')->name('home');
  **********************************************
  **********************************************/
 
-Route::get('/calendar', 'PagesController@Calendario')->name('calendario');
+//Route::get('/calendar', 'PagesController@Calendario')->name('calendario');
+
+Route::get('calendario/form','PagesController@form');
+Route::post('evento/create','PagesController@create');
+Route::get('calendario/details/{id}','PagesController@details');
+Route::get('calendario','PagesController@index')->name('calendario');
+Route::get('calendario/{month}','PagesController@index_month');
+Route::post('evento/calendario','PagesController@calendario');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Socios************
+ *************************************************
+ *************************************************/
+
+Route::get('/socios', 'PagesController@socio')->name('socios');

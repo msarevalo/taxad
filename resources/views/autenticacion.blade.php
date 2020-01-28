@@ -124,7 +124,7 @@ function SidebarCollapse () {
             </li>
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"><img src="../../img/account.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/account.png" style="width: 20px"></span>
                     <span class="menu-collapsed">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</span>
                 </div>
             </a>
@@ -136,7 +136,7 @@ function SidebarCollapse () {
             @if(Auth::user()->perfil!==3)
             <a href="{{ route('home') }}" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"><img src="../../img/dashboard.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/dashboard.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Dashboard</span>
                 </div>
             </a>
@@ -156,7 +156,7 @@ function SidebarCollapse () {
             @if(Auth::user()->perfil===1)
             <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-user fa-fw mr-3"><img src="../../img/user.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/user.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Usuarios</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
@@ -169,18 +169,21 @@ function SidebarCollapse () {
                 <a href="{{ route('conductor') }}" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Conductores</span>
                 </a>
+                <a href="{{ route('socios') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Socios</span>
+                </a>
             </div>  
             @else
             <a href="{{ route('conductor') }}" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"><img src="../../img/user.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/user.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Conductores</span>
                 </div>
             </a>
             @endif
             <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-tasks fa-fw mr-3"><img src="../../img/vehicle.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/vehicle.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Taxis</span> 
                     <span class="submenu-icon ml-auto"></span>   
                 </div>
@@ -201,7 +204,7 @@ function SidebarCollapse () {
             <!-- /END Separator -->
             <a href="{{ route('calendario') }}" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-calendar fa-fw mr-3"><img src="../../img/calendar.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/calendar.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Calendario</span>
                 </div>
             </a>
@@ -216,7 +219,7 @@ function SidebarCollapse () {
             <!-- /END Separator -->
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-question fa-fw mr-3"><img src="../../img/help.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../img/help.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Ayuda</span>
                 </div>
             </a>
