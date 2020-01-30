@@ -40,11 +40,8 @@
 
     <div class="container">
       <div style="height:50px"></div>
-      <h1>< tutofox /> <small>Oh my code!</small></h1>
-      <p class="lead">
+      <a class="btn btn-default"  href="{{ asset('/calendario') }}">Atras</a>
       <h3>Evento</h3>
-      <p>Detalles de evento</p>
-      <a class="btn btn-default"  href="{{ asset('/evento/index') }}">Atras</a>
       <hr>
 
 
@@ -74,16 +71,6 @@
 
     </div> <!-- /container -->
 
-    <!-- Footer -->
-<footer class="page-footer font-small blue pt-4">
-  <!-- Copyright -->
-  <div class="footer-copyright text-center py-3">
-    Developed by Artyom from
-    <a href="https://www.tutofox.com/">  < tutofox/></a>
-  </div>
-  <!-- Copyright -->
-</footer>
-<!-- Footer -->
 
   </body>
 </html>

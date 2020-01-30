@@ -28,11 +28,22 @@
     .box-day{
       border:1px solid #E3E9E5;
       height:110px;
+      overflow: auto;
     }
     .box-dayoff{
       border:1px solid #E3E9E5;
       height:110px;
       background-color: #ccd1ce;
+    }
+    .actual{
+      height: 28px;
+      width: 28px;
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+      border-radius: 50%;
+      background: #132644;
+      color: white;
     }
     </style>
 
@@ -79,15 +90,26 @@
         <div class="col header-col">Sabado</div>
         <div class="col header-col">Domingo</div>
       </div>
+      
       <!-- inicio de semana -->
+      @php($timezone  = -5)
+      @php($dia=gmdate("d", time() + 3600*($timezone+date("I"))))
+      @php($mactual=gmdate("M", time() + 3600*($timezone+date("I"))))
+      @php($primerdia=$data['calendar'][0]['datos'][0]['dia'])
+      @if($primerdia>1 && $primerdia<5)
+
+      @endif
       @foreach ($data['calendar'] as $weekdata)
         <div class="row">
           <!-- ciclo de dia por semana -->
           @foreach  ($weekdata['datos'] as $dayweek)
-
           @if  ($dayweek['mes']==$mes)
             <div class="col box-day">
-              {{ $dayweek['dia']  }}
+            @if($dayweek['dia']==$dia && $dayweek['mes']==$mactual)
+              <p class="actual">{{ $dayweek['dia'] }}</p>
+            @else
+              <p>{{ $dayweek['dia']  }}</p>
+            @endif
               <!-- evento -->
               @foreach  ($dayweek['evento'] as $event) 
                   @if($event->prioridad==3)
