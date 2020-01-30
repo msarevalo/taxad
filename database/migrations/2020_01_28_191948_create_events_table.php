@@ -14,13 +14,14 @@ class CreateEventsTable extends Migration
     public function up()
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('titulo');
             $table->string('descripcion');
             $table->integer('prioridad');
             $table->integer('propietario');
             $table->integer('broadcast');
             $table->date('fecha');
+            $table->integer('estado')->default('1');
             $table->timestamps();
         });
     }

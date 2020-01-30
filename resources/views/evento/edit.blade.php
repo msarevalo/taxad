@@ -62,36 +62,51 @@
 
 
       <div class="col-md-6">
-        <form action="{{ asset('/evento/create/') }}" method="post">
+        <form action="#" method="post">
           @csrf
           <div class="fomr-group">
             <label>Titulo</label>
-            <input type="text" class="form-control" name="titulo" maxlength="16" placeholder="Titulo">
+            <input type="text" class="form-control" name="titulo" maxlength="16" placeholder="Titulo" value="{{$event->titulo}}">
           </div>
           <div class="fomr-group">
             <label>Descripcion del Evento</label>
-            <textarea type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion del evento" rows="4" style="resize: none;" maxlength="190" onpaste="contarcaracteres();" onkeyup="contarcaracteres();"></textarea>
-            <label id="res" style="color: #bbbbbb;">0 / 190</label>
+            <textarea type="text" class="form-control" name="descripcion" id="descripcion" placeholder="Descripcion del evento" rows="4" style="resize: none;" maxlength="190" onpaste="contarcaracteres();" onkeyup="contarcaracteres();">{{$event->descripcion}}</textarea>
+            <label id="res" style="color: #bbbbbb;">{{strlen($event->descripcion)}} / 190</label>
           </div>
           <div class="fomr-group">
             <label>Propietario</label><br>
-            <input type="radio" name="usuario" value="{{  Auth::user()->id  }}" checked="checked">Evento para mi<br>
-            <input type="radio" name="usuario" value="0">Evento para la comunidad<br><br>
+            @if($event->broadcast==0)
+              <input type="radio" name="usuario" value="{{  Auth::user()->id  }}" checked="checked">Evento para mi<br>
+              <input type="radio" name="usuario" value="0">Evento para la comunidad<br><br>
+            @else
+              <input type="radio" name="usuario" value="{{  Auth::user()->id  }}">Evento para mi<br>
+              <input type="radio" name="usuario" value="0" checked="checked">Evento para la comunidad<br><br>
+            @endif
           </div>
           <div class="fomr-group">
             <label>Prioridad</label>
             <select name="prioridad" id="prioridad" class="form-control" required>
-              <option selected disabled>Seleccione la prioridad</option>
-              <option value="3">Bajo</option>
-              <option value="2">Medio</option>
-              <option value="1">Alta</option>
+              <option disabled>Seleccione la prioridad</option>
+              @if($event->prioridad==3)
+                <option value="3" selected>Bajo</option>
+                <option value="2">Medio</option>
+                <option value="1">Alta</option>
+              @elseif($event->prioridad==2)
+                <option value="3">Bajo</option>
+                <option value="2" selected>Medio</option>
+                <option value="1">Alta</option>
+              @else
+                <option value="3">Bajo</option>
+                <option value="2">Medio</option>
+                <option value="1" selected>Alta</option>
+              @endif
             </select>
           </div>
           <div class="fomr-group">
             <label>Fecha</label>
             @php($timezone  = -5)
             @php($fecha=gmdate("Y-m-d", time() + 3600*($timezone+date("I"))))
-            <input type="date" class="form-control" name="fecha" min="{{$fecha}}">
+            <input type="date" class="form-control" name="fecha" min="{{$fecha}}" value="{{$event->fecha}}">
           </div>
           <br>
           <input type="submit" class="btn btn-info" value="Guardar">
@@ -111,5 +126,5 @@
 @endsection
 
 @section('scripts')
-  <script src="../js/evento.js"></script>
+  <script src="../../js/evento.js"></script>
 @endsection

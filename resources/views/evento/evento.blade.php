@@ -33,6 +33,9 @@
       height:150px;
       background-color: #ccd1ce;
     }
+    .right{
+      float: right;
+    }
     </style>
 
   </head>
@@ -40,29 +43,44 @@
 
     <div class="container">
       <div style="height:50px"></div>
-      <a class="btn btn-default"  href="{{ asset('/calendario') }}">Atras</a>
-      <h3>Evento</h3>
+      <a class="btn btn-light"  href="{{ asset('/calendario') }}">Atras</a>
+      @php($timezone  = -5)
+            @php($fecha=gmdate("Y-m-d", time() + 3600*($timezone+date("I"))))
+      @if(Auth::user()->id==$event->propietario && $event->fecha>$fecha && $event->estado==1)
+        <div class="right">
+          <a href="{{route('calendario.edita', $event->id)}}" style="text-decoration: none;" class="btn btn-info">Editar</a>
+          <a href="{{route('calendario.delete', $event->id)}}" style="text-decoration: none;" class="btn btn-danger">Eliminar</a>
+        </div>
+      @endif
+      <h1 style="margin-top: 20px;">{{ $event->titulo }}</h1>
+      @if($event->broadcast==0)
+        <p style="font-size: 14.5px;">Evento propio</p>
+      @else
+        <p style="font-size: 14.5px;">Evento de la comunidad</p>
+      @endif
       <hr>
 
-
-
       <div class="col-md-6">
-        <form action="{{ asset('/evento/create/') }}" method="post">
+        <div class="fomr-group">
+            <h5 style="display: inline;">Prioridad:&nbsp;&nbsp;&nbsp;&nbsp; </h5>
+            @if($event->prioridad==1)
+              Alto
+            @elseif($event->prioridad==2)
+              Medio
+            @else
+              Bajo
+            @endif
+          </div><br><br>
           <div class="fomr-group">
-            <h4>Titulo</h4>
-            {{ $event->titulo }}
-          </div>
-          <div class="fomr-group">
-            <h4>Descripcion del Evento</h4>
+            <h5>Descripcion del Evento</h5>
             {{ $event->descripcion }}
-          </div>
+          </div><br><br>
+          
           <div class="fomr-group">
-            <h4>Fecha</h4>
-            {{ $event->fecha }}
+            <h5 style="display: inline;">Fecha: &nbsp;&nbsp;&nbsp;&nbsp;</h5>
+            {{ $event->fecha[8] }}{{ $event->fecha[9] }}{{ $event->fecha[7] }}{{ $event->fecha[5] }}{{ $event->fecha[6] }}{{ $event->fecha[4] }}{{ $event->fecha[0] }}{{ $event->fecha[1] }}{{ $event->fecha[2] }}{{ $event->fecha[3] }}
           </div>
           <br>
-          
-        </form>
       </div>
 
 

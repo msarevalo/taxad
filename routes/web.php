@@ -136,6 +136,8 @@ Route::get('calendario/details/{id}','PagesController@details');
 Route::get('calendario','PagesController@index')->name('calendario');
 Route::get('calendario/{month}','PagesController@index_month');
 Route::post('evento/calendario','PagesController@calendario');
+Route::get('calendario/delete/{id}','PagesController@deleteEvent')->name('calendario.delete');
+Route::get('calendario/edit/{id}','PagesController@editaCalendario')->name('calendario.edita');
 
 /*************************************************
  *************************************************

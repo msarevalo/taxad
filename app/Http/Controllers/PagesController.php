@@ -640,17 +640,40 @@ class PagesController extends Controller
       }else{
         $broadcast=0;
       }
-      App\Event::insert([
+      /*App\Event::insert([
         'titulo'       => $request->input("titulo"),
         'descripcion'  => $request->input("descripcion"),
         'prioridad'    => $request->prioridad,
         'propietario'  => Auth::user()->id,
         'broadcast'    => $broadcast,
-        'fecha'        => $request->input("fecha")
-      ]);
+        'fecha'        => $request->input("fecha"),
+        'estado'       => '1'
+      ]);*/
+
+        $evento = new App\Event();
+        $evento->titulo=$request->titulo;
+        $evento->descripcion=$request->descripcion;
+        $evento->prioridad=$request->prioridad;
+        $evento->propietario=Auth::user()->id;
+        $evento->broadcast=$broadcast;
+        $evento->fecha=$request->fecha;
+        $evento->estado='1';
+
+        $evento->save();
+
 
       return redirect('calendario');
 
+    }
+
+    public function deleteEvent($id){
+        $evento = App\Event::findOrFail($id);
+
+        $evento->estado = '0';
+
+        $evento->save();
+
+        return redirect('calendario');
     }
 
     public function details($id){
@@ -661,6 +684,14 @@ class PagesController extends Controller
         "event" => $event
       ]);
 
+    }
+
+    public function editaCalendario($id){
+        $event = App\Event::find($id);
+        
+        return view("evento/edit",[
+            "event" => $event
+        ]);
     }
 
 
@@ -745,7 +776,7 @@ class PagesController extends Controller
             $datanew['fecha'] = $datafecha;
             //AGREGAR CONSULTAS EVENTO
             $usuario=Auth::user()->id;
-            $datanew['evento'] = App\Event::where([["fecha", '=', $datafecha], ["broadcast", '=', 1]])->orwhere([["fecha", '=', $datafecha],["propietario", '=', '1']])->get();
+            $datanew['evento'] = App\Event::where([["fecha", '=', $datafecha], ["broadcast", '=', 1], ["estado", "=", '1']])->orwhere([["fecha", '=', $datafecha],["propietario", '=', '1'], ["estado", "=", '1']])->get();
 
             array_push($weekdata,$datanew);
           }

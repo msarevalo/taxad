@@ -10,8 +10,8 @@ class Event extends Model
 
     //
     protected $fillable = [
-        'titulo', 'descripcion', 'fecha',
+        'titulo', 'descripcion', 'prioridad', 'propietario', 'broadcast', 'fecha', 'estado',
     ];
 
-    public $timestamps = false;
+    //public $timestamps = false;
 }
