@@ -73,6 +73,11 @@
             <input type="text" class="form-control" name="descripcion">
           </div>
           <div class="fomr-group">
+            <label>Propietario</label><br>
+            <input type="radio" name="usuario" value="{{  Auth::user()->id  }}" checked="checked">Evento para mi<br>
+            <input type="radio" name="usuario" value="0">Evento para la comunidad<br><br>
+          </div>
+          <div class="fomr-group">
             <label>Prioridad</label>
             <select name="prioridad" id="prioridad" class="form-control" required>
               <option selected disabled>Seleccione la prioridad</option>
@@ -83,7 +88,8 @@
           </div>
           <div class="fomr-group">
             <label>Fecha</label>
-            @php($fecha=date('Y-m-d'))
+            @php($timezone  = -5)
+            @php($fecha=gmdate("Y-m-d", time() + 3600*($timezone+date("I"))))
             <input type="date" class="form-control" name="fecha" min="{{$fecha}}">
           </div>
           <br>

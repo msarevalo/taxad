@@ -24,6 +24,7 @@
     .header-calendar{
       background: #132644;color:white;
       height: 60px;
+      margin-top: -35px
     }
     .box-day{
       border:1px solid #E3E9E5;
@@ -45,6 +46,14 @@
       background: #132644;
       color: white;
     }
+    .actual-ejem{
+      display: inline;
+      text-align: center;
+      vertical-align: middle;
+      border-radius: 50%;
+      background: #132644;
+      color: white;
+    }
     </style>
 
   </head>
@@ -53,23 +62,7 @@
     <div class="container">
       <p class="lead">
       <a class="btn btn-primary"  href="{{ asset('/calendario/form') }}">Crear un evento</a><br><br>
-      <table>
-        <tbody>
-          <tr>
-            <td style="background-color: #7e9ccc; color: #FFFFFF; width: 50px; text-align: center;">
-              Bajo
-            </td>
-            <td style="background-color: #b3b053; color: #FFFFFF; width: 50px; text-align: center;">
-              Medio
-            </td>
-            <td style="background-color: #b35353; color: #FFFFFF; width: 50px; text-align: center;">
-              Alto
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row header-calendar"  >
-
+      <div class="row header-calendar" >
         <div class="col" style="display: flex; justify-content: space-between; padding: 10px;">
           <a  href="{{ asset('calendario/') }}/<?= $data['last']; ?>" style="margin:5px;">
             <i class="fas fa-chevron-circle-left" style="font-size:30px;color:white;"></i>
@@ -111,19 +104,35 @@
               <p>{{ $dayweek['dia']  }}</p>
             @endif
               <!-- evento -->
-              @foreach  ($dayweek['evento'] as $event) 
-                  @if($event->prioridad==3)
-                    <a class="badge badge-primary" style="background-color: #7e9ccc" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
-                    {{ $event->titulo }}
-                    </a>
-                  @elseif($event->prioridad==2)
-                    <a class="badge badge-primary" style="background-color: #b3b053" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
-                    {{ $event->titulo }}
-                    </a>
+              @foreach  ($dayweek['evento'] as $event)
+                  @if($event->broadcast==1)
+                    @if($event->prioridad==3)
+                      <a class="badge badge-primary" style="background-color: #7e9ccc" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                      {{ $event->titulo }} *
+                      </a>
+                    @elseif($event->prioridad==2)
+                      <a class="badge badge-primary" style="background-color: #b3b053" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                      {{ $event->titulo }} *
+                      </a>
+                    @else
+                      <a class="badge badge-primary" style="background-color: #b35353" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                      {{ $event->titulo }} *
+                      </a>
+                    @endif
                   @else
-                    <a class="badge badge-primary" style="background-color: #b35353" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
-                    {{ $event->titulo }}
-                    </a>
+                    @if($event->prioridad==3)
+                      <a class="badge badge-primary" style="background-color: #7e9ccc" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                      {{ $event->titulo }}
+                      </a>
+                    @elseif($event->prioridad==2)
+                      <a class="badge badge-primary" style="background-color: #b3b053" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                      {{ $event->titulo }}
+                      </a>
+                    @else
+                      <a class="badge badge-primary" style="background-color: #b35353" href="{{ asset('/calendario/details/') }}/{{ $event->id }}">
+                      {{ $event->titulo }}
+                      </a>
+                    @endif
                   @endif
               @endforeach
             </div>
@@ -136,7 +145,28 @@
           @endforeach
         </div>
       @endforeach
-
+      <br>
+      <table>
+        <tbody>
+          <tr>
+            <td style="background-color: #7e9ccc; color: #FFFFFF; width: 50px; text-align: center;">
+              Bajo
+            </td>
+            <td style="background-color: #b3b053; color: #FFFFFF; width: 50px; text-align: center;">
+              Medio
+            </td>
+            <td style="background-color: #b35353; color: #FFFFFF; width: 50px; text-align: center;">
+              Alto
+            </td>
+            <td>
+              <strong>*</strong> Evento para la comunidad
+            </td>
+            <td>
+              | <p class="actual-ejem">#</p> Fecha Actual
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div> <!-- /container -->
 
   </body>

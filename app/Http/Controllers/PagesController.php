@@ -635,10 +635,17 @@ class PagesController extends Controller
       'fecha' =>  'required'
      ]);
 
+      if ($request->usuario==0) {
+          $broadcast=1;
+      }else{
+        $broadcast=0;
+      }
       App\Event::insert([
         'titulo'       => $request->input("titulo"),
         'descripcion'  => $request->input("descripcion"),
         'prioridad'    => $request->prioridad,
+        'propietario'  => Auth::user()->id,
+        'broadcast'    => $broadcast,
         'fecha'        => $request->input("fecha")
       ]);
 
@@ -737,7 +744,8 @@ class PagesController extends Controller
             $datanew['dia'] = date("d", strtotime($datafecha));
             $datanew['fecha'] = $datafecha;
             //AGREGAR CONSULTAS EVENTO
-            $datanew['evento'] = App\Event::where("fecha",$datafecha)->get();
+            $usuario=Auth::user()->id;
+            $datanew['evento'] = App\Event::where([["fecha", '=', $datafecha], ["broadcast", '=', 1]])->orwhere([["fecha", '=', $datafecha],["propietario", '=', '1']])->get();
 
             array_push($weekdata,$datanew);
           }
