@@ -211,7 +211,7 @@ function SidebarCollapse () {
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-envelope-o fa-fw mr-3"><img src="../../img/notification.png" style="width: 20px"></span>
-                    <span class="menu-collapsed">Notificaciones<span class="badge badge-pill badge-primary ml-2">5</span></span>
+                    <span class="menu-collapsed">Notificaciones<span class="badge badge-pill badge-primary ml-2" id="alertas"></span></span>
                 </div>
             </a>
             <!-- Separator without title -->
@@ -244,10 +244,8 @@ function SidebarCollapse () {
     <div class="col">
         
         <div class="container">
-    @yield('formulario')
-</div>
-       
-
+            @yield('formulario')
+        </div>
 
     </div><!-- Main Col END -->
     

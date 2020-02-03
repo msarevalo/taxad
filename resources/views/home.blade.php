@@ -1,7 +1,7 @@
 @extends('autenticacion')
 
 @section('formulario')
-<div class="container">
+<div class="container" onloadeddata="notificaciones()">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <html>
@@ -39,4 +39,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="../js/notificacion.js"></script>
 @endsection

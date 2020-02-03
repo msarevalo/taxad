@@ -688,10 +688,30 @@ class PagesController extends Controller
 
     public function editaCalendario($id){
         $event = App\Event::find($id);
-        
+
         return view("evento/edit",[
             "event" => $event
         ]);
+    }
+
+    public function editarCalendario(Request $request, $id){
+        $evento = App\Event::findOrFail($id);
+
+        if ($request->usuario==0) {
+          $broadcast=1;
+        }else{
+            $broadcast=0;
+        }
+        $evento->titulo=$request->titulo;
+        $evento->descripcion=$request->descripcion;
+        $evento->prioridad=$request->prioridad;
+        $evento->broadcast=$broadcast;
+        $evento->fecha=$request->fecha;
+
+        $evento->save();
+
+        return redirect('calendario');
+
     }
 
 
@@ -861,6 +881,11 @@ class PagesController extends Controller
         }else{
             return redirect('home');
         }
+    }
+
+    public function notificaciones($id){
+        return App\Notification::where([['usuario', '=', Auth::user()->id], ['leido', '=', '0']])->get();
+
     }
 }
 

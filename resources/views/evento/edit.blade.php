@@ -62,7 +62,8 @@
 
 
       <div class="col-md-6">
-        <form action="#" method="post">
+        <form action="{{route('calendario.editar', $event->id)}}" method="post">
+          @method('PUT')
           @csrf
           <div class="fomr-group">
             <label>Titulo</label>

@@ -46,7 +46,7 @@
       <a class="btn btn-light"  href="{{ asset('/calendario') }}">Atras</a>
       @php($timezone  = -5)
             @php($fecha=gmdate("Y-m-d", time() + 3600*($timezone+date("I"))))
-      @if(Auth::user()->id==$event->propietario && $event->fecha>$fecha && $event->estado==1)
+      @if(Auth::user()->id==$event->propietario && $event->fecha>=$fecha && $event->estado==1)
         <div class="right">
           <a href="{{route('calendario.edita', $event->id)}}" style="text-decoration: none;" class="btn btn-info">Editar</a>
           <a href="{{route('calendario.delete', $event->id)}}" style="text-decoration: none;" class="btn btn-danger">Eliminar</a>
@@ -92,4 +92,8 @@
 
   </body>
 </html>
+@endsection
+
+@section('scripts')
+    <script src="../../js/notificacion.js"></script>
 @endsection
