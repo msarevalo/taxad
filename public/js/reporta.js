@@ -137,6 +137,7 @@ $(document).ready(function(){
             $('#ppJ').prop('checked', false);
             $('#ppV').prop('checked', false);
             $('#ppS').prop('checked', false);
+            document.getElementById("ppL").required = false;
             d=0;
             l=0;
             m++;
@@ -179,6 +180,7 @@ $(document).ready(function(){
             $('#ppJ').prop('checked', false);
             $('#ppV').prop('checked', false);
             $('#ppS').prop('checked', false);
+            document.getElementById("ppL").required = false;
             d=0;
             l=0;
             m=0;
@@ -205,6 +207,7 @@ $(document).ready(function(){
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', true);
             //$('#producidoJ').prop('value', '0');
+            document.getElementById("ppL").required = false;
             sumaL();
             sumaM();
             sumaMi();
@@ -247,6 +250,7 @@ $(document).ready(function(){
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', true);
+            document.getElementById("ppL").required = false;
             //$('#producidoV').prop('value', '0');
             sumaL();
             sumaM();
@@ -290,6 +294,7 @@ $(document).ready(function(){
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', false);
 			$('#producidoS').prop('disabled', true);
+            document.getElementById("ppL").required = false;
 			//$('#producidoS').prop('value', '0');
 			sumaL();
             sumaM();

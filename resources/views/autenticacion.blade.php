@@ -31,6 +31,7 @@
         background-color: #132644;
         padding: 0;
         /* flex: unset; */
+
     }
     
     .sidebar-expanded {

@@ -58,7 +58,7 @@
 
 	<div class="col-md-3" style="margin-left: 15%">
 		<table class="table col-md-3">
-			<thead>
+			<thead class="thead-light">
 				<tr>
 					<th colspan="7" style="text-align: center;">
 						Pico y Placa
@@ -94,7 +94,7 @@
 						N/A
 					</td>
 					<td>
-						<input id="ppL" type="radio" name="ppL" value="{{ old('ppL') }}" autocomplete="ppL" autofocus title="Pico y Placa">
+						<input id="ppL" type="radio" name="ppL" value="{{ old('ppL') }}" autocomplete="ppL" autofocus title="Pico y Placa" required>
 					</td>
 					<td>
 						<input id="ppM" type="radio" name="ppM" value="{{ old('ppM') }}" autocomplete="ppM" autofocus title="Pico y Placa">
@@ -121,7 +121,7 @@
 	        	<tr>
 	        		<th>
 		        		<table>
-		        			<thead><tr><td colspan="3" style="text-align: center;">Domingo</td></tr></thead>
+		        			<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Domingo</th></tr></thead>
 							<tr>
 								<th>
 									<div class="">
@@ -129,7 +129,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoD" type="number" class="form-control @error('producidoD') is-invalid @enderror" name="producidoD" value="{{$tarifas[6]->tarifa}}" required autocomplete="producidoD" autofocus>
+		        						<input id="producidoD" type="number" class="form-control @error('producidoD') is-invalid @enderror" name="producidoD" value="{{$tarifas[6]->tarifa}}" required autocomplete="producidoD" autofocus required>
 
 		        					@error('producidoD')
 		            					<span class="invalid-feedback" role="alert">
@@ -145,7 +145,7 @@
 									<div class="form-group row">
 		    							<label for="gastosD" class="col-md-4 col-form-label text-md-right">{{ __('Gastos') }}</label>
 		    					</th>
-		    					<th colspan="2">
+		    					<th>
 		    						<div class="col-md-12">
 		        						<input id="gastosD" type="number" class="form-control @error('gastosD') is-invalid @enderror" name="gastosD" value="0" required autocomplete="gastosD" autofocus>
 
@@ -198,7 +198,7 @@
 					</th>
 					<th>
 						<table>
-							<thead><tr><td colspan="3" style="text-align: center;">Lunes</td></tr></thead>
+							<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Lunes</th></tr></thead>
 							<tr>
 								<th>
 									<div class="form-group row">
@@ -277,7 +277,7 @@
 				<tr>
 	        		<th>
 		        		<table>
-							<thead><tr><td colspan="3" style="text-align: center;">Martes</td></tr></thead>
+							<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Martes</th></tr></thead>
 							<tr>
 								<th>
 									<div class="form-group row">
@@ -354,7 +354,7 @@
 					</th>
 					<th>
 						<table>
-							<thead><tr><td colspan="3" style="text-align: center;">Miercoles</td></tr></thead>
+							<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Miercoles</th></tr></thead>
 							<tr>
 								<th>
 									<div class="form-group row">
@@ -433,7 +433,7 @@
 				<tr>
 	        		<th>
 		        		<table>
-							<thead><tr><td colspan="3" style="text-align: center;">Jueves</td></tr></thead>
+							<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Jueves</th></tr></thead>
 							<tr>
 								<th>
 									<div class="form-group row">
@@ -510,7 +510,7 @@
 					</th>
 					<th>
 						<table>
-							<thead><tr><td colspan="3" style="text-align: center;">Viernes</td></tr></thead>
+							<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Viernes</th></tr></thead>
 							<tr>
 								<th>
 									<div class="form-group row">
@@ -589,7 +589,7 @@
 				<tr>
 	        		<th>
 		        		<table>
-							<thead><tr><td colspan="3" style="text-align: center;">Sabado</td></tr></thead>
+							<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Sabado</th></tr></thead>
 							<tr>
 								<th>
 									<div class="form-group row">
@@ -666,7 +666,7 @@
 					</th>
 					<th>
 						<table>
-							<thead><tr><td colspan="3" style="text-align: center;">TOTAL SEMANA</td></tr></thead>
+							<thead class="thead-dark"><tr><th colspan="3" style="text-align: center;">TOTAL SEMANA</th></tr></thead>
 							<tbody>
 								<tr>
 									<th>
