@@ -22,7 +22,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="estado" class="col-md-4 col-form-label text-md-right">{{ __('Marca') }}</label>
+                <label for="marca" class="col-md-4 col-form-label text-md-right">{{ __('Marca') }}</label>
 
                 <div class="col-md-6">
                     <select class="form-control mb-2" name="marca" required style="text-transform: capitalize">

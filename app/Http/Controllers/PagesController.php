@@ -508,8 +508,9 @@ class PagesController extends Controller
 
     public function reporta($id){
         $taxi = App\Taxi::findOrFail($id);
+        $tarifas = App\Tarifa::get();
 
-        return view('taxis/reportar', compact('taxi', '$id'));
+        return view('taxis/reportar', compact('taxi', 'tarifas', '$id'));
     }
 
     public function reportar(Request $request, $id){
@@ -885,6 +886,58 @@ class PagesController extends Controller
 
     public function notificaciones($id){
         return App\Notification::where([['usuario', '=', Auth::user()->id], ['leido', '=', '0']])->get();
+
+    }
+
+    /*************************************************
+     *************************************************
+     * Creacion y administracion de Tarifas***********
+     *************************************************
+     *************************************************/
+
+    public function tarifa(){
+        $tarifas = App\Tarifa::get();
+
+        return view('tarifas', compact('tarifas'));
+    }
+
+    public function editaTarifa(){
+        $tarifas = App\Tarifa::get();
+
+        return view('taxis.tarifas.edit', compact('tarifas'));
+    }
+
+    public function editarTarifa(Request $request){
+
+        $lunes = App\Tarifa::findOrFail(1);
+        $lunes->tarifa=$request->Lunes;
+        $lunes->save();
+
+        $martes = App\Tarifa::findOrFail(2);
+        $martes->tarifa=$request->Martes;
+        $martes->save();
+
+        $miercoles = App\Tarifa::findOrFail(3);
+        $miercoles->tarifa=$request->Miercoles;
+        $miercoles->save();
+
+        $jueves = App\Tarifa::findOrFail(4);
+        $jueves->tarifa=$request->Jueves;
+        $jueves->save();
+
+        $viernes = App\Tarifa::findOrFail(5);
+        $viernes->tarifa=$request->Viernes;
+        $viernes->save();
+
+        $sabado = App\Tarifa::findOrFail(6);
+        $sabado->tarifa=$request->Sabado;
+        $sabado->save();
+
+        $domingo = App\Tarifa::findOrFail(7);
+        $domingo->tarifa=$request->Domingo;
+        $domingo->save();
+
+        return redirect('tarifa')->with('mensaje', 'Las tarifas se han actualizado con exito');
 
     }
 }

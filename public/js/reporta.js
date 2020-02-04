@@ -40,7 +40,6 @@ $(document).ready(function(){
     $('#ppD').click(function(){
     	if (d == 0) {
             $('#producidoD').prop('disabled', true);
-            $('#producidoD').prop('value', '0');
             sumaD();
             $('#producidoL').prop('disabled', false);
             $('#producidoM').prop('disabled', false);
@@ -76,8 +75,15 @@ $(document).ready(function(){
     	if (l == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', true);
-            $('#producidoL').prop('value', '0');
-            sumaL();
+            //$('#producidoL').prop('value', '0');
+            sumaL('lun');
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd('lun');
             $('#producidoM').prop('disabled', false);
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', false);
@@ -112,8 +118,15 @@ $(document).ready(function(){
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', false);
             $('#producidoM').prop('disabled', true);
-            $('#producidoM').prop('value', '0');
-            sumaM();
+            //$('#producidoM').prop('value', '0');
+            sumaL();
+            sumaM('mar');
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd('mar');
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', false);
@@ -148,8 +161,15 @@ $(document).ready(function(){
             $('#producidoL').prop('disabled', false);
             $('#producidoM').prop('disabled', false);
             $('#producidoMi').prop('disabled', true);
-            $('#producidoMi').prop('value', '0');
-            sumaMi();
+            //$('#producidoMi').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi('mie');
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd('mie');
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', false);
 			$('#producidoS').prop('disabled', false);
@@ -184,8 +204,15 @@ $(document).ready(function(){
             $('#producidoM').prop('disabled', false);
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', true);
-            $('#producidoJ').prop('value', '0');
-            sumaJ();
+            //$('#producidoJ').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ('jue');
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd('jue');
             $('#producidoV').prop('disabled', false);
 			$('#producidoS').prop('disabled', false);
             $('#ppD').prop('checked', false);
@@ -220,8 +247,15 @@ $(document).ready(function(){
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', true);
-            $('#producidoV').prop('value', '0');
-            sumaV();
+            //$('#producidoV').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV('vie');
+            sumaS();
+            sumaD();
+            semanaProd('vie');
 			$('#producidoS').prop('disabled', false);
             $('#ppD').prop('checked', false);
             $('#ppL').prop('checked', false);
@@ -256,8 +290,15 @@ $(document).ready(function(){
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', false);
 			$('#producidoS').prop('disabled', true);
-			$('#producidoS').prop('value', '0');
-			sumaS();
+			//$('#producidoS').prop('value', '0');
+			sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS('sab');
+            sumaD();
+            semanaProd('sab');
             $('#ppD').prop('checked', false);
             $('#ppL').prop('checked', false);
             $('#ppM').prop('checked', false);
@@ -353,8 +394,14 @@ function sumaD(){
 	semanaGas();
 }
 
-function sumaL(){
-	var pro = parseInt($('#producidoL').val());
+function sumaL(omitir){
+    var omi = omitir;
+    if (omi!=="lun") {
+        var pro = parseInt($('#producidoL').val());   
+    }else{
+        var pro = 0;
+    }
+	
 	var gas = parseInt($('#gastosL').val());
 	var otro = parseInt($('#otrosL').val());
 	var total = parseInt($('#totalL').val());
@@ -363,12 +410,19 @@ function sumaL(){
 
 	document.getElementById("totalL").value = total;
 
-	semanaProd();
+	//semanaProd();
 	semanaGas();
 }
 
-function sumaM(){
-	var pro = parseInt($('#producidoM').val());
+function sumaM(omitir){
+    var omi = omitir;
+    if (omi!=="mar") {
+        var pro = parseInt($('#producidoM').val());
+    }else{
+        var pro = 0;
+    }
+
+
 	var gas = parseInt($('#gastosM').val());
 	var otro = parseInt($('#otrosM').val());
 	var total = parseInt($('#totalM').val());
@@ -377,12 +431,18 @@ function sumaM(){
 
 	document.getElementById("totalM").value = total;
 
-	semanaProd();
+	//semanaProd();
 	semanaGas();
 }
 
-function sumaMi(){
-	var pro = parseInt($('#producidoMi').val());
+function sumaMi(omitir){
+    var omi = omitir;
+    if (omi!=="mie") {
+        var pro = parseInt($('#producidoMi').val());
+    }else{
+        var pro = 0;
+    }
+	
 	var gas = parseInt($('#gastosMi').val());
 	var otro = parseInt($('#otrosMi').val());
 	var total = parseInt($('#totalMi').val());
@@ -391,12 +451,17 @@ function sumaMi(){
 
 	document.getElementById("totalMi").value = total;
 
-	semanaProd();
+	//semanaProd();
 	semanaGas();
 }
 
-function sumaJ(){
-	var pro = parseInt($('#producidoJ').val());
+function sumaJ(omitir){
+    var omi = omitir;
+    if (omi!=="jue") {
+        var pro = parseInt($('#producidoJ').val());
+    }else{
+        var pro = 0;
+    }
 	var gas = parseInt($('#gastosJ').val());
 	var otro = parseInt($('#otrosJ').val());
 	var total = parseInt($('#totalJ').val());
@@ -405,12 +470,18 @@ function sumaJ(){
 
 	document.getElementById("totalJ").value = total;
 
-	semanaProd();
+	//semanaProd();
 	semanaGas();
 }
 
-function sumaV(){
-	var pro = parseInt($('#producidoV').val());
+function sumaV(omitir){
+    var omi = omitir;
+    if (omi!=="vie") {
+        var pro = parseInt($('#producidoV').val());
+    }else{
+        var pro = 0;
+    }
+	
 	var gas = parseInt($('#gastosV').val());
 	var otro = parseInt($('#otrosV').val());
 	var total = parseInt($('#totalV').val());
@@ -419,12 +490,18 @@ function sumaV(){
 
 	document.getElementById("totalV").value = total;
 
-	semanaProd();
+	//semanaProd();
 	semanaGas();
 }
 
-function sumaS(){
-	var pro = parseInt($('#producidoS').val());
+function sumaS(omitir){
+    var omi = omitir;
+    if (omi!=="sab") {
+        var pro = parseInt($('#producidoS').val());
+    }else{
+        var pro = 0;
+    }
+	
 	var gas = parseInt($('#gastosS').val());
 	var otro = parseInt($('#otrosS').val());
 	var total = parseInt($('#totalS').val());
@@ -433,18 +510,48 @@ function sumaS(){
 
 	document.getElementById("totalS").value = total;
 
-	semanaProd();
+	//semanaProd();
 	semanaGas();
 }
 
-function semanaProd(){
+function semanaProd(omitir){
+    var omi = omitir;
 	var prod = parseInt($('#producidoD').val());
-	var prol = parseInt($('#producidoL').val());
-	var prom = parseInt($('#producidoM').val());
-	var promi = parseInt($('#producidoMi').val());
-	var proj = parseInt($('#producidoJ').val());
-	var prov = parseInt($('#producidoV').val());
-	var pros = parseInt($('#producidoS').val());
+    if(omi=="lun"){
+        var prol = 0;
+    }else{
+        var prol = parseInt($('#producidoL').val());
+    }
+
+    if(omi=="mar"){
+        var prom = 0;
+    }else{
+        var prom = parseInt($('#producidoM').val());
+    }
+
+    if(omi=="mie"){
+        var promi = 0;
+    }else{
+        var promi = parseInt($('#producidoMi').val());
+    }
+
+    if(omi=="jue"){
+        var proj = 0;
+    }else{
+        var proj = parseInt($('#producidoJ').val());
+    }
+
+    if(omi=="vie"){
+        var prov = 0;
+    }else{
+        var prov = parseInt($('#producidoV').val());
+    }
+
+    if(omi=="sab"){
+        var pros = 0;
+    }else{
+        var pros = parseInt($('#producidoS').val());
+    }
 	
 	var total = prod + prol + prom + promi + proj + prov + pros;
 

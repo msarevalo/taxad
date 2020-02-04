@@ -12,9 +12,10 @@
 	@php($maximo=$año . '-W' . $semana)
 @endif
 @php($dia=date("Y-m-d"))
+<div style="height:30px"></div>
 <form action="{{ route('taxi.reportar', $taxi->id) }}" method="post">
-            @method('PUT')
-            @csrf
+    @method('PUT')
+    @csrf
 	<div class="form-group row">
 	    <label for="placa" class="col-md-4 col-form-label text-md-right">{{ __('Placa') }}</label>
 	    <div class="col-md-3">
@@ -44,7 +45,7 @@
 	<div class="form-group row">
 	    <label for="semana" class="col-md-4 col-form-label text-md-right">{{ __('Semana') }}</label>
 
-	    <div class="col-md-6">
+	    <div class="col-md-3">
 	        <input id="semana" type="week" class="form-control @error('semana') is-invalid @enderror" name="semana" value="{{ old('semana') }}" max="{{$maximo}}" required autocomplete="semana" autofocus>
 
 	        @error('semana')
@@ -53,6 +54,66 @@
 	            </span>
 	        @enderror
 	    </div>
+	</div>
+
+	<div class="col-md-3" style="margin-left: 15%">
+		<table class="table col-md-3">
+			<thead>
+				<tr>
+					<th colspan="7" style="text-align: center;">
+						Pico y Placa
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						Domingo
+					</td>
+					<td>
+						Lunes
+					</td>
+					<td>
+						Martes
+					</td>
+					<td>
+						Miercoles
+					</td>
+					<td>
+						Jueves
+					</td>
+					<td>
+						Viernes
+					</td>
+					<td>
+						Sabado
+					</td>
+				</tr>
+				<tr style="text-align: center;">
+					<td>
+						N/A
+					</td>
+					<td>
+						<input id="ppL" type="radio" name="ppL" value="{{ old('ppL') }}" autocomplete="ppL" autofocus title="Pico y Placa">
+					</td>
+					<td>
+						<input id="ppM" type="radio" name="ppM" value="{{ old('ppM') }}" autocomplete="ppM" autofocus title="Pico y Placa">
+					</td>
+					<td>
+						<input id="ppMi" type="radio" name="ppMi" value="{{ old('ppMi') }}" autocomplete="ppMi" autofocus title="Pico y Placa">
+					</td>
+					<td>
+						<input id="ppJ" type="radio" name="ppJ" value="{{ old('ppJ') }}" autocomplete="ppJ" autofocus title="Pico y Placa">
+					</td>
+					<td>
+						<input id="ppV" type="radio" name="ppV" value="{{ old('ppV') }}" autocomplete="ppV" autofocus title="Pico y Placa">
+					</td>
+					<td>
+						<input id="ppS" type="radio" name="ppS" value="{{ old('ppS') }}" autocomplete="ppS" autofocus title="Pico y Placa">
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 
 	<table class="table col-16">
@@ -68,7 +129,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoD" type="number" class="form-control @error('producidoD') is-invalid @enderror" name="producidoD" value="0" required autocomplete="producidoD" autofocus disabled>
+		        						<input id="producidoD" type="number" class="form-control @error('producidoD') is-invalid @enderror" name="producidoD" value="{{$tarifas[6]->tarifa}}" required autocomplete="producidoD" autofocus>
 
 		        					@error('producidoD')
 		            					<span class="invalid-feedback" role="alert">
@@ -77,12 +138,6 @@
 		        					@enderror
 		    						</div>
 									
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppD" type="radio" checked name="ppD" value="{{ old('ppD') }}" autocomplete="pp" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -151,7 +206,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoL" type="number" class="form-control @error('producidoL') is-invalid @enderror" name="producidoL" value="0" required autocomplete="producidoL" autofocus>
+		        						<input id="producidoL" type="number" class="form-control @error('producidoL') is-invalid @enderror" name="producidoL" value="{{$tarifas[0]->tarifa}}" required autocomplete="producidoL" autofocus>
 
 		        					@error('producidoL')
 		            					<span class="invalid-feedback" role="alert">
@@ -160,12 +215,6 @@
 		        					@enderror
 		    						</div>
 									</div>
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppL" type="radio" name="ppL" value="{{ old('ppL') }}" autocomplete="ppL" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -236,7 +285,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoM" type="number" class="form-control @error('producidoM') is-invalid @enderror" name="producidoM" value="0" required autocomplete="producidoM" autofocus>
+		        						<input id="producidoM" type="number" class="form-control @error('producidoM') is-invalid @enderror" name="producidoM" value="{{$tarifas[1]->tarifa}}" required autocomplete="producidoM" autofocus>
 
 		        					@error('producidoM')
 		            					<span class="invalid-feedback" role="alert">
@@ -245,12 +294,6 @@
 		        					@enderror
 		    						</div>
 									</div>
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppM" type="radio" name="ppM" value="{{ old('ppM') }}" autocomplete="ppM" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -319,7 +362,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoMi" type="number" class="form-control @error('producidoMi') is-invalid @enderror" name="producidoMi" value="0" required autocomplete="producidoMi" autofocus>
+		        						<input id="producidoMi" type="number" class="form-control @error('producidoMi') is-invalid @enderror" name="producidoMi" value="{{$tarifas[2]->tarifa}}" required autocomplete="producidoMi" autofocus>
 
 		        					@error('producidoMi')
 		            					<span class="invalid-feedback" role="alert">
@@ -328,12 +371,6 @@
 		        					@enderror
 		    						</div>
 									</div>
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppMi" type="radio" name="ppMi" value="{{ old('ppMi') }}" autocomplete="ppMi" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -404,7 +441,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoJ" type="number" class="form-control @error('producidoJ') is-invalid @enderror" name="producidoJ" value="0" required autocomplete="producidoJ" autofocus>
+		        						<input id="producidoJ" type="number" class="form-control @error('producidoJ') is-invalid @enderror" name="producidoJ" value="{{$tarifas[3]->tarifa}}" required autocomplete="producidoJ" autofocus>
 
 		        					@error('producidoJ')
 		            					<span class="invalid-feedback" role="alert">
@@ -413,12 +450,6 @@
 		        					@enderror
 		    						</div>
 									</div>
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppJ" type="radio" name="ppJ" value="{{ old('ppJ') }}" autocomplete="ppJ" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -487,7 +518,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoV" type="number" class="form-control @error('producidoV') is-invalid @enderror" name="producidoV" value="0" required autocomplete="producidoV" autofocus>
+		        						<input id="producidoV" type="number" class="form-control @error('producidoV') is-invalid @enderror" name="producidoV" value="{{$tarifas[4]->tarifa}}" required autocomplete="producidoV" autofocus>
 
 		        					@error('producidoV')
 		            					<span class="invalid-feedback" role="alert">
@@ -496,12 +527,6 @@
 		        					@enderror
 		    						</div>
 									</div>
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppV" type="radio" name="ppV" value="{{ old('ppV') }}" autocomplete="ppV" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -572,7 +597,7 @@
 		    					</th>
 		    					<th>
 		    						<div class="col-md-12">
-		        						<input id="producidoS" type="number" class="form-control @error('producidoS') is-invalid @enderror" name="producidoS" value="0" required autocomplete="producidoS" autofocus>
+		        						<input id="producidoS" type="number" class="form-control @error('producidoS') is-invalid @enderror" name="producidoS" value="{{$tarifas[5]->tarifa}}" required autocomplete="producidoS" autofocus>
 
 		        					@error('producidoS')
 		            					<span class="invalid-feedback" role="alert">
@@ -581,12 +606,6 @@
 		        					@enderror
 		    						</div>
 									</div>
-								</th>
-								<th>
-									<div class="col-md-6">
-		        						<input id="ppS" type="radio" name="ppS" value="{{ old('ppS') }}" autocomplete="ppS" autofocus title="Pico y Placa">
-		    						</div>
-		    						</div>
 								</th>
 							</tr>
 							<tr>
@@ -656,7 +675,7 @@
 		    						</th>
 		    						<th>
 		    							<div class="col-md-12">
-		        							<input id="producidoSem" type="number" class="form-control @error('producidoSem') is-invalid @enderror" name="producidoSem" value="0" required autocomplete="producidoSem" autofocus disabled>
+		        							<input id="producidoSem" type="number" class="form-control @error('producidoSem') is-invalid @enderror" name="producidoSem" value="{{$tarifas[0]->tarifa+$tarifas[1]->tarifa+$tarifas[2]->tarifa+$tarifas[3]->tarifa+$tarifas[4]->tarifa+$tarifas[5]->tarifa+$tarifas[6]->tarifa}}" required autocomplete="producidoSem" autofocus disabled>
 
 		        						@error('producidoSem')
 		            						<span class="invalid-feedback" role="alert">
@@ -676,20 +695,18 @@
 		    						<th>
 		    							<div class="col-md-12">
 		        							<input id="gastosSem" type="number" class="form-control @error('gastosSem') is-invalid @enderror" name="gastosSem" value="0" required autocomplete="gastosSem" autofocus disabled>
-
 		        						@error('gastosSem')
 		            						<span class="invalid-feedback" role="alert">
 		                						<strong>{{ $message }}</strong>
 		            						</span>
 		        						@enderror
-		    							</div>
-									
+		    							</div>	
 									</th>
 								</tr>
 							</tbody>
 						</table>
 						<table>
-							<thead><tr><td colspan="3" style="text-align: center;">TOTAL A PAGAR</td></tr></thead>.
+							<thead><tr><td colspan="3" style="text-align: center;">TOTAL A PAGAR</td></tr></thead>
 							<tbody>
 								<tr>
 									<th>
@@ -698,7 +715,7 @@
 		    						</th>
 		    						<th>
 		    							<div class="col-md-12">
-		        							<input id="pagar" type="number" class="form-control @error('pagar') is-invalid @enderror" name="pagar" value="0" required autocomplete="pagar" autofocus disabled>
+		        							<input id="pagar" type="number" class="form-control @error('pagar') is-invalid @enderror" name="pagar" value="{{$tarifas[0]->tarifa+$tarifas[1]->tarifa+$tarifas[2]->tarifa+$tarifas[3]->tarifa+$tarifas[4]->tarifa+$tarifas[5]->tarifa+$tarifas[6]->tarifa}}" required autocomplete="pagar" autofocus disabled>
 
 		        						@error('pagar')
 		            						<span class="invalid-feedback" role="alert">

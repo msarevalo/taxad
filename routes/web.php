@@ -147,3 +147,15 @@ Route::put('/calendario/{id}', 'PagesController@editarCalendario')->name('calend
  *************************************************/
 
 Route::get('/socios', 'PagesController@socio')->name('socios');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Tarifas***********
+ *************************************************
+ *************************************************/
+
+Route::get('/tarifa', 'PagesController@tarifa')->name('tarifa');
+
+Route::get('/tarifa/edita', 'PagesController@editaTarifa')->name('tarifa.edita');
+
+Route::put('/tarifa', 'PagesController@editarTarifa')->name('tarifa.editar');
