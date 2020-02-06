@@ -36,6 +36,7 @@ var mi = 0;
 var j = 0;
 var v = 0;
 var s = 0;
+var dia = "";
 $(document).ready(function(){
     $('#ppD').click(function(){
     	if (d == 0) {
@@ -72,18 +73,19 @@ $(document).ready(function(){
     });
 
     $('#ppL').click(function(){
+        dia = "lun";
     	if (l == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', true);
             //$('#producidoL').prop('value', '0');
-            sumaL('lun');
+            sumaL();
             sumaM();
             sumaMi();
             sumaJ();
             sumaV();
             sumaS();
             sumaD();
-            semanaProd('lun');
+            semanaProd();
             $('#producidoM').prop('disabled', false);
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', false);
@@ -114,19 +116,20 @@ $(document).ready(function(){
     });
 
     $('#ppM').click(function(){
+        dia = "mar";
     	if (m == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', false);
             $('#producidoM').prop('disabled', true);
             //$('#producidoM').prop('value', '0');
             sumaL();
-            sumaM('mar');
+            sumaM();
             sumaMi();
             sumaJ();
             sumaV();
             sumaS();
             sumaD();
-            semanaProd('mar');
+            semanaProd();
             $('#producidoMi').prop('disabled', false);
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', false);
@@ -157,6 +160,7 @@ $(document).ready(function(){
     });
 
     $('#ppMi').click(function(){
+        dia = "mie";
     	if (mi == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', false);
@@ -165,12 +169,12 @@ $(document).ready(function(){
             //$('#producidoMi').prop('value', '0');
             sumaL();
             sumaM();
-            sumaMi('mie');
+            sumaMi();
             sumaJ();
             sumaV();
             sumaS();
             sumaD();
-            semanaProd('mie');
+            semanaProd();
             $('#producidoJ').prop('disabled', false);
             $('#producidoV').prop('disabled', false);
 			$('#producidoS').prop('disabled', false);
@@ -200,6 +204,7 @@ $(document).ready(function(){
     });
 
     $('#ppJ').click(function(){
+        dia = "jue";
     	if (j == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', false);
@@ -211,11 +216,11 @@ $(document).ready(function(){
             sumaL();
             sumaM();
             sumaMi();
-            sumaJ('jue');
+            sumaJ();
             sumaV();
             sumaS();
             sumaD();
-            semanaProd('jue');
+            semanaProd();
             $('#producidoV').prop('disabled', false);
 			$('#producidoS').prop('disabled', false);
             $('#ppD').prop('checked', false);
@@ -243,6 +248,7 @@ $(document).ready(function(){
     });
 
     $('#ppV').click(function(){
+        dia = "vie";
     	if (v == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', false);
@@ -256,10 +262,10 @@ $(document).ready(function(){
             sumaM();
             sumaMi();
             sumaJ();
-            sumaV('vie');
+            sumaV();
             sumaS();
             sumaD();
-            semanaProd('vie');
+            semanaProd();
 			$('#producidoS').prop('disabled', false);
             $('#ppD').prop('checked', false);
             $('#ppL').prop('checked', false);
@@ -286,6 +292,7 @@ $(document).ready(function(){
     });
 
     $('#ppS').click(function(){
+        dia = "sab";
     	if (s == 0) {
             $('#producidoD').prop('disabled', false);
             $('#producidoL').prop('disabled', false);
@@ -301,9 +308,9 @@ $(document).ready(function(){
             sumaMi();
             sumaJ();
             sumaV();
-            sumaS('sab');
+            sumaS();
             sumaD();
-            semanaProd('sab');
+            semanaProd();
             $('#ppD').prop('checked', false);
             $('#ppL').prop('checked', false);
             $('#ppM').prop('checked', false);
@@ -399,8 +406,8 @@ function sumaD(){
 	semanaGas();
 }
 
-function sumaL(omitir){
-    var omi = omitir;
+function sumaL(){
+    var omi = dia;
     if (omi!=="lun") {
         var pro = parseInt($('#producidoL').val());   
     }else{
@@ -415,12 +422,12 @@ function sumaL(omitir){
 
 	document.getElementById("totalL").value = total;
 
-	//semanaProd();
+	semanaProd(dia);
 	semanaGas();
 }
 
-function sumaM(omitir){
-    var omi = omitir;
+function sumaM(){
+    var omi = dia;
     if (omi!=="mar") {
         var pro = parseInt($('#producidoM').val());
     }else{
@@ -436,12 +443,12 @@ function sumaM(omitir){
 
 	document.getElementById("totalM").value = total;
 
-	//semanaProd();
+	semanaProd();
 	semanaGas();
 }
 
-function sumaMi(omitir){
-    var omi = omitir;
+function sumaMi(){
+    var omi = dia;
     if (omi!=="mie") {
         var pro = parseInt($('#producidoMi').val());
     }else{
@@ -456,12 +463,12 @@ function sumaMi(omitir){
 
 	document.getElementById("totalMi").value = total;
 
-	//semanaProd();
+	semanaProd();
 	semanaGas();
 }
 
-function sumaJ(omitir){
-    var omi = omitir;
+function sumaJ(){
+    var omi = dia;
     if (omi!=="jue") {
         var pro = parseInt($('#producidoJ').val());
     }else{
@@ -475,12 +482,12 @@ function sumaJ(omitir){
 
 	document.getElementById("totalJ").value = total;
 
-	//semanaProd();
+	semanaProd();
 	semanaGas();
 }
 
-function sumaV(omitir){
-    var omi = omitir;
+function sumaV(){
+    var omi = dia;
     if (omi!=="vie") {
         var pro = parseInt($('#producidoV').val());
     }else{
@@ -495,12 +502,12 @@ function sumaV(omitir){
 
 	document.getElementById("totalV").value = total;
 
-	//semanaProd();
+	semanaProd();
 	semanaGas();
 }
 
-function sumaS(omitir){
-    var omi = omitir;
+function sumaS(){
+    var omi = dia;
     if (omi!=="sab") {
         var pro = parseInt($('#producidoS').val());
     }else{
@@ -515,12 +522,13 @@ function sumaS(omitir){
 
 	document.getElementById("totalS").value = total;
 
-	//semanaProd();
+	semanaProd();
 	semanaGas();
 }
 
-function semanaProd(omitir){
-    var omi = omitir;
+function semanaProd(){
+    //alert(dia);
+    var omi = dia;
 	var prod = parseInt($('#producidoD').val());
     if(omi=="lun"){
         var prol = 0;
