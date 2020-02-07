@@ -338,7 +338,7 @@ class PagesController extends Controller
             ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['conductores__taxis.estado', '=', '1']])
             ->get();
 
-        $registros = App\Registro::where('vehiculo', '=', $id)->orderBy('semana', 'desc')->limit(8)->get();
+        $registros = App\Registro::where('vehiculo', '=', $id)->orderBy('semana', 'desc')->limit(4)->get();
 
         return view('taxis.detalle', compact('taxi', 'marcas', 'conductores', 'registros'));
     }

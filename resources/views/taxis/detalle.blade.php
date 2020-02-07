@@ -3,6 +3,9 @@
 <title>Taxad | Taxi</title>
 
 @section('formulario')
+    <a class="btn btn-light"  href="{{ route('taxis') }}">Atras</a>
+    <a class="btn btn-info"  href="{{ route('taxi.edita', $taxi->id) }}">Editar</a>
+    <a class="btn btn-primary"  href="{{ route('taxi.reporta', $taxi->id) }}">Reportar</a>
     <h3>Detalle del taxi {{$taxi->placa}}:</h3>
     <table class="table col-8">
       <thead>
@@ -106,7 +109,7 @@
         ]);
 
         var options = {
-          title : 'Producido vs Gastos - Ultimos 2 Mes',
+          title : 'Producido vs Gastos - Ultimo Mes',
           vAxis: {title: 'Dinero'},
           hAxis: {title: 'Semana'},
           seriesType: 'bars',
@@ -124,7 +127,7 @@
   <body>
     <div id="chart_div" style="width: 400px; height: 120px;"></div>
 
-    <div id="chart_div_barras" style="width: 900px; height: 500px; margin-top: 100px"></div>
+    <div id="chart_div_barras" style="width: 900px; height: 250px; margin-top: 100px"></div>
   </body>
 </html>
 @endsection
