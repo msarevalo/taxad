@@ -60,7 +60,7 @@
 		<table class="table col-md-3">
 			<thead class="thead-light">
 				<tr>
-					<th colspan="7" style="text-align: center;">
+					<th colspan="8" style="text-align: center;">
 						Pico y Placa
 					</th>
 				</tr>
@@ -71,22 +71,25 @@
 						Domingo
 					</td>
 					<td>
-						Lunes
+						<p style="cursor: pointer;" id="lunes">Lunes</p>
 					</td>
 					<td>
-						Martes
+						<p style="cursor: pointer;" id="martes">Martes</p>
 					</td>
 					<td>
-						Miercoles
+						<p style="cursor: pointer;" id="miercoles">Miercoles</p>
 					</td>
 					<td>
-						Jueves
+						<p style="cursor: pointer;" id="jueves">Jueves</p>
 					</td>
 					<td>
-						Viernes
+						<p style="cursor: pointer;" id="viernes">Viernes</p>
 					</td>
 					<td>
-						Sabado
+						<p style="cursor: pointer;" id="sabado">Sabado</p>
+					</td>
+					<td>
+						<p style="cursor: pointer;" id="sinpp">No Hay</p>
 					</td>
 				</tr>
 				<tr style="text-align: center;">
@@ -110,6 +113,9 @@
 					</td>
 					<td>
 						<input id="ppS" type="radio" name="ppS" value="{{ old('ppS') }}" autocomplete="ppS" autofocus title="Pico y Placa">
+					</td>
+					<td>
+						<input id="spp" type="radio" name="spp" value="{{ old('spp') }}" autocomplete="spp" autofocus title="Sin Pico y Placa">
 					</td>
 				</tr>
 			</tbody>

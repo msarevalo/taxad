@@ -36,42 +36,9 @@ var mi = 0;
 var j = 0;
 var v = 0;
 var s = 0;
+var ss = 0;
 var dia = "";
 $(document).ready(function(){
-    $('#ppD').click(function(){
-    	if (d == 0) {
-            $('#producidoD').prop('disabled', true);
-            sumaD();
-            $('#producidoL').prop('disabled', false);
-            $('#producidoM').prop('disabled', false);
-            $('#producidoMi').prop('disabled', false);
-            $('#producidoJ').prop('disabled', false);
-            $('#producidoV').prop('disabled', false);
-			$('#producidoS').prop('disabled', false);
-            $('#ppL').prop('checked', false);
-            $('#ppM').prop('checked', false);
-            $('#ppMi').prop('checked', false);
-            $('#ppJ').prop('checked', false);
-            $('#ppV').prop('checked', false);
-            $('#ppS').prop('checked', false);
-            d++;
-            l=0;
-            m=0;
-            mi=0;
-            j=0;
-            v=0;
-            s=0;
-        }else{
-        	if (d == 1) {
-        		$('#producidoD').prop('disabled', true);
-        	}else{
-        		$('#producidoD').prop('disabled', false);
-        		sumaD();
-        		d--;
-        	}
-        }
-    });
-
     $('#ppL').click(function(){
         dia = "lun";
     	if (l == 0) {
@@ -97,6 +64,7 @@ $(document).ready(function(){
             $('#ppJ').prop('checked', false);
             $('#ppV').prop('checked', false);
             $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
             d=0;
             l++;
             m=0;
@@ -104,6 +72,7 @@ $(document).ready(function(){
             j=0;
             v=0;
             s=0;
+            ss=0;
         }else{
         	if (l == 1) {
         		$('#producidoL').prop('disabled', true);
@@ -112,6 +81,52 @@ $(document).ready(function(){
         		sumaL();
         		l--;
         	}
+        }
+    });
+
+    $('#lunes').click(function(){
+        dia = "lun";
+        if (l == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', true);
+            //$('#producidoL').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', false);
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', true);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
+            d=0;
+            l++;
+            m=0;
+            mi=0;
+            j=0;
+            v=0;
+            s=0;
+            ss=0;
+        }else{
+            if (l == 1) {
+                $('#producidoL').prop('disabled', true);
+            }else{
+                $('#producidoL').prop('disabled', false);
+                sumaL();
+                l--;
+            }
         }
     });
 
@@ -140,6 +155,7 @@ $(document).ready(function(){
             $('#ppJ').prop('checked', false);
             $('#ppV').prop('checked', false);
             $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
             document.getElementById("ppL").required = false;
             d=0;
             l=0;
@@ -148,6 +164,7 @@ $(document).ready(function(){
             j=0;
             v=0;
             s=0;
+            ss=0;
         }else{
         	if (m == 1) {
         		$('#producidoM').prop('disabled', true);
@@ -156,6 +173,53 @@ $(document).ready(function(){
         		sumaM();
         		m--;
         	}
+        }
+    });
+
+    $('#martes').click(function(){
+        dia = "mar";
+        if (m == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', true);
+            //$('#producidoM').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', false);
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', true);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
+            document.getElementById("ppL").required = false;
+            d=0;
+            l=0;
+            m++;
+            mi=0;
+            j=0;
+            v=0;
+            s=0;
+            ss=0;
+        }else{
+            if (m == 1) {
+                $('#producidoM').prop('disabled', true);
+            }else{
+                $('#producidoM').prop('disabled', false);
+                sumaM();
+                m--;
+            }
         }
     });
 
@@ -184,6 +248,7 @@ $(document).ready(function(){
             $('#ppJ').prop('checked', false);
             $('#ppV').prop('checked', false);
             $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
             document.getElementById("ppL").required = false;
             d=0;
             l=0;
@@ -192,6 +257,7 @@ $(document).ready(function(){
             j=0;
             v=0;
             s=0;
+            ss=0;
         }else{
         	if (mi == 1) {
         		$('#producidoMi').prop('disabled', true);
@@ -200,6 +266,53 @@ $(document).ready(function(){
         		sumaMi();
         		mi--;
         	}
+        }
+    });
+
+    $('#miercoles').click(function(){
+        dia = "mie";
+        if (mi == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', true);
+            //$('#producidoMi').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', false);
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', true);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
+            document.getElementById("ppL").required = false;
+            d=0;
+            l=0;
+            m=0;
+            mi++;
+            j=0;
+            v=0;
+            s=0;
+            ss=0;
+        }else{
+            if (mi == 1) {
+                $('#producidoMi').prop('disabled', true);
+            }else{
+                $('#producidoMi').prop('disabled', false);
+                sumaMi();
+                mi--;
+            }
         }
     });
 
@@ -229,6 +342,7 @@ $(document).ready(function(){
             $('#ppMi').prop('checked', false);
             $('#ppV').prop('checked', false);
             $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
             d=0;
             l=0;
             m=0;
@@ -236,6 +350,7 @@ $(document).ready(function(){
             j++;
             v=0;
             s=0;
+            ss=0;
         }else{
         	if (j == 1) {
         		$('#producidoJ').prop('disabled', true);
@@ -244,6 +359,53 @@ $(document).ready(function(){
         		sumaJ();
         		j--;
         	}
+        }
+    });
+
+    $('#jueves').click(function(){
+        dia = "jue";
+        if (j == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', true);
+            //$('#producidoJ').prop('value', '0');
+            document.getElementById("ppL").required = false;
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', false);
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', true);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
+            d=0;
+            l=0;
+            m=0;
+            mi=0;
+            j++;
+            v=0;
+            s=0;
+            ss=0;
+        }else{
+            if (j == 1) {
+                $('#producidoJ').prop('disabled', true);
+            }else{
+                $('#producidoJ').prop('disabled', false);
+                sumaJ();
+                j--;
+            }
         }
     });
 
@@ -273,6 +435,7 @@ $(document).ready(function(){
             $('#ppMi').prop('checked', false);
             $('#ppJ').prop('checked', false);
             $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
             d=0;
             l=0;
             m=0;
@@ -280,6 +443,7 @@ $(document).ready(function(){
             j=0;
             v++;
             s=0;
+            ss=0;
         }else{
         	if (v == 1) {
         		$('#producidoV').prop('disabled', true);
@@ -288,6 +452,53 @@ $(document).ready(function(){
         		sumaV();
         		v--;
         	}
+        }
+    });
+
+    $('#viernes').click(function(){
+        dia = "vie";
+        if (v == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', true);
+            document.getElementById("ppL").required = false;
+            //$('#producidoV').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#producidoS').prop('disabled', false);
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', true);
+            $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', false);
+            d=0;
+            l=0;
+            m=0;
+            mi=0;
+            j=0;
+            v++;
+            s=0;
+            ss=0;
+        }else{
+            if (v == 1) {
+                $('#producidoV').prop('disabled', true);
+            }else{
+                $('#producidoV').prop('disabled', false);
+                sumaV();
+                v--;
+            }
         }
     });
 
@@ -317,6 +528,7 @@ $(document).ready(function(){
             $('#ppMi').prop('checked', false);
             $('#ppJ').prop('checked', false);
             $('#ppV').prop('checked', false);
+            $('#spp').prop('checked', false);
             d=0;
             l=0;
             m=0;
@@ -324,6 +536,7 @@ $(document).ready(function(){
             j=0;
             v=0;
             s++;
+            ss=0;
         }else{
         	if (s == 1) {
         		$('#producidoS').prop('disabled', true);
@@ -332,6 +545,130 @@ $(document).ready(function(){
         		sumaS();
         		s--;
         	}
+        }
+    });
+
+    $('#sabado').click(function(){
+        dia = "sab";
+        if (s == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', true);
+            document.getElementById("ppL").required = false;
+            //$('#producidoS').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', true);
+            $('#spp').prop('checked', false);
+            d=0;
+            l=0;
+            m=0;
+            mi=0;
+            j=0;
+            v=0;
+            s++;
+            ss=0;
+        }else{
+            if (s == 1) {
+                $('#producidoS').prop('disabled', true);
+            }else{
+                $('#producidoS').prop('disabled', false);
+                sumaS();
+                s--;
+            }
+        }
+    });
+
+    $('#spp').click(function(){
+        dia = "sin";
+        if (ss == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', false);
+            document.getElementById("ppL").required = false;
+            //$('#producidoS').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', false);
+            d=0;
+            l=0;
+            m=0;
+            mi=0;
+            j=0;
+            v=0;
+            s=0;
+            ss++;
+        }
+    });
+
+    $('#sinpp').click(function(){
+        dia = "sin";
+        if (ss == 0) {
+            $('#producidoD').prop('disabled', false);
+            $('#producidoL').prop('disabled', false);
+            $('#producidoM').prop('disabled', false);
+            $('#producidoMi').prop('disabled', false);
+            $('#producidoJ').prop('disabled', false);
+            $('#producidoV').prop('disabled', false);
+            $('#producidoS').prop('disabled', false);
+            document.getElementById("ppL").required = false;
+            //$('#producidoS').prop('value', '0');
+            sumaL();
+            sumaM();
+            sumaMi();
+            sumaJ();
+            sumaV();
+            sumaS();
+            sumaD();
+            semanaProd();
+            $('#ppD').prop('checked', false);
+            $('#ppL').prop('checked', false);
+            $('#ppM').prop('checked', false);
+            $('#ppMi').prop('checked', false);
+            $('#ppJ').prop('checked', false);
+            $('#ppV').prop('checked', false);
+            $('#ppS').prop('checked', false);
+            $('#spp').prop('checked', true);
+            d=0;
+            l=0;
+            m=0;
+            mi=0;
+            j=0;
+            v=0;
+            s=0;
+            ss++;
         }
     });
 });
@@ -605,3 +942,4 @@ function pago(){
 
 	document.getElementById("pagar").value = total;
 }
+
