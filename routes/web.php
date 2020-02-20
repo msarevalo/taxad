@@ -93,6 +93,8 @@ Route::get('/taxis/reporta/{id}', 'PagesController@reporta')->name('taxi.reporta
 
 Route::put('/taxis/reporta/{id}', 'PagesController@reportar')->name('taxi.reportar');
 
+Route::get('/taxis/gastos/{id}/{w}', 'PagesController@gastos')->name('taxi.gasto');
+
 /**********************************************
  **********************************************
  * Creacion y administracion de marcas taxis***

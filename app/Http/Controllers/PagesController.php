@@ -540,10 +540,20 @@ class PagesController extends Controller
 
             $reporte->save();
 
-            return redirect('taxis')->with('mensaje', 'Reporte de la semana ' . $request->semana . ' creado con exito');
+            if ($gastos==0) {
+                return redirect('taxis')->with('mensaje', 'Reporte de la semana ' . $request->semana . ' creado con exito');   
+            }else{
+                return redirect('taxis/gastos/' . $id . '/' . $request->semana);
+            }
+
         }else{
             return redirect('taxis.reporta')->with('error', 'Ya se encuentra un registro para esta semana con este vehiculo');
         }
+    }
+
+    public function gastos($id, $w){
+
+        return view('taxis/gastos', compact('id', 'w'));
     }
 
     /*************************************************

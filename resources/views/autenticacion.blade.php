@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 
     <title>TAXAD</title>
-    <link rel="shortcut icon" href="../../img/logo.ico" />
+    <link rel="shortcut icon" href="../../../img/logo.ico" />
 </head>
 <body>
 	<div class="container-fluid p-0">
@@ -125,7 +125,7 @@ function SidebarCollapse () {
             </li>
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/account.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/account.png" style="width: 20px"></span>
                     <span class="menu-collapsed">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</span>
                 </div>
             </a>
@@ -137,7 +137,7 @@ function SidebarCollapse () {
             @if(Auth::user()->perfil!==3)
             <a href="{{ route('home') }}" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/dashboard.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/dashboard.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Dashboard</span>
                 </div>
             </a>
@@ -157,7 +157,7 @@ function SidebarCollapse () {
             @if(Auth::user()->perfil===1)
             <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/user.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/user.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Usuarios</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
@@ -177,14 +177,14 @@ function SidebarCollapse () {
             @else
             <a href="{{ route('conductor') }}" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/user.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/user.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Conductores</span>
                 </div>
             </a>
             @endif
             <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/vehicle.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/vehicle.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Taxis</span> 
                     <span class="submenu-icon ml-auto"></span>   
                 </div>
@@ -208,13 +208,13 @@ function SidebarCollapse () {
             <!-- /END Separator -->
             <a href="{{ route('calendario') }}" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/calendar.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/calendar.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Calendario</span>
                 </div>
             </a>
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-envelope-o fa-fw mr-3"><img src="../../img/notification.png" style="width: 20px"></span>
+                    <span class="fa fa-envelope-o fa-fw mr-3"><img src="../../../img/notification.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Notificaciones<span class="badge badge-pill badge-primary ml-2" id="alertas"></span></span>
                 </div>
             </a>
@@ -223,14 +223,14 @@ function SidebarCollapse () {
             <!-- /END Separator -->
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../img/help.png" style="width: 20px"></span>
+                    <span class="fa fa-fw mr-3"><img src="../../../img/help.png" style="width: 20px"></span>
                     <span class="menu-collapsed">Ayuda</span>
                 </div>
             </a>
             <a href="{{ route('logout') }}" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span id="collapse-icon" class="fa fa-2x mr-3"><img src="../../img/logout.png" style="width: 20px"></span>
+                    <span id="collapse-icon" class="fa fa-2x mr-3"><img src="../../../img/logout.png" style="width: 20px"></span>
                     <span id="collapse-text" class="menu-collapsed">Cerrar Sesión</span>
                 </div>
             </a>
@@ -239,7 +239,7 @@ function SidebarCollapse () {
             </form>
             <!-- Logo -->
             <li class="list-group-item logo-separator d-flex justify-content-center">
-                <img src='../../img/logo100x100.png' width="30" height="30" />    
+                <img src='../../../img/logo100x100.png' width="30" height="30" />    
             </li>   
         </ul><!-- List Group END-->
     </div><!-- sidebar-container END -->
