@@ -95,6 +95,7 @@ Route::put('/taxis/reporta/{id}', 'PagesController@reportar')->name('taxi.report
 
 Route::get('/taxis/gastos/{id}/{w}', 'PagesController@gastos')->name('taxi.gasto');
 
+
 /**********************************************
  **********************************************
  * Creacion y administracion de marcas taxis***
@@ -161,3 +162,13 @@ Route::get('/tarifa', 'PagesController@tarifa')->name('tarifa');
 Route::get('/tarifa/edita', 'PagesController@editaTarifa')->name('tarifa.edita');
 
 Route::put('/tarifa', 'PagesController@editarTarifa')->name('tarifa.editar');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Categorias********
+ *************************************************
+ *************************************************/
+
+Route::get('/categoria', 'PagesController@categoria')->name('categoria');
+
+Route::get('/categoria/detalle/{id?}', 'PagesController@destalleCategoria')->name('categoria.detalle');

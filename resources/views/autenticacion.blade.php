@@ -193,6 +193,12 @@ function SidebarCollapse () {
                 <a href="{{ route('tarifa') }}" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Tarifas</span>
                 </a>
+                <a href="{{ route('categoria') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Categorias Gastos</span>
+                </a>
+                <a href="{{ route('tarifa') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Descripciones Gastos</span>
+                </a>
                 <a href="{{ route('marcas') }}" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="menu-collapsed">Marcas</span>
                 </a>

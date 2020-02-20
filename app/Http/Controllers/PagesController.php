@@ -950,5 +950,18 @@ class PagesController extends Controller
         return redirect('tarifa')->with('mensaje', 'Las tarifas se han actualizado con exito');
 
     }
+
+    public function categoria(){
+        $categorias = App\CategoriasGasto::orderBy('categoria')->paginate(10);
+
+        return view('categorias', compact('categorias'));
+    }
+
+    public function destalleCategoria($id){
+        $categoria = App\CategoriasGasto::where('id', '=', $id)->get();
+        $descripciones = App\DescipcionesGasto::where('categoria', '=', $id)->paginate(5);
+
+        return view('taxis.categorias.detalle', compact('categoria', 'descripciones'));
+    }
 }
 
