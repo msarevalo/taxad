@@ -958,8 +958,8 @@ class PagesController extends Controller
     }
 
     public function destalleCategoria($id){
-        $categoria = App\CategoriasGasto::where('id', '=', $id)->get();
-        $descripciones = App\DescipcionesGasto::where('categoria', '=', $id)->paginate(5);
+        $categoria = App\CategoriasGasto::findOrFail($id);
+        $descripciones = App\DescipcionesGasto::where('categoria', '=', $id)->orderBy('descripcion')->paginate(5);
 
         return view('taxis.categorias.detalle', compact('categoria', 'descripciones'));
     }

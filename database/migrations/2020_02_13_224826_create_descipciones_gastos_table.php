@@ -17,6 +17,7 @@ class CreateDescipcionesGastosTable extends Migration
             $table->bigIncrements('id');
             $table->integer('categoria');
             $table->string('descripcion');
+            $table->integer('estado')->default('1');
             $table->timestamps();
         });
 

@@ -1,4 +1,6 @@
 @extends('autenticacion')
+@php($año = date('Y'))
+@php($año=$año+1)
 
 <title>Taxad | Taxis</title>
 
@@ -51,7 +53,7 @@
                 <label for="serie" class="col-md-4 col-form-label text-md-right">{{ __('Serie') }}</label>
 
                 <div class="col-md-6">
-                    <input id="serie" type="number" class="form-control @error('serie') is-invalid @enderror" name="serie" value="{{ old('serie') }}" required autocomplete="serie" autofocus min="2000" name="serie">
+                    <input id="serie" type="number" class="form-control @error('serie') is-invalid @enderror" name="serie" value="{{ old('serie') }}" required autocomplete="serie" autofocus min="2000" max="{{$año}}" name="serie">
 
                     @error('serie')
                         <span class="invalid-feedback" role="alert">

@@ -36,6 +36,7 @@
         <thead>
         <tr>
             <th scope="col">Categoria</th>
+            <th scope="col">Estado</th>
             <th scope="col">Acciones</th>
         </tr>
         </thead>
@@ -46,6 +47,13 @@
                 <a href="{{route('categoria.detalle', $categoria)}}">
                     {{$categoria->categoria}}
                 </a>
+            </td>
+            <td>
+                @if($categoria->estado==1)
+                    Activo
+                @else
+                    Inactivo
+                @endif
             </td>
             <td>
                 <a href="{{route('conductor.edita', $categoria)}}" style="text-decoration: none">

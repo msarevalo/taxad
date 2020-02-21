@@ -16,6 +16,7 @@ class CreateCategoriasGastosTable extends Migration
         Schema::create('categorias_gastos', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('categoria');
+            $table->integer('estado')->default('1');
             $table->timestamps();
         });
 

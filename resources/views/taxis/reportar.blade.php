@@ -127,7 +127,7 @@
 	        	<tr>
 	        		<th>
 		        		<table>
-		        			<thead class="thead-light"><tr><th colspan="3" style="text-align: center;">Domingo</th></tr></thead>
+		        			<thead class="thead-light" style="cursor: pointer;"><tr><th colspan="3" style="text-align: center;">Domingo</th></tr></thead>
 							<tr>
 								<th>
 									<div class="">
