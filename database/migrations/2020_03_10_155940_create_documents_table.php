@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipoDocumentosTable extends Migration
+class CreateDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,13 @@ class CreateTipoDocumentosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_documentos', function (Blueprint $table) {
+        Schema::create('documents', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('tipo');
+            $table->integer('tipo');
+            $table->integer('vehiculo');
+            $table->string('documento');
             $table->timestamps();
         });
-
-        DB::table('tipo_documentos')->insert(array('tipo'=>'SOAT'));
-        DB::table('tipo_documentos')->insert(array('tipo'=>'Tarjeta Propiedad'));
-        DB::table('tipo_documentos')->insert(array('tipo'=>'Tarjeton'));
     }
 
     /**
@@ -31,6 +29,6 @@ class CreateTipoDocumentosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_documentos');
+        Schema::dropIfExists('documents');
     }
 }

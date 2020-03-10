@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_documento extends Model
+class ExpenseCategory extends Model
 {
     //
 }

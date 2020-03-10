@@ -51,8 +51,8 @@ class PagesController extends Controller
     public function conductor(){
         if (Auth::user()->perfil!==3) {
             $conductores = App\User::where([['id', '!=', Auth::user()->id], ['perfil', '=', '3']])->paginate(5);
-            $perfiles = App\Perfil::all();
-            $estados = App\estados_conductor::all();
+            $perfiles = App\Profile::all();
+            $estados = App\DriversStatus::all();
 
             return view('conductores', compact('conductores', 'perfiles', 'estados'));
         }else{
@@ -61,7 +61,7 @@ class PagesController extends Controller
     }
 
     public function creacond(){
-        $perfiles = App\Perfil::where('id', '=', '3')->get();
+        $perfiles = App\Profile::where('id', '=', '3')->get();
 
         return view('conductores.create', compact('perfiles'));
     }
@@ -81,8 +81,8 @@ class PagesController extends Controller
 
     public function editacon($id){
         $conductor = App\User::findOrFail($id);
-        $perfiles = App\Perfil::where('id', '=', '3')->get();
-        $estados = App\estados_conductor::where('id', '<', '2')->get();
+        $perfiles = App\Profile::where('id', '=', '3')->get();
+        $estados = App\DriversStatus::where('id', '<', '2')->get();
 
         if ($conductor->perfil==3) {
             return view('conductores.edita', compact('conductor', 'perfiles', 'estados'));
@@ -160,7 +160,7 @@ class PagesController extends Controller
 
         $conductor->save();
 
-        $vehiculo = App\Conductores_Taxi::where('idCond', '=', $id)->first();
+        $vehiculo = App\TaxiDriver::where('idCond', '=', $id)->first();
         if ($vehiculo!==null) {
             if ($request->estado==0) {
                 $vehiculo->estado='0';
@@ -200,8 +200,8 @@ class PagesController extends Controller
     public function administrador(){
         if (Auth::user()->perfil!==3) {
             $administradores = App\User::where([['id', '!=', Auth::user()->id], ['perfil', '>=', Auth::user()->perfil], ['perfil', '!=', '3']])->paginate(5);
-            $perfiles = App\Perfil::all();
-            $estados = App\estados_conductor::all();
+            $perfiles = App\Profile::all();
+            $estados = App\DriversStatus::all();
 
             return view('administradores', compact('administradores', 'perfiles', 'estados'));
         }else{
@@ -210,7 +210,7 @@ class PagesController extends Controller
     }
 
     public function creaadmin(){
-        $perfiles = App\Perfil::where([['id', '>=', Auth::user()->perfil], ['id', '!=', '3']])->get();
+        $perfiles = App\Profile::where([['id', '>=', Auth::user()->perfil], ['id', '!=', '3']])->get();
 
         return view('administradores.create', compact('perfiles'));
     }
@@ -283,8 +283,8 @@ class PagesController extends Controller
 
     public function editaadmin($id){
         $conductor = App\User::findOrFail($id);
-        $perfiles = App\Perfil::where([['id', '>=', Auth::user()->perfil], ['id', '!=', '3']])->get();
-        $estados = App\estados_conductor::all();
+        $perfiles = App\Profile::where([['id', '>=', Auth::user()->perfil], ['id', '!=', '3']])->get();
+        $estados = App\DriversStatus::all();
 
         if ($conductor->perfil!==3) {
             return view('administradores.edita', compact('conductor', 'perfiles', 'estados'));
@@ -316,14 +316,14 @@ class PagesController extends Controller
     public function taxi(){
 
         $taxdet = DB::table('taxis')
-            ->join('marcas__taxis', 'taxis.marca', '=', 'marcas__taxis.id')
-            ->select('taxis.id', 'taxis.placa', 'marcas__taxis.marca as marca', 'taxis.modelo', 'taxis.serie', 'taxis.estado', 'taxis.created_at')
+            ->join('taxi_brands', 'taxis.marca', '=', 'taxi_brands.id')
+            ->select('taxis.id', 'taxis.placa', 'taxi_brands.marca as marca', 'taxis.modelo', 'taxis.serie', 'taxis.estado', 'taxis.created_at')
             ->paginate(5);
 
-        $conductores = DB::table('conductores__taxis')
-            ->join('users', 'users.id', '=', 'conductores__taxis.idCond')
-            ->select('conductores__taxis.idTaxi', 'conductores__taxis.estado', 'users.name', 'users.lastname')
-            ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['conductores__taxis.estado', '=', '1']])
+        $conductores = DB::table('taxi_drivers')
+            ->join('users', 'users.id', '=', 'taxi_drivers.idCond')
+            ->select('taxi_drivers.idTaxi', 'taxi_drivers.estado', 'users.name', 'users.lastname')
+            ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['taxi_drivers.estado', '=', '1']])
             ->get();
 
         return view('taxis', compact('taxdet', 'conductores'));
@@ -331,21 +331,21 @@ class PagesController extends Controller
 
     public function detalletax($id=null){
         $taxi = App\Taxi::findOrFail($id);
-        $marcas = App\Marcas_Taxi::where('estado', 1)->get();
-        $conductores = DB::table('conductores__taxis')
-            ->join('users', 'users.id', '=', 'conductores__taxis.idCond')
-            ->select('conductores__taxis.idTaxi', 'conductores__taxis.estado', 'users.name', 'users.lastname', 'users.id')
-            ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['conductores__taxis.estado', '=', '1']])
+        $marcas = App\TaxiBrand::where('estado', 1)->get();
+        $conductores = DB::table('taxi_drivers')
+            ->join('users', 'users.id', '=', 'taxi_drivers.idCond')
+            ->select('taxi_drivers.idTaxi', 'taxi_drivers.estado', 'users.name', 'users.lastname', 'users.id')
+            ->where([['users.estado', '=', '1'], ['users.perfil', '=', '3'], ['taxi_drivers.estado', '=', '1']])
             ->get();
 
-        $registros = App\Registro::where('vehiculo', '=', $id)->orderBy('semana', 'desc')->limit(4)->get();
+        $registros = App\Record::where('vehiculo', '=', $id)->orderBy('semana', 'desc')->limit(4)->get();
 
         return view('taxis.detalle', compact('taxi', 'marcas', 'conductores', 'registros'));
     }
 
     public function creatax(){
-        $marcas = App\Marcas_Taxi::where('estado', 1)->orderBy('marca', 'asc')->get();
-        $marca = App\Marcas_Taxi::where('estado', '=', 1)->first();
+        $marcas = App\TaxiBrand::where('estado', 1)->orderBy('marca', 'asc')->get();
+        $marca = App\TaxiBrand::where('estado', '=', 1)->first();
 
         //var_dump($marca);
 
@@ -374,17 +374,17 @@ class PagesController extends Controller
     public function editatax($id){
         $taxi = App\Taxi::findOrFail($id);
 
-        $marcas = App\Marcas_Taxi::where('estado', '1')->orderBy('marca', 'asc')->get();
+        $marcas = App\TaxiBrand::where('estado', '1')->orderBy('marca', 'asc')->get();
 
         $conductores = App\User::where([['estado', '=', '1'], ['perfil', '=', '3']])->orderBy('name', 'asc')->get();
 
-        $asignacion = App\Conductores_Taxi::where([['estado', '=', '1'], ['idTaxi', '=', $id]])->get();
+        $asignacion = App\TaxiDriver::where([['estado', '=', '1'], ['idTaxi', '=', $id]])->get();
 
-        $soat = App\documento::where([['vehiculo', '=', $id], ['tipo', '=', '1']])->orderBy('created_at', 'desc')->first();
+        $soat = App\Document::where([['vehiculo', '=', $id], ['tipo', '=', '1']])->orderBy('created_at', 'desc')->first();
 
-        $tp = App\documento::where([['vehiculo', '=', $id], ['tipo', '=', '2']])->orderBy('created_at', 'desc')->first();
+        $tp = App\Document::where([['vehiculo', '=', $id], ['tipo', '=', '2']])->orderBy('created_at', 'desc')->first();
 
-        $tarjeton = App\documento::where([['vehiculo', '=', $id], ['tipo', '=', '3']])->orderBy('created_at', 'desc')->first();
+        $tarjeton = App\Document::where([['vehiculo', '=', $id], ['tipo', '=', '3']])->orderBy('created_at', 'desc')->first();
 
         return view('taxis.edita', compact('taxi', 'marcas', 'conductores', 'asignacion', 'soat', 'tp', 'tarjeton'));
     }
@@ -406,10 +406,10 @@ class PagesController extends Controller
             if (sizeof($request->idCond)<=4){
             
                 for ($i=0; $i < sizeof($request->idCond); $i++) { 
-                    $comprobar = App\Conductores_Taxi::where([['idCond', '=', $request->idCond[$i]], ['idTaxi', '=', $id]])->first();
+                    $comprobar = App\TaxiDriver::where([['idCond', '=', $request->idCond[$i]], ['idTaxi', '=', $id]])->first();
 
                     if ($comprobar==null) {
-                        $asignar = new App\Conductores_Taxi();
+                        $asignar = new App\TaxiDriver();
                         $asignar->idTaxi=$id;
                         $asignar->idCond=$request->idCond[$i];
                         $asignar->estado='1';
@@ -446,10 +446,10 @@ class PagesController extends Controller
         $taxi->save();
 
         for ($i=0; $i < sizeof($request->idCond); $i++) { 
-            $comprobar = App\Conductores_Taxi::where([['idCond', '=', $request->idCond[$i]], ['idTaxi', '=', $id]])->first();
+            $comprobar = App\TaxiDriver::where([['idCond', '=', $request->idCond[$i]], ['idTaxi', '=', $id]])->first();
 
             if ($comprobar==null) {
-                $asignar = new App\Conductores_Taxi();
+                $asignar = new App\TaxiDriver();
                 $asignar->idTaxi=$id;
                 $asignar->idCond=$request->idCond[$i];
                 $asignar->estado='1';
@@ -461,12 +461,12 @@ class PagesController extends Controller
             }
         }
 
-        $asignaciones = App\Conductores_Taxi::where('estado', '=', '1')->get();
+        $asignaciones = App\TaxiDriver::where('estado', '=', '1')->get();
 
         foreach ($asignaciones as $asigna) {
             $valor = in_array($asigna->idCond, $request->idCond);
             if ($valor==null) {
-                $taxi = App\Conductores_Taxi::findOrFail($asigna->id);
+                $taxi = App\TaxiDriver::findOrFail($asigna->id);
                 $taxi->estado='0';
                 $taxi->save();
             }
@@ -477,7 +477,7 @@ class PagesController extends Controller
 
     public function soat($id){
         $taxi = App\Taxi::findOrFail($id);
-        $tipos = App\Tipo_documento::all();
+        $tipos = App\DocumentType::all();
 
         return view('taxis/documento', compact('taxi', 'tipos'));
     }
@@ -497,7 +497,7 @@ class PagesController extends Controller
                 $file->move(public_path().'/documentos/tarjeton/', $name);
             }
         }
-        $documento = new App\Documento();
+        $documento = new App\Document();
         $documento->tipo = $request->tipo;
         $documento->vehiculo = $id;
         $documento->documento = $name;
@@ -508,17 +508,17 @@ class PagesController extends Controller
 
     public function reporta($id){
         $taxi = App\Taxi::findOrFail($id);
-        $tarifas = App\Tarifa::get();
+        $tarifas = App\Rate::get();
 
         return view('taxis/reportar', compact('taxi', 'tarifas', '$id'));
     }
 
     public function reportar(Request $request, $id){
-        $validacion = App\Registro::where([['semana', '=', $request->semana], ['vehiculo', '=', $id]])->first();
+        $validacion = App\Record::where([['semana', '=', $request->semana], ['vehiculo', '=', $id]])->first();
 
         if ($validacion==null) {
             
-            $reporte = new App\Registro();
+            $reporte = new App\Record();
             $reporte->vehiculo=$id;
             $reporte->semana=$request->semana;
             $reporte->domingo=$request->producidoD . ';' . $request->gastosD . ';' . $request->otrosD;
@@ -563,7 +563,7 @@ class PagesController extends Controller
      *************************************************/
 
     public function marca(){
-        $marcas = App\Marcas_Taxi::paginate(5);
+        $marcas = App\TaxiBrand::paginate(5);
 
         return view('taxis/marcas', compact('marcas'));
     }
@@ -575,7 +575,7 @@ class PagesController extends Controller
 
     public function crearmarca(Request $request){
         // return$request->all();
-        $marca = new App\Marcas_Taxi();
+        $marca = new App\TaxiBrand();
         $marca->marca=$request->marca;
         $marca->estado='1';
 
@@ -585,13 +585,13 @@ class PagesController extends Controller
     }
 
     public function detallemarca($id=null){
-        $marca = App\Marcas_Taxi::findOrFail($id);
+        $marca = App\TaxiBrand::findOrFail($id);
 
         return view('taxis.marcas.detalle', compact('marca'));
     }
 
     public function editamarca($id){
-        $marca = App\Marcas_Taxi::findOrFail($id);
+        $marca = App\TaxiBrand::findOrFail($id);
 
         return view('taxis.marcas.edita', compact('marca'));
     }
@@ -601,7 +601,7 @@ class PagesController extends Controller
         var_dump($vehiculos);
         if ($request->estado==0) {
             if ($vehiculos==null) {
-                $marca = App\Marcas_Taxi::findOrFail($id);
+                $marca = App\TaxiBrand::findOrFail($id);
                 $marca->marca = $request->marca;
                 $marca->estado = $request->estado;
 
@@ -612,7 +612,7 @@ class PagesController extends Controller
                 return redirect('taxis/marcas')->with('error', 'No se puede inactivar la marca ' . $request->marca . ' pues tiene vehiculos asociados');
             }
         }else{
-            $marca = App\Marcas_Taxi::findOrFail($id);
+            $marca = App\TaxiBrand::findOrFail($id);
                 $marca->marca = $request->marca;
                 $marca->estado = $request->estado;
 
@@ -886,7 +886,7 @@ class PagesController extends Controller
     public function socio(){
         if (Auth::user()->perfil!==3) {
             $socios = App\User::where('perfil', '=', '4')->paginate(5);
-            $perfiles = App\Perfil::all();
+            $perfiles = App\Profile::all();
 
             return view('socios', compact('socios', 'perfiles'));
         }else{
@@ -906,44 +906,44 @@ class PagesController extends Controller
      *************************************************/
 
     public function tarifa(){
-        $tarifas = App\Tarifa::get();
+        $tarifas = App\Rate::get();
 
         return view('tarifas', compact('tarifas'));
     }
 
     public function editaTarifa(){
-        $tarifas = App\Tarifa::get();
+        $tarifas = App\Rate::get();
 
         return view('taxis.tarifas.edit', compact('tarifas'));
     }
 
     public function editarTarifa(Request $request){
 
-        $lunes = App\Tarifa::findOrFail(1);
+        $lunes = App\Rate::findOrFail(1);
         $lunes->tarifa=$request->Lunes;
         $lunes->save();
 
-        $martes = App\Tarifa::findOrFail(2);
+        $martes = App\Rate::findOrFail(2);
         $martes->tarifa=$request->Martes;
         $martes->save();
 
-        $miercoles = App\Tarifa::findOrFail(3);
+        $miercoles = App\Rate::findOrFail(3);
         $miercoles->tarifa=$request->Miercoles;
         $miercoles->save();
 
-        $jueves = App\Tarifa::findOrFail(4);
+        $jueves = App\Rate::findOrFail(4);
         $jueves->tarifa=$request->Jueves;
         $jueves->save();
 
-        $viernes = App\Tarifa::findOrFail(5);
+        $viernes = App\Rate::findOrFail(5);
         $viernes->tarifa=$request->Viernes;
         $viernes->save();
 
-        $sabado = App\Tarifa::findOrFail(6);
+        $sabado = App\Rate::findOrFail(6);
         $sabado->tarifa=$request->Sabado;
         $sabado->save();
 
-        $domingo = App\Tarifa::findOrFail(7);
+        $domingo = App\Rate::findOrFail(7);
         $domingo->tarifa=$request->Domingo;
         $domingo->save();
 
@@ -952,14 +952,14 @@ class PagesController extends Controller
     }
 
     public function categoria(){
-        $categorias = App\CategoriasGasto::orderBy('categoria')->paginate(10);
+        $categorias = App\ExpenseCategory::orderBy('categoria')->paginate(10);
 
         return view('categorias', compact('categorias'));
     }
 
     public function destalleCategoria($id){
-        $categoria = App\CategoriasGasto::findOrFail($id);
-        $descripciones = App\DescipcionesGasto::where('categoria', '=', $id)->orderBy('descripcion')->paginate(5);
+        $categoria = App\ExpenseCategory::findOrFail($id);
+        $descripciones = App\ExpenseDescription::where('categoria', '=', $id)->orderBy('descripcion')->paginate(5);
 
         return view('taxis.categorias.detalle', compact('categoria', 'descripciones'));
     }

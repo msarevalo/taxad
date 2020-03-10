@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tarifa extends Model
+class TaxiDriver extends Model
 {
     //
 }

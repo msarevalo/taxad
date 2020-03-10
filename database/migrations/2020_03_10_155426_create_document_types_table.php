@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateConductorsTable extends Migration
+class CreateDocumentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateConductorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('conductors', function (Blueprint $table) {
+        Schema::create('document_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('documento')->unique();
-            $table->string('nombres');
-            $table->string('apellidos');
-            $table->integer('estado');
+            $table->string('tipo');
             $table->timestamps();
         });
+
+        DB::table('document_types')->insert(array('tipo'=>'SOAT'));
+        DB::table('document_types')->insert(array('tipo'=>'Tarjeta Propiedad'));
+        DB::table('document_types')->insert(array('tipo'=>'Tarjeton'));
     }
 
     /**
@@ -30,6 +31,6 @@ class CreateConductorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('conductors');
+        Schema::dropIfExists('document_types');
     }
 }

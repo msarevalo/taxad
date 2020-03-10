@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSociosTable extends Migration
+class CreateTaxiDriversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateSociosTable extends Migration
      */
     public function up()
     {
-        Schema::create('socios', function (Blueprint $table) {
+        Schema::create('taxi_drivers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('documento');
-            $table->string('nombres');
-            $table->string('apellidos');
+            $table->integer('idTaxi');
+            $table->integer('idCond');
             $table->integer('estado');
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ class CreateSociosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('socios');
+        Schema::dropIfExists('taxi_drivers');
     }
 }

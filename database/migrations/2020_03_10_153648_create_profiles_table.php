@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePerfilsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class CreatePerfilsTable extends Migration
      */
     public function up()
     {
-        Schema::create('perfils', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombrePerfil');
             $table->timestamps();
         });
 
-        DB::table('perfils')->insert(array('nombrePerfil'=>'Superadmin'));
-        DB::table('perfils')->insert(array('nombrePerfil'=>'Admin'));
-        DB::table('perfils')->insert(array('nombrePerfil'=>'Conductor'));
-        DB::table('perfils')->insert(array('nombrePerfil'=>'Socio'));
+        DB::table('profiles')->insert(array('nombrePerfil'=>'Superadmin'));
+        DB::table('profiles')->insert(array('nombrePerfil'=>'Admin'));
+        DB::table('profiles')->insert(array('nombrePerfil'=>'Conductor'));
+        DB::table('profiles')->insert(array('nombrePerfil'=>'Socio'));
     }
 
     /**
@@ -32,6 +32,6 @@ class CreatePerfilsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perfils');
+        Schema::dropIfExists('profiles');
     }
 }
