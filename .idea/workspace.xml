@@ -2,26 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b7c2c483-1704-4a99-9d4b-f356f1251d90" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Home.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PagesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/session.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/session.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_10_26_012435_create_conductores__taxis_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_26_012435_create_conductores__taxis_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/autenticacion.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/autenticacion.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/conductores.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/conductores.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/conductores/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/conductores/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/asigna.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/asigna.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/detalle.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/detalle.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/edita.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/edita.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/marcas.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/marcas.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/marcas/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/marcas/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/taxis/marcas/edita.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/taxis/marcas/edita.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/taxis/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="72" column="11" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
+            <state relative-caret-position="1258">
+              <caret line="74" column="11" selection-start-line="74" selection-start-column="11" selection-end-line="74" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -86,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/resources/views/taxis.blade.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="274">
-              <caret line="52" column="45" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="45" />
+              <caret line="60" column="45" selection-start-line="60" selection-start-column="45" selection-end-line="60" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -256,7 +237,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -333,11 +313,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/PhpstormProjects/generador-codigos-reservas" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PhpstormProjects/catalogo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -380,17 +361,19 @@
       <updated>1571771126900</updated>
       <workItem from="1571771128213" duration="62013000" />
       <workItem from="1579279172564" duration="660000" />
+      <workItem from="1583529564936" duration="621000" />
+      <workItem from="1583779879937" duration="616000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62673000" />
+    <option name="totallyTimeSpent" value="63910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.2708018" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.27912253" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
@@ -681,8 +664,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/taxis/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="72" column="11" selection-start-line="72" selection-start-column="11" selection-end-line="72" selection-end-column="11" />
+        <state relative-caret-position="1258">
+          <caret line="74" column="11" selection-start-line="74" selection-start-column="11" selection-end-line="74" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -696,7 +679,7 @@
     <entry file="file://$PROJECT_DIR$/resources/views/taxis.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="274">
-          <caret line="52" column="45" selection-start-line="52" selection-start-column="45" selection-end-line="52" selection-end-column="45" />
+          <caret line="60" column="45" selection-start-line="60" selection-start-column="45" selection-end-line="60" selection-end-column="45" />
         </state>
       </provider>
     </entry>
