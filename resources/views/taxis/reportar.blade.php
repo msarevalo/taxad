@@ -131,7 +131,7 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table class="table col-3">
+								<table class="table col-3" style="width: 350px">
 									<thead class="thead-light" style="cursor: pointer;">
 										<tr>
 											<th colspan="3" style="text-align: center;">
@@ -227,7 +227,7 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table>
+								<table class="table col-3" style="width: 350px">
 									<thead class="thead-light" style="cursor: pointer;">
 										<tr>
 											<th colspan="3" style="text-align: center;">
@@ -324,7 +324,7 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table>
+								<table class="table col-3" style="width: 350px">
 									<thead class="thead-light" style="cursor: pointer;">
 										<tr>
 											<th colspan="3" style="text-align: center;">
@@ -419,7 +419,7 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table>
+								<table class="table col-3" style="width: 350px">
 									<thead class="thead-light" style="cursor: pointer;">
 										<tr>
 											<th colspan="3" style="text-align: center;">
@@ -516,7 +516,7 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table>
+								<table class="table col-3" style="width: 350px">
 									<thead class="thead-light" style="cursor: pointer;">
 										<tr>
 											<th colspan="3" style="text-align: center;">
@@ -611,7 +611,7 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table>
+								<table class="table col-3" style="width: 350px">
 									<thead class="thead-light" style="cursor: pointer;">
 										<tr>
 											<th colspan="3" style="text-align: center;">
@@ -708,8 +708,14 @@
 					<div class="showcase--wrapper">
 						<div class="accordion-wrapper">
 							<div class="accordion-tab"> 
-								<table>
-									<thead class="thead-light" style="cursor: pointer;"><tr><th colspan="3" style="text-align: center;">Sabado</th></tr></thead>
+								<table class="table col-3" style="width: 350px">
+									<thead class="thead-light" style="cursor: pointer;">
+										<tr>
+											<th colspan="3" style="text-align: center;">
+												Sabado
+											</th>
+										</tr>
+									</thead>
 								</table>
 							</div>
 							<div class="accordion-panel tab-collapsed">
@@ -794,48 +800,67 @@
 					</div>
 				</th>
 				<th>
-					<table>
-						<thead class="thead-dark"><tr><th colspan="3" style="text-align: center;">TOTAL SEMANA</th></tr></thead>
-						<tbody>
-							<tr>
-								<th>
-									<div class="">
-										<label for="producidoSem" class="col-md-4 col-form-label text-md-right">{{ __('Producidos') }}</label>
-									</div>
-								</th>
-								<th>
-									<div class="col-md-12">
-										<input id="producidoSem" type="number" class="form-control @error('producidoSem') is-invalid @enderror" name="producidoSem" value="{{$tarifas[0]->tarifa+$tarifas[1]->tarifa+$tarifas[2]->tarifa+$tarifas[3]->tarifa+$tarifas[4]->tarifa+$tarifas[5]->tarifa+$tarifas[6]->tarifa}}" required autocomplete="producidoSem" autofocus disabled>
+					<div class="showcase--wrapper">
+						<div class="accordion-wrapper">
+							<div class="accordion-tab"> 
+								<table class="table col-3" style="width: 350px">
+									<thead class="thead-dark" style="cursor: pointer;">
+										<tr>
+											<th colspan="3" style="text-align: center;">
+												TOTAL SEMANA
+											</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<div class="accordion-panel tab-collapsed">
+								<div class="accordion-panel-content">
+									<table>
 
-										@error('producidoSem')
-										<span class="invalid-feedback" role="alert">
-											<strong>{{ $message }}</strong>
-										</span>
-										@enderror
-									</div>
-									
-								</th>
-							</tr>
+										<tbody>
+											<tr>
+												<th>
+													<div class="">
+														<label for="producidoSem" class="col-md-4 col-form-label text-md-right">{{ __('Producidos') }}</label>
+													</div>
+												</th>
+												<th>
+													<div class="col-md-12">
+														<input id="producidoSem" type="number" class="form-control @error('producidoSem') is-invalid @enderror" name="producidoSem" value="{{$tarifas[0]->tarifa+$tarifas[1]->tarifa+$tarifas[2]->tarifa+$tarifas[3]->tarifa+$tarifas[4]->tarifa+$tarifas[5]->tarifa+$tarifas[6]->tarifa}}" required autocomplete="producidoSem" autofocus disabled>
 
-							<tr>
-								<th>
-									<div class="">
-										<label for="gastosSem" class="col-md-4 col-form-label text-md-right">{{ __('Gastos') }}</label>
-									</div>
-								</th>
-								<th>
-									<div class="col-md-12">
-										<input id="gastosSem" type="number" class="form-control @error('gastosSem') is-invalid @enderror" name="gastosSem" value="0" required autocomplete="gastosSem" autofocus disabled>
-										@error('gastosSem')
-										<span class="invalid-feedback" role="alert">
-											<strong>{{ $message }}</strong>
-										</span>
-										@enderror
-									</div>	
-								</th>
-							</tr>
-						</tbody>
-					</table>
+														@error('producidoSem')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</span>
+														@enderror
+													</div>
+
+												</th>
+											</tr>
+
+											<tr>
+												<th>
+													<div class="">
+														<label for="gastosSem" class="col-md-4 col-form-label text-md-right">{{ __('Gastos') }}</label>
+													</div>
+												</th>
+												<th>
+													<div class="col-md-12">
+														<input id="gastosSem" type="number" class="form-control @error('gastosSem') is-invalid @enderror" name="gastosSem" value="0" required autocomplete="gastosSem" autofocus disabled>
+														@error('gastosSem')
+														<span class="invalid-feedback" role="alert">
+															<strong>{{ $message }}</strong>
+														</span>
+														@enderror
+													</div>	
+												</th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
 					<table>
 						<thead><tr><td colspan="3" style="text-align: center;">TOTAL A PAGAR</td></tr></thead>
 						<tbody>
@@ -872,127 +897,126 @@
 		</tbody>
 	</table>
 </form>
-	<!--<input type="date" name="inicio" id="inicio" value="">
-		<input type="date" name="fin" id="fin">-->
-		<style type="text/css">
-			// Shades
-			$c-grey--lightest: #f2f2f2;
-			$c-grey--lighter: #ebebeb;
-			$c-grey--light: #e8e7e6;
-			$c-grey: #cccbca;
-			$c-grey--darker: #adadac;
-			$c-grey--darkest: #575756;
-			$c-grey-slate: #708090;
+
+<style type="text/css">
+	// Shades
+	$c-grey--lightest: #f2f2f2;
+	$c-grey--lighter: #ebebeb;
+	$c-grey--light: #e8e7e6;
+	$c-grey: #cccbca;
+	$c-grey--darker: #adadac;
+	$c-grey--darkest: #575756;
+	$c-grey-slate: #708090;
 
 
 
-			.accordion-wrapper {
-				border-top: 1px solid $c-grey--lightest;
-				box-shadow: 0px 1px 0px $c-grey--lightest;
-				background: white;
-			}
+	.accordion-wrapper {
+		border-top: 1px solid $c-grey--lightest;
+		box-shadow: 0px 1px 0px $c-grey--lightest;
+		background: white;
+	}
 
 
-			.accordion-tab {
-				padding: 1px 18px;
-				background: transparent;
-				transition: 0.4s;
-				position: relative;
-				padding-right: 86px;
+	.accordion-tab {
+		padding: 1px 18px;
+		background: transparent;
+		transition: 0.4s;
+		position: relative;
+		padding-right: 86px;
 
 
-				&:hover {
-					cursor: pointer;
-				}
+		&:hover {
+			cursor: pointer;
+		}
 
-				&::before {
-					content:'';
-					height: 4px;
-					width: 28px;
-					background-color: $c-grey--darker;
-					position: absolute;
-					right: 40px;
-					top: 32px;
-					transition: 0.4s;
-				}
+		&::before {
+			content:'';
+			height: 4px;
+			width: 28px;
+			background-color: $c-grey--darker;
+			position: absolute;
+			right: 40px;
+			top: 32px;
+			transition: 0.4s;
+		}
 
-				&::after {
-					content:'';
-					height: 4px;
-					width: 28px;
-					background-color: $c-grey--darker;
-					position: absolute;
-					right: 40px;
-					top: 32px;
-					transform: rotate(-90deg);
-					transition: 0.4s;
-				}
-			}
+		&::after {
+			content:'';
+			height: 4px;
+			width: 28px;
+			background-color: $c-grey--darker;
+			position: absolute;
+			right: 40px;
+			top: 32px;
+			transform: rotate(-90deg);
+			transition: 0.4s;
+		}
+	}
 
-			.accordion-tab.tab-active {
-				background: $c-grey--lightest;
-				transition: 0.2s;
-				box-shadow: inset 0px 2px 3px $c-grey--lighter;
+	.accordion-tab.tab-active {
+		background: $c-grey--lightest;
+		transition: 0.2s;
+		box-shadow: inset 0px 2px 3px $c-grey--lighter;
 
-				&::after {
-					transform: rotate(0deg);
-					transition: 0.2s;
-				}
-			}
+		&::after {
+			transform: rotate(0deg);
+			transition: 0.2s;
+		}
+	}
 
 
 
-			.accordion-panel {
-				display: block;
-				transition: 0.4s;
-				max-height: none;
-				overflow: hidden;
-				background: $c-grey--lightest;
-			}
+	.accordion-panel {
+		display: block;
+		transition: 0.4s;
+		max-height: none;
+		overflow: hidden;
+		background: $c-grey--lightest;
+	}
 
-			.accordion-panel.tab-collapsed {
-				max-height: 0;
-				transition: 0.2s;
+	.accordion-panel.tab-collapsed {
+		max-height: 0;
+		transition: 0.2s;
 
-				.accordion-panel-content {
-					transform: translateY(-100px);
-					transition: 0.2s;
-				}
-			}
+		.accordion-panel-content {
+			transform: translateY(-100px);
+			transition: 0.2s;
+		}
+	}
 
-			.accordion-panel-content {
-				padding: 6px 18px 18px;
-				transition: 0.2s ease;
-				transform: translateY(0);
-				transform-origin: 50% 0;
-			}
+	.accordion-panel-content {
+		padding: 6px 18px 18px;
+		transition: 0.2s ease;
+		transform: translateY(0);
+		transform-origin: 50% 0;
+	}
 
-			.showcase--wrapper {
-				max-width: 800px;
-				margin: 0 auto;
-			}
+	.showcase--wrapper {
+		max-width: 800px;
+		margin: 0 auto;
+	}
 
-		</style>
+</style>
 
-		<script type="text/javascript">
-			function accordionToggle() {
-				var accordion = document.getElementsByClassName('accordion-wrapper');
+<script type="text/javascript">
+	function accordionToggle() {
+		var accordion = document.getElementsByClassName('accordion-wrapper');
 
-				for (i = 0; i < accordion.length; i++) {
-					var tab = accordion[i].querySelector('.accordion-tab');
+		for (i = 0; i < accordion.length; i++) {
+			var tab = accordion[i].querySelector('.accordion-tab');
 
-					tab.addEventListener('click', function() {
-						this.classList.toggle("tab-active");
-						var panel = this.nextElementSibling;
-						panel.classList.toggle("tab-collapsed");
-					});   
-				}  
-			}
+			tab.addEventListener('click', function() {
+				this.classList.toggle("tab-active");
+				var panel = this.nextElementSibling;
+				panel.classList.toggle("tab-collapsed");
+			});   
+		}  
+	}
 
-			accordionToggle();
-		</script>
-		@endsection
+	accordionToggle();
+</script>
+@endsection
 
-		@section('scripts')
-		<script src="/js/reporta.js"></script>
-		@endsection
+@section('scripts')
+<script src="/js/reporta.js"></script>
+@endsection
