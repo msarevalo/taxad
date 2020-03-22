@@ -73,12 +73,12 @@
                 <td>{{$taxi->created_at}}</td>
                 <td>                    
                     <a href="{{route('taxi.edita', $taxi->id)}}" style="text-decoration: none">
-                        <img src="../../img/edit.png" style="width: 20%" title="Editar">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: black"></i>
                     </a>
                     
                     @if($taxi->estado==1 && $contador!=0)
                         <a href="{{route('taxi.reporta', $taxi->id)}}" style="text-decoration: none">
-                            <img src="../../img/ingresos.png" style="width: 20%" title="Reportar">
+                            <img src="../../img/ingresos.png" style="width: 15%" title="Reportar">
                         </a>
                     @endif
                     @if($contador==0)

@@ -1,3 +1,10 @@
+<?php
+include '..\App\Http\Controllers\MenuController.php';
+
+$menu = $items->menus();
+$separa = $items->separador();
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,7 +15,9 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
     <title>TAXAD</title>
     <link rel="shortcut icon" href="../../../img/logo.ico" />
@@ -122,133 +131,90 @@
         <!-- Bootstrap List Group -->
         <ul class="list-group">
             <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small>TAXAD | Taxi Administrator</small>
-            </li>
-            <a href="#" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../../img/account.png" style="width: 20px"></span>
-                    <span class="menu-collapsed">{{ Auth::user()->name }} {{ Auth::user()->lastname }}</span>
-                </div>
-            </a>
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-                <small>ADMINISTRACION</small>
-            </li>
-            <!-- /END Separator -->
-            <!-- Menu with submenu -->
-            @if(Auth::user()->perfil!==3)
-            <a href="{{ route('home') }}" class="bg-dark list-group-item list-group-item-action">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-fw mr-3"><img src="../../../img/dashboard.png" style="width: 20px"></span>
-                    <span class="menu-collapsed">Dashboard</span>
-                </div>
-            </a>
-            <!-- Submenu content -->
-        <!--
-        <div id='submenu1' class="collapse sidebar-submenu">
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Charts</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Reports</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Tables</span>
-            </a>
-        </div>-->
-        @if(Auth::user()->perfil===1)
-        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-fw mr-3"><img src="../../../img/user.png" style="width: 20px"></span>
-                <span class="menu-collapsed">Usuarios</span>
-                <span class="submenu-icon ml-auto"></span>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        <div id='submenu2' class="collapse sidebar-submenu">
-            <a href="{{ route('admin') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Administradores</span>
-            </a>
-            <a href="{{ route('conductor') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Conductores</span>
-            </a>
-            <a href="{{ route('socios') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Socios</span>
-            </a>
-        </div>  
-        @else
-        <a href="{{ route('conductor') }}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-fw mr-3"><img src="../../../img/user.png" style="width: 20px"></span>
-                <span class="menu-collapsed">Conductores</span>
-            </div>
-        </a>
-        @endif
-        <a href="#submenu3" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-fw mr-3"><img src="../../../img/vehicle.png" style="width: 20px"></span>
-                <span class="menu-collapsed">Taxis</span> 
-                <span class="submenu-icon ml-auto"></span>   
-            </div>
-        </a>
-        <div id='submenu3' class="collapse sidebar-submenu">
-            <a href="{{ route('tarifa') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Tarifas</span>
-            </a>
-            <a href="{{ route('categoria') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Categorias Gastos</span>
-            </a>
-            <a href="{{ route('tarifa') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Descripciones Gastos</span>
-            </a>
-            <a href="{{ route('marcas') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Marcas</span>
-            </a>
-            <a href="{{ route('taxis') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Vehiculos</span>
-            </a>
-        </div>
-        @endif
-        <!-- Separator with title -->
-        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-            <small>OPCIONES</small>
-        </li>
-        <!-- /END Separator -->
-        <a href="{{ route('calendario') }}" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-fw mr-3"><img src="../../../img/calendar.png" style="width: 20px"></span>
-                <span class="menu-collapsed">Calendario</span>
-            </div>
-        </a>
-        <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-envelope-o fa-fw mr-3"><img src="../../../img/notification.png" style="width: 20px"></span>
-                <span class="menu-collapsed">Notificaciones<span class="badge badge-pill badge-primary ml-2" id="alertas"></span></span>
-            </div>
-        </a>
-        <!-- Separator without title -->
-        
-        <!-- /END Separator -->
-        <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-fw mr-3"><img src="../../../img/help.png" style="width: 20px"></span>
-                <span class="menu-collapsed">Ayuda</span>
-            </div>
-        </a>
-        <a href="{{ route('logout') }}" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center" onclick="event.preventDefault();
-        document.getElementById('logout-form').submit();">
-        <div class="d-flex w-100 justify-content-start align-items-center">
-            <span id="collapse-icon" class="fa fa-2x mr-3"><img src="../../../img/logout.png" style="width: 20px"></span>
-            <span id="collapse-text" class="menu-collapsed">Cerrar Sesión</span>
-        </div>
-    </a>
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        @csrf
-    </form>
+            <?php 
+        for ($i=0; $i < sizeof($menu); $i++):
+            if ($menu[$i]['submenu']==0) {
+                for ($k=0; $k < sizeof($separa) ; $k++) { 
+                    if ($separa[$k]['menu_posterior']==$menu[$i]['id']) {
+                    ?>
+                        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                            <small>{{$separa[$k]['nombre']}}</small>
+                        </li>
+                    <?php
+                    }
+                }
+                if ($menu[$i]['ruta']!==NULL) {
+                    $ruta = $menu[$i]['ruta'];
+                    $icono = $menu[$i]['class'];
+                    $nombre = $menu[$i]['nombre'];
+                    if ($nombre==="Perfil") {
+                        $nombre = Auth::user()->name . " " . Auth::user()->lastname;
+                    }
+                    if ($nombre!=="Cerrar Sesión") {    
+                    ?>
+                        <a href="{{ $ruta }}" class="bg-dark list-group-item list-group-item-action">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span class="fa fa-fw mr-3"><i class="{{$icono}}" aria-hidden="true"></i></span>
+                                <span class="menu-collapsed">{{$nombre}}</span>
+                            </div>
+                        </a>
+                    <?php
+                    }else{
+                    ?>
+                        <a href="{{ route('logout') }}" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <div class="d-flex w-100 justify-content-start align-items-center">
+                                <span id="collapse-icon" class="a fa-fw mr-3"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                                <span id="collapse-text" class="menu-collapsed">Cerrar Sesión</span>
+                            </div>
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    <?php
+                    }
+                }else{
+                    $ruta = "submenu" . $menu[$i]['id'];
+                    $icono = $menu[$i]['class'];
+                    $nombre = $menu[$i]['nombre'];
+
+                    ?>
+
+                    <a href="#{{$ruta}}" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-fw mr-3"><i class="{{$icono}}" aria-hidden="true"></i></span>
+                            <span class="menu-collapsed">{{$nombre}}</span> 
+                            <span class="submenu-icon ml-auto"></span>   
+                        </div>
+                    </a>
+                    <div id='{{$ruta}}' class="collapse sidebar-submenu">
+                        <?php
+                        $hijos = $items->hijos($menu[$i]['id']);
+                        for ($j=0; $j < sizeof($hijos); $j++):
+                            if ($menu[$i]['id']==$hijos[$j]['menu_padre']) {
+                                
+                                if ($hijos[$j]['ruta']!==NULL) {
+                                    $rutah = $hijos[$j]['ruta'];
+                                    $nombreh = $hijos[$j]['nombre'];
+                                    ?>
+                                    <a href="{{ $rutah }}" class="list-group-item list-group-item-action bg-dark text-white">
+                                        <span class="menu-collapsed">{{$nombreh}}</span>
+                                    </a>
+                                    <?php
+                                }
+                            }
+                        endfor
+                        ?>
+                    </div>
+                    <?php
+                }
+            }
+        endfor
+    ?>
     <!-- Logo -->
     <li class="list-group-item logo-separator d-flex justify-content-center">
         <img src='../../../img/logo100x100.png' width="30" height="30" />    
     </li>   
+
 </ul><!-- List Group END-->
 </div><!-- sidebar-container END -->
 

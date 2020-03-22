@@ -29,8 +29,10 @@
       			</td>
       			<td>
       				<a href="#" style="text-decoration: none">
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/edit.png" style="width: 230%" title="Editar"></button>
-                    </a>
+                <button style="width: 30px; height: 30px" class="btn btn-sm">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </button>
+              </a>
       			</td>
       		</tr>
       	@endforeach

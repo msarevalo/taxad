@@ -51,7 +51,7 @@
                 <td>{{$marca->created_at}}</td>
                 <td>
                     <a href="{{route('marca.edita', $marca)}}">
-                        <img src="../../img/edit.png" style="width: 5%" title="Editar">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                     </a>
                 </td>
             </tr>

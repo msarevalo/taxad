@@ -172,3 +172,39 @@ Route::put('/tarifa', 'PagesController@editarTarifa')->name('tarifa.editar');
 Route::get('/categoria', 'PagesController@categoria')->name('categoria');
 
 Route::get('/categoria/detalle/{id?}', 'PagesController@destalleCategoria')->name('categoria.detalle');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Menus*************
+ *************************************************
+ *************************************************/
+
+Route::get('/administrativo/menus', 'PagesController@menus')->name('menus');
+
+Route::get('/administrativo/menus/edita/{id?}', 'PagesController@editamenu')->name('menu.edita');
+
+Route::put('/administrativo/menus/{id}', 'PagesController@editarMenu')->name('menu.editar');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Separadores*******
+ *************************************************
+ *************************************************/
+
+Route::get('/administrativo/separadores', 'PagesController@separadores')->name('separador');
+
+Route::get('/administrativo/separadores/edita/{id?}', 'PagesController@editaSepara')->name('separador.edita');
+
+Route::put('/administrativo/separadores/{id}', 'PagesController@editarSepara')->name('separador.editar');
+
+Route::get('/administrativo/separadores/crea', 'PagesController@creaSepara')->name('separador.crea');
+
+Route::post('/administrativo/separadores', 'PagesController@crearSepara')->name('separador.crear');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Perfiles**********
+ *************************************************
+ *************************************************/
+
+Route::get('/administrativo/perfiles', 'PagesController@perfiles')->name('perfil');

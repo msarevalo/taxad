@@ -86,11 +86,11 @@
                     <form action="{{route('conductor.negar', $conductor)}}" method="post" class="d-inline">
                         @method('DELETE')
                         @csrf
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/negar.png" style="width: 150%; text-decoration: none"></button>
+                        <button style="width: 30px; height: 30px" class="btn btn-sm"><i class="fa fa-user-times" aria-hidden="true" title="Negar"></i></button>
                     </form>
                 @else
                     <a href="{{route('conductor.edita', $conductor)}}" style="text-decoration: none">
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/edit.png" style="width: 230%" title="Editar"></button>
+                        <button style="width: 30px; height: 30px" class="btn btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                     </a>
                 @endif
             </td>
