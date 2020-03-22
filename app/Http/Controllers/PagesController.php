@@ -1080,4 +1080,45 @@ class PagesController extends Controller
         return view('perfiles', compact('perfiles'));
     }
 
+    public function editaPerfil($id){
+        $perfil = App\Profile::findOrFail($id);
+
+        return view('administrativo.perfiles.edit', compact('perfil'));
+    }
+
+    public function editarPerfil(Request $request, $id){
+        $perfil = App\Profile::findOrFail($id);
+
+        $perfil->nombrePerfil=$request->nombre;
+        $perfil->estado = $request->estado;
+        
+        $perfil->save();
+
+        return redirect('administrativo/perfiles')->with('mensaje', 'Se edito el perfil con exito');
+
+    }
+
+    /*************************************************
+     *************************************************
+     * Creacion y administracion de Permisos**********
+     *************************************************
+     *************************************************/
+
+    public function permisos(){
+        $menus = App\Menu::count();
+        $permisos = DB::table('permissions')
+                        ->select(DB::raw('perfil, count(*) as conteo'))
+                        ->where('permisos_menu', '=', 1)
+                        ->groupBy('perfil')->get();
+        $listap = App\Profile::where('estado', '=', 1)->get();
+
+        return view('permisos', compact('menus', 'permisos', 'listap'));
+    }
+
+    public function configuraPermisos($id){
+        $perfil = App\Permission::where('perfil', '=', $id)->get();
+
+        return view('administrativo.permisos.configurar', compact('perfil'));
+    }
+
 }

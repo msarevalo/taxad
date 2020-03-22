@@ -21,7 +21,8 @@ class CreateDocumentTypesTable extends Migration
 
         DB::table('document_types')->insert(array('tipo'=>'SOAT'));
         DB::table('document_types')->insert(array('tipo'=>'Tarjeta Propiedad'));
-        DB::table('document_types')->insert(array('tipo'=>'Tarjeton'));
+        DB::table('document_types')->insert(array('tipo'=>'Tarjeta de Operacion'));
+        DB::table('document_types')->insert(array('tipo'=>'Revision Tecnomecanica'));
     }
 
     /**

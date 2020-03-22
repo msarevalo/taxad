@@ -208,3 +208,17 @@ Route::post('/administrativo/separadores', 'PagesController@crearSepara')->name(
  *************************************************/
 
 Route::get('/administrativo/perfiles', 'PagesController@perfiles')->name('perfil');
+
+Route::get('/administrativo/perfiles/edita/{id}', 'PagesController@editaPerfil')->name('perfil.edita');
+
+Route::put('/administrativo/perfiles/{id}', 'PagesController@editarPerfil')->name('perfil.editar');
+
+/*************************************************
+ *************************************************
+ * Creacion y administracion de Permisos**********
+ *************************************************
+ *************************************************/
+
+Route::get('/administrativo/permisos', 'PagesController@permisos')->name('permisos');
+
+Route::get('/administrativo/permisos/configurar/{id}', 'PagesController@configuraPermisos')->name('permisos.configura');
