@@ -1117,8 +1117,10 @@ class PagesController extends Controller
 
     public function configuraPermisos($id){
         $perfil = App\Permission::where('perfil', '=', $id)->get();
+        $nombre = App\Profile::findOrFail($id);
+        $menus = App\Menu::select('id', 'nombre')->where([['nombre', '<>', 'Perfil'], ['nombre', '<>', 'Cerrar Sesión']])->get();
 
-        return view('administrativo.permisos.configurar', compact('perfil'));
+        return view('administrativo.permisos.configurar', compact('perfil', 'menus', 'nombre'));
     }
 
 }
