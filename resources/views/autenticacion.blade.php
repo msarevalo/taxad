@@ -20,7 +20,7 @@ $separa = $items->separador();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
 
     <title>TAXAD</title>
-    <link rel="shortcut icon" href="../../../img/logo.ico" />
+    <link rel="shortcut icon" href="../../../../img/logo.ico" />
 </head>
 <body>
     <div class="container-fluid p-0">
@@ -212,7 +212,7 @@ $separa = $items->separador();
     ?>
     <!-- Logo -->
     <li class="list-group-item logo-separator d-flex justify-content-center">
-        <img src='../../../img/logo100x100.png' width="30" height="30" />    
+        <img src='../../../../img/logo100x100.png' width="30" height="30" />    
     </li>   
 
 </ul><!-- List Group END-->

@@ -543,17 +543,17 @@ class PagesController extends Controller
             if ($gastos==0) {
                 return redirect('taxis')->with('mensaje', 'Reporte de la semana ' . $request->semana . ' creado con exito');   
             }else{
-                return redirect('taxis/gastos/' . $id . '/' . $request->semana);
+                return redirect('taxis/gastos/' . $id . '/' . $request->semana . '/' . $gastos);
             }
 
         }else{
-            return redirect('taxis.reporta')->with('error', 'Ya se encuentra un registro para esta semana con este vehiculo');
+            return redirect('taxis/reporta/' . $id)->with('error', 'Ya se encuentra un registro para esta semana con este vehiculo');
         }
     }
 
-    public function gastos($id, $w){
+    public function gastos($id, $w, $val){
 
-        return view('taxis/gastos', compact('id', 'w'));
+        return view('taxis/gastos', compact('id', 'w', 'val'));
     }
 
     /*************************************************
@@ -1108,7 +1108,7 @@ class PagesController extends Controller
         $menus = App\Menu::count();
         $permisos = DB::table('permissions')
                         ->select(DB::raw('perfil, count(*) as conteo'))
-                        ->where('permisos_menu', '=', 1)
+                        ->where('ver', '=', 1)
                         ->groupBy('perfil')->get();
         $listap = App\Profile::where('estado', '=', 1)->get();
 
@@ -1116,11 +1116,12 @@ class PagesController extends Controller
     }
 
     public function configuraPermisos($id){
-        $perfil = App\Permission::where('perfil', '=', $id)->get();
+        $perfil = App\Permission::where([['perfil', '=', $id], ['menu', '<>', 1], ['menu', '<>', 21]])->get();
         $nombre = App\Profile::findOrFail($id);
-        $menus = App\Menu::select('id', 'nombre')->where([['nombre', '<>', 'Perfil'], ['nombre', '<>', 'Cerrar Sesión']])->get();
+        $menus = App\Menu::select('id', 'nombre')->where([['nombre', '<>', 'Perfil'], ['nombre', '<>', 'Cerrar Sesión']])->paginate(5);
 
         return view('administrativo.permisos.configurar', compact('perfil', 'menus', 'nombre'));
     }
+
 
 }

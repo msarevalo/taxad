@@ -12,6 +12,16 @@
 @php($maximo=$año . '-W' . $semana)
 @endif
 @php($dia=date("Y-m-d"))
+
+@if(session('error'))
+    <div class="alert alert-danger">
+        {{session('error')}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+@endif
+
 <div style="height:30px"></div>
 <form action="{{ route('taxi.reportar', $taxi->id) }}" method="post">
 	@method('PUT')

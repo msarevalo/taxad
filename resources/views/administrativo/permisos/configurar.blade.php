@@ -28,15 +28,18 @@
 					{{$menu->nombre}}
 				</td>
 				<td>
-					<select style="text-transform: capitalize" name="{{$menu->nombre}}[]" class="form-control mb-2" multiple="multiple" required>
-						<option style="text-transform: capitalize" value="verm-{{$menu->id}}">Ver Menu</option>
-		                <option style="text-transform: capitalize" value="ver-{{$menu->id}}">Ver</option>
-		                <option style="text-transform: capitalize" value="crear-{{$menu->id}}">Crear</option>
-		                <option style="text-transform: capitalize" value="editar-{{$menu->id}}">Editar</option>
-		                <option style="text-transform: capitalize" value="eliminar-{{$menu->id}}">Eliminar</option>
+					<select style="text-transform: capitalize" name="{{$menu->nombre}}[]" class="custom-select" multiple="multiple" required style="">
+					@foreach($perfil as $per)
+						@if($per->menu==$menu->id)
+							@if($per->ver==1)
+								<option style="text-transform: capitalize" value="verm-{{$menu->id}}" selected>Ver</option>
+							@endif
+						@endif
+			        @endforeach
 		            </select>
 				</td>
 			</tr>
 		@endforeach
 	</tbody>
+	{{$menus->links()}}
 @endsection
