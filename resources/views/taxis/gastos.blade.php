@@ -2,30 +2,47 @@
 
 @section('formulario')
 
-@dump($w[0] . $w[1] . $w[2] . $w[3] . ' ' . $w[6] . $w[7])
-@dump($val)
+<table>
+	<thead>
+		<th>
+			Valor Gastos Semana
+		</th>
+		<th>
+			Valor Ingresado
+		</th>
+	</thead>
+	<tbody>
+		<th>
+			<p>{{$val}}</p>
+		</th>
+		<th id="ingreso">
+			<p>0</p>
+		</th>
+	</tbody>
+</table>
 
-<input type="date" name="" max="{{$w}}">
-<br />
-
-<div class="form-group">
-	<label for="quantity" class="col-sm-2 control-label">Quantity</label>
-	<div class="col-sm-10">
-		<div class="input-group">
-			<input type="range" min="0" max="{{$val}}" step="1" onchange="barra()" class="input-range-bar" id="input-range-bar" value="0">
-			<div class="input-group-addon">
-				<input type="number" min="1" max="{{$val}}" step="1" onchange="caja()" class="input-range-box" id="input-range-box">
-			</div>
-		</div>
-	</div>
+<div class="form-group row">
+    <label for="cantidad" class="col-md-4 col-form-label text-md-right">{{ __('Cantidad de Gastos') }}</label>
+    <div class="col-md-6">
+        <input id="cantidad" type="number" class="form-control @error('cantidad') is-invalid @enderror" name="cantidad" value="0" required autofocus min="1" max="15" onchange="ciclo('{{$val}}')">
+        @error('document')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
 </div>
 
+<div id="respuesta" class="respuesta">
 
+</div>
+
+<input type="submit" name="enviar" id="enviar" value="Prueba" disabled>
 
 <style type="text/css">
 	input[type=range] { 
 	-webkit-appearance: none;
-	width: 70%;
+	width: 50%;
 }
 
 input[type=range]::-webkit-slider-runnable-track {
@@ -57,5 +74,6 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 @endsection
 	
 @section('scripts')
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 	<script src="../../../../js/gastos.js"></script>
 @endsection

@@ -552,8 +552,10 @@ class PagesController extends Controller
     }
 
     public function gastos($id, $w, $val){
+        $categorias = App\ExpenseCategory::where('estado', '=', 1)->get();
+        $descripciones = App\ExpenseDescription::where('estado', '=', 1)->get();
 
-        return view('taxis/gastos', compact('id', 'w', 'val'));
+        return view('taxis/gastos', compact('id', 'w', 'val', 'categorias', 'descripciones'));
     }
 
     /*************************************************

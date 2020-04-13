@@ -18,3 +18,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/notificaciones/{id}/alertas', 'PagesController@notificaciones');
+
+Route::get('/encriptar/{pass}', 'ApiController@encrip');
+
+Route::get('/categoria', 'ApiController@categorias');
+
+Route::get('categoria/{id}/descripciones', 'ApiController@descripciones');
