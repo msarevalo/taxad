@@ -42,6 +42,9 @@ function ingresado(cantidad, valor){
 }
 
 function ciclo(valor){
+	var ingre = '<p>0</p>';
+	$('#ingreso').html(ingre);
+	document.getElementById('enviar').disabled=true;
 	var cantidad = $("#cantidad").val();
 	var html = "";
 	for(var i=1; i<=cantidad;i++){

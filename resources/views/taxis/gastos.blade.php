@@ -38,7 +38,14 @@
 
 </div>
 
-<input type="submit" name="enviar" id="enviar" value="Prueba" disabled>
+
+<div class="form-group row mb-0">
+	<div class="col-md-6 offset-md-4">
+		<button type="submit" class="btn btn-primary" id="enviar" name="enviar" disabled>
+			{{ __('Editar') }}
+		</button>
+	</div>
+</div>
 
 <style type="text/css">
 	input[type=range] { 
