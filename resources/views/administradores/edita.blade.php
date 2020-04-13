@@ -48,26 +48,12 @@
             </div>
 
             <div class="form-group row">
-                <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Paterno') }}</label>
+                <label for="lastname" class="col-md-4 col-form-label text-md-right">{{ __('Apellidos') }}</label>
 
                 <div class="col-md-6">
                     <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ $conductor->lastname }}" required autocomplete="lastname" autofocus>
 
                     @error('lastname')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="lastname2" class="col-md-4 col-form-label text-md-right">{{ __('Apellido Materno') }}</label>
-
-                <div class="col-md-6">
-                    <input id="lastname2" type="text" class="form-control @error('lastname2') is-invalid @enderror" name="lastname2" value="{{ $conductor->lastname2 }}" required autocomplete="lastname2" autofocus>
-
-                    @error('lastname2')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

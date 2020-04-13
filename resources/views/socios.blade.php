@@ -61,7 +61,7 @@
             </td>
             <td>
                 <a href="{{route('conductor.detalle', $conductor)}}">
-                    {{$socio->name . " " .  $socio->lastname . " " . $socio->lastname2}}
+                    {{$socio->name . " " .  $socio->lastname}}
                 </a>
             </td>
             <td>

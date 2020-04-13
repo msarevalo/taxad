@@ -130,8 +130,7 @@ class PagesController extends Controller
                 $conductor->username=strtolower($usuario);
                 $conductor->document=$request->document;
                 $conductor->name=$request->name;
-                $conductor->lastname=$request->lastname;
-                $conductor->lastname2=$request->lastname2;
+                $conductor->lastname=$request->lastname . ' ' . $request->lastname2;
                 $conductor->email=$request->email;
                 $conductor->password=Hash::make($request['document']);
                 $conductor->perfil='3';
@@ -153,7 +152,6 @@ class PagesController extends Controller
         $conductor = App\User::findOrFail($id);
         $conductor->name = $request->name;
         $conductor->lastname = $request->lastname;
-        $conductor->lastname2 = $request->lastname2;
         $conductor->email = $request->email;
         $conductor->perfil = '3';
         $conductor->estado = $request->estado;
@@ -252,8 +250,7 @@ class PagesController extends Controller
                 $conductor->username=strtolower($usuario);
                 $conductor->document=$request->document;
                 $conductor->name=$request->name;
-                $conductor->lastname=$request->lastname;
-                $conductor->lastname2=$request->lastname2;
+                $conductor->lastname=$request->lastname . ' ' . $request->lastname2;
                 $conductor->email=$request->email;
                 $conductor->password=Hash::make($request['document']);
                 $conductor->perfil=$request->perfil;
@@ -297,7 +294,6 @@ class PagesController extends Controller
         $conductor = App\User::findOrFail($id);
         $conductor->name = $request->name;
         $conductor->lastname = $request->lastname;
-        $conductor->lastname2 = $request->lastname2;
         $conductor->email = $request->email;
         $conductor->perfil = $request->perfil;
         $conductor->estado = $request->estado;

@@ -53,9 +53,9 @@ function ciclo(valor){
         				'<input id="fecha' + i + '" type="date" class="form-control" name="fecha' + i + '" required autofocus>' +
     				'</div>' +
 				'</div>' +
-				'<div class="form-group">' +
-					'<label for="quantity" class="col-sm-2 control-label">Valor</label>' +
-					'<div class="col-sm-10">' +
+				'<div class="form-group row">' +
+					'<label for="categoria-'+i+'" class="col-md-4 col-form-label text-md-right">Valor del gasto</label>' +
+					'<div class="col-md-6" style="display: inline-block; width: 100%">' +
 						'<div class="input-group">' +
 							'<input type="range" min="1" max="'+ valor +'" step="1" onchange="barra(this.id), ingresado('+cantidad+', '+valor+')" class="input-range-bar" id="input-range-bar-'+ i +'" value="0">' +
 							'<div class="input-group-addon">' + 
@@ -81,13 +81,14 @@ function ciclo(valor){
 						'</select>' +
 					'</div>' +
 				'</div>' +
+				'<div id="otro-'+i+'"></div>' +
 				'<div class="form-group row">' +
     				'<label for="factura-' +i+ '" class="col-md-4 col-form-label text-md-right">Factura</label>' +
 					'<div class="col-md-6">' +
 						'<input id="factura-' +i+ '" type="file" class="" name="factura-'+i+'" required autofocus accept="application/pdf">' +
     				'</div>' +
 				'</div>' +
-			'</div><br/>';
+			'</div><hr>';
 	}
 	$('#respuesta').html(html);
 }
@@ -114,14 +115,32 @@ function selectDescripcion(id, conteo){
 	//ajax
 	$.get('/api/categoria/'+id+'/descripciones', function(data) {
 		var html_select='<option selected value="" disabled>Seleccione una descripcion</option>';
-		for (var i=0; i<data.length; i++)
-			html_select += '<option value="'+data[i].id+'">'+data[i].descripcion+'</option>';
+		for (var i=0; i<data.length; i++){
+			if (id==32) {
+				html_select += '<option value="'+data[i].id+'" selected>'+data[i].descripcion+'</option>';
+			}else{
+				html_select += '<option value="'+data[i].id+'">'+data[i].descripcion+'</option>';
+			}
+		}
 		//console.log(html_select);
 		//return html_select;
 		$(document).ready(function(){
 			$('.buscador').select2();
 		});
 		$('#descripcion-'+conteo).html(html_select);
+		if (id==32) {
+			var otro = 
+			'<div class="form-group row">' +
+    			'<label for="otros-'+conteo+'" class="col-md-4 col-form-label text-md-right">Otro</label>' +
+    			'<div class="col-md-6">' +
+        			'<input id="otros-'+conteo+'" placeholder="Escriba la descripcion del gasto" type="text" class="form-control" name="otros-'+conteo+'" required autofocus>' +
+				'</div>' +
+			'</div>';
+			$('#otro-'+conteo).html(otro);
+		}else{
+			var otro = "<div></div>"
+			$('#otro-'+conteo).html(otro);
+		}
 	});
 }
 

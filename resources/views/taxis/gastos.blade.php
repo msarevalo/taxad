@@ -32,6 +32,7 @@
         @enderror
     </div>
 </div>
+<br><hr>
 
 <div id="respuesta" class="respuesta">
 
@@ -42,7 +43,7 @@
 <style type="text/css">
 	input[type=range] { 
 	-webkit-appearance: none;
-	width: 50%;
+	width: 80%;
 }
 
 input[type=range]::-webkit-slider-runnable-track {

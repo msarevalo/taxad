@@ -20,7 +20,6 @@ class CreateUsersTable extends Migration
             $table->integer('document')->unique();
             $table->string('name');
             $table->string('lastname');
-            $table->string('lastname2');
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('estado')->default('2');
@@ -31,7 +30,7 @@ class CreateUsersTable extends Migration
         });
 
         $contraseña = Hash::make('ninguna123.');
-        DB::table('users')->insert(array('username'=>'admin', 'document'=>'123', 'name'=>'admin', 'lastname'=>'', 'lastname2'=>'', 'email'=>'admin@taxad.com', 'password'=>$contraseña, 'estado'=>'1', 'perfil'=>'1', 'nuevo'=>'0'));
+        DB::table('users')->insert(array('username'=>'admin', 'document'=>'123', 'name'=>'admin', 'lastname'=>'', 'email'=>'admin@taxad.com', 'password'=>$contraseña, 'estado'=>'1', 'perfil'=>'1', 'nuevo'=>'0'));
     }
 
     /**

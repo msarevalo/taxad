@@ -78,12 +78,12 @@
                     
                     @if($taxi->estado==1 && $contador!=0)
                         <a href="{{route('taxi.reporta', $taxi->id)}}" style="text-decoration: none">
-                            <img src="../../img/ingresos.png" style="width: 15%" title="Reportar">
+                            <i class="fa fa-money" style="color: black" title="Reportar"></i>
                         </a>
                     @endif
                     @if($contador==0)
                         <a href="{{route('taxi.asigna', $taxi->id)}}" style="text-decoration: none">
-                            <img src="../../img/asignar.png" style="width: 15%">
+                            <i class="fa fa-user-plus" style="color: black" title="Asignar"></i>
                         </a>
                     @endif
                     
