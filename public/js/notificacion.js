@@ -1,11 +1,13 @@
-function notificaciones(){	
+function notificaciones(id){	
 
 	//var usuario = $(this).val();
 	//ajax
-	/*$.get('/api/notificaciones/'+usuario+'/alertas', function(data) {
-		var html_select= data.length;
+	$.get('/api/notificaciones/'+id+'/alertas', function(data) {
+		var largo= data.length;
 		//console.log(html_select);
-		$('#alertas').html(html_select);
-	});*/
-	alert("prueba");
+		if (largo!=0) {
+			$('#not').html(largo);
+		}
+	});
+	//alert(id);
 }

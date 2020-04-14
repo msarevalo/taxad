@@ -4,16 +4,8 @@
 
 @section('formulario')
 <html>
-  <head>
-    <title></title>
-    <meta content="">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Exo&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <head>  
     <style>
-    body{
-      font-family: 'Exo', sans-serif;
-    }
     .header-col{
       background: #E3E9E5;
       color:#536170;
@@ -53,6 +45,7 @@
       border-radius: 50%;
       background: #132644;
       color: white;
+      width: 30px;
     }
     </style>
 
@@ -65,11 +58,11 @@
       <div class="row header-calendar" >
         <div class="col" style="display: flex; justify-content: space-between; padding: 10px;">
           <a  href="{{ asset('calendario/') }}/<?= $data['last']; ?>" style="margin:5px;">
-            <i class="fas fa-chevron-circle-left" style="font-size:30px;color:white;"></i>
+            <i class="fa fa-arrow-circle-left" style="font-size:30px;color:white;"></i>
           </a>
           <h2 style="font-weight:bold;margin:5px;"><?= $mespanish; ?> <small><?= $data['year']; ?></small></h2>
           <a  href="{{ asset('calendario/') }}/<?= $data['next']; ?>" style="margin:5px;">
-            <i class="fas fa-chevron-circle-right" style="font-size:30px;color:white;"></i>
+            <i class="fa fa-arrow-circle-right" style="font-size:30px;color:white;"></i>
           </a>
         </div>
 
@@ -162,7 +155,7 @@
               <strong>*</strong> Evento para la comunidad
             </td>
             <td>
-              | <p class="actual-ejem">#</p> Fecha Actual
+              <p class="actual-ejem">#</p> Fecha Actual
             </td>
           </tr>
         </tbody>

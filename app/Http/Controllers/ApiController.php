@@ -25,4 +25,9 @@ class ApiController extends Controller
 
     	return $descripciones;
     }
+
+    public function notificaciones($id){
+        return App\Notification::where([['usuario', '=', $id], ['leido', '=', '0']])->get();
+
+    }
 }

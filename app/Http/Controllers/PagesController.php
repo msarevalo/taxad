@@ -488,9 +488,12 @@ class PagesController extends Controller
             }elseif ($request->tipo==2) {
                 $name = 'tp-'.$id.'-'.time().'.pdf';
                 $file->move(public_path().'/documentos/tp/', $name);
+            }elseif($request->tipo==3){
+                $name = 'to-'.$id.'-'.time().'.pdf';
+                $file->move(public_path().'/documentos/to/', $name);
             }else{
-                $name = 'tarjeton-'.$id.'-'.time().'.pdf';
-                $file->move(public_path().'/documentos/tarjeton/', $name);
+                $name = 'rt-'.$id.'-'.time().'.pdf';
+                $file->move(public_path().'/documentos/rt/', $name);
             }
         }
         $documento = new App\Document();
@@ -554,6 +557,48 @@ class PagesController extends Controller
         return view('taxis/gastos', compact('id', 'w', 'val', 'categorias', 'descripciones'));
     }
 
+    public function gastosIngresar(Request $request, $id){
+        $identificador = explode("_", $id);
+        $validar = App\Expense::where("semana", '=', $identificador[1])->first();
+        if ($validar==NULL) {
+            # code...
+            for ($i=1; $i<=$request->cantidad ; $i++) {
+                $name="";
+                if ($request->hasFile('factura' . $i)) {
+                    $file = $request->file('factura' . $i);
+                    $name = 'factura-'.$identificador[0].'-'.time(). '-' . $i .'.pdf';
+                    $file->move(public_path().'/documentos/facturas/', $name);
+                }else{
+                    $name="fallo";
+                }
+
+                $gasto = new App\Expense();
+                $gasto->vehiculo=$identificador[0];
+                $gasto->semana=$identificador[1];
+                $gasto->fecha=$request['fecha'.$i];
+                $gasto->valor=$request['valor'.$i];
+                $gasto->categoria=$request['categoria'.$i];
+                $gasto->descripcion=$request['descripcion'.$i];
+                $gasto->otro=$request['otros'.$i];
+                $gasto->factura=$name;
+
+                $gasto->save();
+
+                if ($request['km'.$i]!=NULL) {
+                    $kilometaje = new App\OilChange();
+                    $kilometaje->vehiculo=$identificador[0];
+                    $kilometaje->km=$request['km'.$i];
+                    $kilometaje->fecha=$request['fecha'.$i];
+
+                    $kilometaje->save();
+                }
+            }
+            return redirect('taxis/detalle/'.$id)->with('mensaje', 'Los gastos se registraron con exito');
+        }else{
+            return redirect('taxis')->with('error', 'Ya has registrado gastos para esta semana');
+        }
+
+    }
     /*************************************************
      *************************************************
      * Creacion y administracion de Marcas Vehiculos**
@@ -890,11 +935,6 @@ class PagesController extends Controller
         }else{
             return redirect('home');
         }
-    }
-
-    public function notificaciones($id){
-        return App\Notification::where([['usuario', '=', Auth::user()->id], ['leido', '=', '0']])->get();
-
     }
 
     /*************************************************

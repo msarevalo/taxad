@@ -3,6 +3,14 @@
 <title>Taxad | Taxi</title>
 
 @section('formulario')
+    @if(session('mensaje'))
+        <div class="alert alert-success">
+            {{session('mensaje')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <a class="btn btn-light"  href="{{ route('taxis') }}">Atras</a>
     <a class="btn btn-info"  href="{{ route('taxi.edita', $taxi->id) }}">Editar</a>
     <a class="btn btn-primary"  href="{{ route('taxi.reporta', $taxi->id) }}">Reportar</a>

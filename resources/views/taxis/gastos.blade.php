@@ -2,50 +2,56 @@
 
 @section('formulario')
 
-<table>
-	<thead>
-		<th>
-			Valor Gastos Semana
-		</th>
-		<th>
-			Valor Ingresado
-		</th>
-	</thead>
-	<tbody>
-		<th>
-			<p>{{$val}}</p>
-		</th>
-		<th id="ingreso">
-			<p>0</p>
-		</th>
-	</tbody>
-</table>
+@php($concat = $id . "_" . $w)
 
-<div class="form-group row">
-    <label for="cantidad" class="col-md-4 col-form-label text-md-right">{{ __('Cantidad de Gastos') }}</label>
-    <div class="col-md-6">
-        <input id="cantidad" type="number" class="form-control @error('cantidad') is-invalid @enderror" name="cantidad" value="0" required autofocus min="1" max="15" onchange="ciclo('{{$val}}')">
-        @error('document')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
-</div>
-<br><hr>
-
-<div id="respuesta" class="respuesta">
-
-</div>
-
-
-<div class="form-group row mb-0">
-	<div class="col-md-6 offset-md-4">
-		<button type="submit" class="btn btn-primary" id="enviar" name="enviar" disabled>
-			{{ __('Editar') }}
-		</button>
+<form action="{{route('taxi.gastos', $concat)}}" method="post" enctype="multipart/form-data">
+	@csrf
+	<center>
+		<table class="table col-md-4">
+			<thead>
+				<th>
+					Valor Gastos Semana
+				</th>
+				<th>
+					Valor Ingresado
+				</th>
+			</thead>
+			<tbody>
+				<th>
+					<p>{{$val}}</p>
+				</th>
+				<th id="ingreso">
+					<p>0</p>
+				</th>
+			</tbody>
+		</table>
+	</center>
+	<div class="form-group row">
+	    <label for="cantidad" class="col-md-4 col-form-label text-md-right">{{ __('Cantidad de Gastos') }}</label>
+	    <div class="col-md-6">
+	        <input id="cantidad" type="number" class="form-control @error('cantidad') is-invalid @enderror" name="cantidad" value="0" required autofocus min="1" max="15" onchange="ciclo('{{$val}}')">
+	        @error('document')
+	            <span class="invalid-feedback" role="alert">
+	                <strong>{{ $message }}</strong>
+	            </span>
+	        @enderror
+	    </div>
 	</div>
-</div>
+	<br><hr>
+
+	<div id="respuesta" class="respuesta">
+
+	</div>
+
+
+	<div class="form-group row mb-0">
+		<div class="col-md-6 offset-md-4">
+			<button type="submit" class="btn btn-primary" id="enviar" name="enviar" disabled>
+				{{ __('Enviar') }}
+			</button>
+		</div>
+	</div>
+</form>
 
 <style type="text/css">
 	input[type=range] { 

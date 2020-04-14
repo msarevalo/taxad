@@ -95,6 +95,8 @@ Route::put('/taxis/reporta/{id}', 'PagesController@reportar')->name('taxi.report
 
 Route::get('/taxis/gastos/{id}/{w}/{val}', 'PagesController@gastos')->name('taxi.gasto');
 
+Route::post('/taxis/gasto/{id}', 'PagesController@gastosIngresar')->name('taxi.gastos');
+
 
 /**********************************************
  **********************************************

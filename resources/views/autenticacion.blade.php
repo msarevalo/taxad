@@ -6,7 +6,7 @@ $separa = $items->separador();
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -22,7 +22,7 @@ $separa = $items->separador();
     <title>TAXAD</title>
     <link rel="shortcut icon" href="../../../../img/logo.ico" />
 </head>
-<body>
+<body onload="notificaciones({{Auth::user()->id}})">
     <div class="container-fluid p-0">
 
         <!-- Bootstrap row -->
@@ -92,6 +92,13 @@ $separa = $items->separador();
             background-color: #132644 !important;
         }
 
+        #not-estilo{
+            border-radius: 200px 200px 200px 200px;
+            background-color: red;
+            margin-left: 10px;
+            width: 30px;
+        }
+
     </style>
     <script type="text/javascript">
         // Hide submenus
@@ -148,7 +155,7 @@ $separa = $items->separador();
                     $icono = $menu[$i]['class'];
                     $nombre = $menu[$i]['nombre'];
                     if ($nombre==="Perfil") {
-                        $nombre = Auth::user()->name . " " . Auth::user()->lastname;
+                        $nombre = Auth::user()->name;
                     }
                     if ($nombre!=="Cerrar Sesión") {    
                     ?>
@@ -156,15 +163,23 @@ $separa = $items->separador();
                             <div class="d-flex w-100 justify-content-start align-items-center">
                                 <span class="fa fa-fw mr-3"><i class="{{$icono}}" aria-hidden="true"></i></span>
                                 <span class="menu-collapsed">{{$nombre}}</span>
+                                <?php
+                                    if ($nombre=="Notificaciones") {
+                                        # code...
+                                        ?>
+                                            <span id="not-estilo"><center><span id="not"></span></center></span>
+                                        <?php
+                                    }
+                                ?>
                             </div>
                         </a>
                     <?php
-                    }else{
+                }else{
                     ?>
-                        <a href="{{ route('logout') }}" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <div class="d-flex w-100 justify-content-start align-items-center">
-                                <span id="collapse-icon" class="a fa-fw mr-3"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-                                <span id="collapse-text" class="menu-collapsed">Cerrar Sesión</span>
+                    <a href="{{ route('logout') }}" data-toggle="sidebar-colapse" class="bg-dark list-group-item list-group-item-action d-flex align-items-center" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span id="collapse-icon" class="a fa-fw mr-3"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                            <span id="collapse-text" class="menu-collapsed">Cerrar Sesión</span>
                             </div>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -172,22 +187,22 @@ $separa = $items->separador();
                         </form>
                     <?php
                     }
-                }else{
-                    $ruta = "submenu" . $menu[$i]['id'];
-                    $icono = $menu[$i]['class'];
-                    $nombre = $menu[$i]['nombre'];
+            }else{
+                $ruta = "submenu" . $menu[$i]['id'];
+                $icono = $menu[$i]['class'];
+                $nombre = $menu[$i]['nombre'];
 
-                    ?>
+                ?>
 
-                    <a href="#{{$ruta}}" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-start align-items-center">
-                            <span class="fa fa-fw mr-3"><i class="{{$icono}}" aria-hidden="true"></i></span>
-                            <span class="menu-collapsed">{{$nombre}}</span> 
-                            <span class="submenu-icon ml-auto"></span>   
-                        </div>
-                    </a>
-                    <div id='{{$ruta}}' class="collapse sidebar-submenu">
-                        <?php
+                <a href="#{{$ruta}}" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="d-flex w-100 justify-content-start align-items-center">
+                        <span class="fa fa-fw mr-3"><i class="{{$icono}}" aria-hidden="true"></i></span>
+                        <span class="menu-collapsed">{{$nombre}}</span> 
+                        <span class="submenu-icon ml-auto"></span>   
+                    </div>
+                </a>
+                <div id='{{$ruta}}' class="collapse sidebar-submenu">
+                    <?php
                         $hijos = $items->hijos($menu[$i]['id']);
                         for ($j=0; $j < sizeof($hijos); $j++):
                             if ($menu[$i]['id']==$hijos[$j]['menu_padre']) {
@@ -238,6 +253,7 @@ $separa = $items->separador();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="../js/notificacion.js"></script>
 </body>
 </html>
 @yield('scripts')

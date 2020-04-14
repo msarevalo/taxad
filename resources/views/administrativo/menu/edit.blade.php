@@ -11,7 +11,11 @@
                 <label for="nombre" class="col-md-4 col-form-label text-md-right">{{ __('Nombre') }}</label>
 
                 <div class="col-md-6">
-                    <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" autofocus value="{{$menu->nombre}}">
+                    @if($menu->nombre!=="Notificaciones")
+                        <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" autofocus value="{{$menu->nombre}}">
+                    @else
+                        <input id="nombre" type="text" class="form-control @error('nombre') is-invalid @enderror" name="nombre" required autocomplete="nombre" autofocus value="{{$menu->nombre}}" disabled>
+                    @endif
 
                     @error('nombre')
                         <span class="invalid-feedback" role="alert">

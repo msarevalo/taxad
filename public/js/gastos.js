@@ -51,7 +51,7 @@ function ciclo(valor){
 		html += 
 			'<div id"gasto' + i + '" name="gasto' + i + '">' +
 				'<div class="form-group row">' +
-    				'<label for="fecha" class="col-md-4 col-form-label text-md-right">Fecha</label>' +
+    				'<label for="fecha" class="col-md-4 col-form-label text-md-right">Fecha de Factura</label>' +
 					'<div class="col-md-6">' + 
         				'<input id="fecha' + i + '" type="date" class="form-control" name="fecha' + i + '" required autofocus>' +
     				'</div>' +
@@ -62,7 +62,7 @@ function ciclo(valor){
 						'<div class="input-group">' +
 							'<input type="range" min="1" max="'+ valor +'" step="1" onchange="barra(this.id), ingresado('+cantidad+', '+valor+')" class="input-range-bar" id="input-range-bar-'+ i +'" value="0">' +
 							'<div class="input-group-addon">' + 
-								'<input type="number" min="1" max="'+ valor +'" step="1" onchange="caja(this.id), ingresado('+cantidad+', '+valor+')" class="input-range-box" id="input-range-box-'+ i +'" value="0">' +
+								'<input type="number" min="1" max="'+ valor +'" step="1" onchange="caja(this.id), ingresado('+cantidad+', '+valor+')" class="input-range-box" id="input-range-box-'+ i +'" value="0" name="valor'+i+'">' +
 							'</div>' +
 						'</div>' +
 					'</div>' +
@@ -70,7 +70,7 @@ function ciclo(valor){
 				'<div class="form-group row">' +
 					'<label for="categoria-'+i+'" class="col-md-4 col-form-label text-md-right">Categoria Gasto</label>' +
 					'<div class="col-md-6" style="display: inline-block; width: 100%">' +
-	    				'<select class="form-control mb-2 buscador" name="categoria-'+i+'" id="categoria-'+i+'" required style="text-transform: capitalize" onchange="selectDescripcion(this.value, '+i+')">' +
+	    				'<select class="form-control mb-2 buscador" name="categoria'+i+'" id="categoria-'+i+'" required style="text-transform: capitalize" onchange="selectDescripcion(this.value, '+i+')">' +
 							'<option selected value="" disabled>Seleccione una categoria</option>';
 							html += selectCategoria('categoria-'+i);
 						html += '</select>' +
@@ -79,7 +79,7 @@ function ciclo(valor){
 				'<div class="form-group row">' +
 					'<label for="descripcion-'+i+'" class="col-md-4 col-form-label text-md-right">Descripcion Gasto</label>' +
 					'<div class="col-md-6" style="display: inline-block; width: 100%">' +
-	    				'<select class="form-control mb-2 buscador" name="descripcion-'+i+'" id="descripcion-'+i+'" required style="text-transform: capitalize">' +
+	    				'<select class="form-control mb-2 buscador" name="descripcion'+i+'" id="descripcion-'+i+'" required style="text-transform: capitalize"  onchange="otros('+i+')">' +
 							'<option selected value="" disabled>Seleccione una descripcion</option>' +
 						'</select>' +
 					'</div>' +
@@ -88,7 +88,7 @@ function ciclo(valor){
 				'<div class="form-group row">' +
     				'<label for="factura-' +i+ '" class="col-md-4 col-form-label text-md-right">Factura</label>' +
 					'<div class="col-md-6">' +
-						'<input id="factura-' +i+ '" type="file" class="" name="factura-'+i+'" required autofocus accept="application/pdf">' +
+						'<input id="factura' +i+ '" type="file" class="" name="factura'+i+'" required autofocus accept="application/pdf">' +
     				'</div>' +
 				'</div>' +
 			'</div><hr>';
@@ -136,7 +136,7 @@ function selectDescripcion(id, conteo){
 			'<div class="form-group row">' +
     			'<label for="otros-'+conteo+'" class="col-md-4 col-form-label text-md-right">Otro</label>' +
     			'<div class="col-md-6">' +
-        			'<input id="otros-'+conteo+'" placeholder="Escriba la descripcion del gasto" type="text" class="form-control" name="otros-'+conteo+'" required autofocus>' +
+        			'<input id="otros-'+conteo+'" placeholder="Escriba la descripcion del gasto" type="text" class="form-control" name="otros'+conteo+'" autofocus>' +
 				'</div>' +
 			'</div>';
 			$('#otro-'+conteo).html(otro);
@@ -145,5 +145,34 @@ function selectDescripcion(id, conteo){
 			$('#otro-'+conteo).html(otro);
 		}
 	});
+}
+
+function otros(conteo){
+	var combo = document.getElementById("descripcion-"+conteo);
+	var selected = combo.options[combo.selectedIndex].text;
+	if (selected == "Otro Servicio") {
+		var otro = 
+			'<div class="form-group row">' +
+    			'<label for="otros-'+conteo+'" class="col-md-4 col-form-label text-md-right">Otro</label>' +
+    			'<div class="col-md-6">' +
+        			'<input id="otros-'+conteo+'" placeholder="Escriba la descripcion del gasto" type="text" class="form-control" name="otros'+conteo+'" autofocus>' +
+				'</div>' +
+			'</div>';
+		$('#otro-'+conteo).html(otro);
+	}else{
+		if(selected == "Cambio de Aceite"){
+			var otro = 
+			'<div class="form-group row">' +
+    			'<label for="km-'+conteo+'" class="col-md-4 col-form-label text-md-right">Kilometraje</label>' +
+    			'<div class="col-md-6">' +
+        			'<input id="km-'+conteo+'" placeholder="Escriba el kilometraje del vehiculo" type="number" class="form-control" name="km'+conteo+'" autofocus>' +
+				'</div>' +
+			'</div>';
+			$('#otro-'+conteo).html(otro);
+		}else{
+			var otro = "<div></div>"
+			$('#otro-'+conteo).html(otro);
+		}
+	}
 }
 
