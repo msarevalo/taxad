@@ -43,7 +43,7 @@ class CreateMenusTable extends Migration
         DB::table('menus')->insert(array('id'=>'16', 'nombre'=>'Marcas', 'ruta'=>'/marcas', 'submenu'=>1, 'menu_padre'=>12, 'orden'=>16));
         DB::table('menus')->insert(array('id'=>'17', 'nombre'=>'Vehiculos', 'ruta'=>'/taxis', 'submenu'=>1, 'menu_padre'=>12, 'orden'=>17));
         DB::table('menus')->insert(array('id'=>'18', 'nombre'=>'Calendario', 'ruta'=>'/calendario', 'submenu'=>0, 'menu_padre'=>0, 'class'=>'fa fa-calendar', 'orden'=>18));
-        DB::table('menus')->insert(array('id'=>'19', 'nombre'=>'Notificaciones', 'ruta'=>'#', 'submenu'=>0, 'menu_padre'=>0, 'class'=>'fa fa-envelope', 'orden'=>19));
+        DB::table('menus')->insert(array('id'=>'19', 'nombre'=>'Notificaciones', 'ruta'=>'/buzon', 'submenu'=>0, 'menu_padre'=>0, 'class'=>'fa fa-envelope', 'orden'=>19));
         DB::table('menus')->insert(array('id'=>'20', 'nombre'=>'Ayuda', 'ruta'=>'#', 'submenu'=>0, 'menu_padre'=>0, 'class'=>'fa fa-question-circle', 'orden'=>20));
         DB::table('menus')->insert(array('id'=>'21', 'nombre'=>'Cerrar Sesión', 'ruta'=>'logout', 'submenu'=>0, 'menu_padre'=>0, 'class'=>'fa fa-sign-out', 'orden'=>99));
 

@@ -129,7 +129,7 @@
             <tr>
                 <td>
                     @if($tp==null)
-                        <label for="name" class="col-6">{{ __('No has cargado aun el TP para este vehiculo') }}</label>
+                        <label for="name" class="col-6">{{ __('No has cargado aun el Tarjeta de Propiedad para este vehiculo') }}</label>
                     @else
                         <label for="name" class="col-3">{{ __('Tarjeta de Propiedad') }}</label>
                         <a href="../../documentos/tp/{{$tp->documento}}" class="col-6" style="text-decoration: none;" target="_blank">
@@ -140,17 +140,29 @@
             </tr>
             <tr>
                 <td>
-                    @if($tarjeton==null)
-                        <label for="name" class="col-6">{{ __('No has cargado aun el Tarjeton para este vehiculo') }}</label>
+                    @if($to==null)
+                        <label for="name" class="col-6">{{ __('No has cargado aun Tarjeta de operacion para este vehiculo') }}</label>
                     @else
-                        <label for="name" class="col-3">{{ __('Tarjeton') }}</label>
+                        <label for="name" class="col-3">{{ __('Tarjeta de Operacion') }}</label>
                         <a href="../../documentos/tarjeton/{{$tarjeton->documento}}" class="col-6" style="text-decoration: none;" target="_blank">
-                            <img src="../../img/pdf.png" style="width: 5%"> {{$tarjeton->documento}}
+                            <img src="../../img/pdf.png" style="width: 5%"> {{$to->documento}}
+                        </a>
+                    @endif
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @if($rt==null)
+                        <label for="name" class="col-6">{{ __('No has cargado aun Revision Tecnomecanica para este vehiculo') }}</label>
+                    @else
+                        <label for="name" class="col-3">{{ __('Revision Tecnomecanica') }}</label>
+                        <a href="../../documentos/tarjeton/{{$tarjeton->documento}}" class="col-6" style="text-decoration: none;" target="_blank">
+                            <img src="../../img/pdf.png" style="width: 5%"> {{$rt->documento}}
                         </a>
                     @endif
                 </td>
             </tr>
         </table>
-        <a href="{{ route('taxi.soat', $taxi->id) }}" class="btn btn-primary btn-block">Cargar/Actualizar Documentos</a>
+        <a href="{{ route('taxi.documentos', $taxi->id) }}" class="btn btn-primary btn-block">Cargar/Actualizar Documentos</a>
     </div>
 @endsection

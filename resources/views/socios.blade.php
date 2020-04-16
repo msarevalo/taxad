@@ -28,7 +28,7 @@
         </div>
     @endif
     <div class="container">
-        <a href="{{ route('conductor.crea') }}" class="btn btn-primary">Crear</a>
+        <a href="#" class="btn btn-primary">Crear</a>
     </div>
     <h1>Listado Socios:</h1>
 
@@ -50,45 +50,45 @@
         <tr>
             <th scope="row">{{$socio->id}}</th>
             <td>
-                <a href="{{route('conductor.detalle', $socio)}}">
+                <a href="{{route('socios.detalle', $socio)}}">
                     {{$socio->document}}
                 </a>
             </td>
             <td>
-                <a href="{{route('conductor.detalle', $socio)}}">
+                <a href="{{route('socios.detalle', $socio)}}">
                     {{$socio->username}}
                 </a>
             </td>
             <td>
-                <a href="{{route('conductor.detalle', $conductor)}}">
+                <a href="{{route('socios.detalle', $socios)}}">
                     {{$socio->name . " " .  $socio->lastname}}
                 </a>
             </td>
             <td>
                 @foreach($perfiles as $perfil)
-                    @if($conductor->perfil==$perfil->id)
+                    @if($socios->perfil==$perfil->id)
                         {{$perfil->nombrePerfil}}
                     @endif
                 @endforeach
             </td>
             @foreach($estados as $estado)
-                @if($conductor->estado==$estado->id)
+                @if($socios->estado==$estado->id)
                     <td>{{$estado->estado}}</td>
                 @endif
             @endforeach
-            <td>{{$conductor->created_at}}</td>
+            <td>{{$socios->created_at}}</td>
             <td>
-                @if($conductor->estado==2)
-                    <a href="{{route('conductor.permitir', $conductor)}}" style="text-decoration: none">
+                @if($socios->estado==2)
+                    <a href="{{route('socios.permitir', $consociosductor)}}" style="text-decoration: none">
                         <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/aprobar.png" style="width: 130%; text-decoration: none"></button>
                     </a>
-                    <form action="{{route('conductor.negar', $conductor)}}" method="post" class="d-inline">
+                    <form action="{{route('socios.negar', $socios)}}" method="post" class="d-inline">
                         @method('DELETE')
                         @csrf
                         <button style="width: 30px; height: 30px" class="btn btn-sm"><i class="fa fa-user-times" aria-hidden="true" title="Negar"></i></button>
                     </form>
                 @else
-                    <a href="{{route('conductor.edita', $conductor)}}" style="text-decoration: none">
+                    <a href="{{route('socios.edita', $socios)}}" style="text-decoration: none">
                         <button style="width: 30px; height: 30px" class="btn btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                     </a>
                 @endif
@@ -97,5 +97,5 @@
         @endforeach
         </tbody>
     </table>
-    {{ $conductores->links() }}
+    {{ $socios->links() }}
 @endsection

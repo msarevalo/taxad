@@ -13,11 +13,12 @@
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]
+          ['Mes', 'Producido', 'Gastos'],
+          ['Diciembre\n2019',  1000,      400],
+          ['Enero\n2020',  1000,      400],
+          ['Febrero\n2020',  1170,      460],
+          ['Marzo\n2020',  660,       1120],
+          ['Abril\n2020',  1030,      540]
         ]);
 
         var options = {

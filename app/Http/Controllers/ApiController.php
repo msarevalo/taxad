@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -27,7 +28,25 @@ class ApiController extends Controller
     }
 
     public function notificaciones($id){
-        return App\Notification::where([['usuario', '=', $id], ['leido', '=', '0']])->get();
+        $permisos = DB::table('notifications')
+                        ->select(DB::raw('count(id) as conteo'))
+                        ->where('lectores', 'NOT LIKE', '%'.$id.'%')->orWhereNull('lectores')->get();
+        //return App\Notification::count('lectores', 'NOT LIKE', $id)->get();
+        return $permisos;
+    }
+
+    public function leido($id){
+        $mensaje = App\Notification::findOrFail();
+        $usuario = $id;
+        if ($mensaje->lectores==NULL) {
+            $mensaje->lectores==$usuario."_";
+        }else{
+
+            $mensaje->lectores==$usuario."_";
+        }
+
+        $mensaje->save();
 
     }
+
 }

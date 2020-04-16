@@ -27,21 +27,21 @@ Route::get('/registro', 'PagesController@registro')->name('registro');
  *********************************************/
 
 
-Route::get('/conductores', 'PagesController@conductor')->name('conductor');
+Route::get('/conductores', 'DriversController@conductor')->name('conductor');
 
-Route::get('/conductores/detalle/{id?}', 'PagesController@detalle')->name('conductor.detalle');
+Route::get('/conductores/detalle/{id?}', 'DriversController@detalle')->name('conductor.detalle');
 
-Route::get('/conductores/edita/{id?}', 'PagesController@editacon')->name('conductor.edita');
+Route::get('/conductores/create', 'DriversController@creaCond')->name('conductor.crea');
 
-Route::get('/conductores/create', 'PagesController@creacond')->name('conductor.crea');
+Route::post('/conductores', 'DriversController@crearCond')->name('conductor.crear');
 
-Route::post('/conductores', 'PagesController@crearcond')->name('conductor.crear');
+Route::get('/conductores/edita/{id?}', 'DriversController@editaCon')->name('conductor.edita');
 
-Route::put('/conductores/{id}', 'PagesController@editarcond')->name('conductor.editar');
+Route::put('/conductores/{id}', 'DriversController@editarCond')->name('conductor.editar');
 
-Route::get('/conductores/{id}', 'PagesController@permitir')->name('conductor.permitir');
+Route::get('/conductores/{id}', 'DriversController@permitir')->name('conductor.permitir');
 
-Route::delete('/conductores/{id}', 'PagesController@negar')->name('conductor.negar');
+Route::delete('/conductores/{id}', 'DriversController@negar')->name('conductor.negar');
 
 
 /*************************************************
@@ -50,17 +50,17 @@ Route::delete('/conductores/{id}', 'PagesController@negar')->name('conductor.neg
  *************************************************
  *************************************************/
 
-Route::get('/administradores', 'PagesController@administrador')->name('admin');
+Route::get('/administradores', 'AdministratorsController@administrador')->name('admin');
 
-Route::get('/administradores/create', 'PagesController@creaadmin')->name('admin.crea');
+Route::get('/administradores/create', 'AdministratorsController@creaAdmin')->name('admin.crea');
 
-Route::post('/administradores', 'PagesController@crearadmin')->name('admin.crear');
+Route::post('/administradores', 'AdministratorsController@crearAdmin')->name('admin.crear');
 
-Route::get('/administradores/detalle/{id?}', 'PagesController@detalleadmin')->name('admin.detalle');
+Route::get('/administradores/detalle/{id?}', 'AdministratorsController@detalleAdmin')->name('admin.detalle');
 
-Route::get('/administradores/edita/{id?}', 'PagesController@editaadmin')->name('admin.edita');
+Route::get('/administradores/edita/{id?}', 'AdministratorsController@editaAdmin')->name('admin.edita');
 
-Route::put('/administradores/{id}', 'PagesController@editaradmin')->name('admin.editar');
+Route::put('/administradores/{id}', 'AdministratorsController@editarAdmin')->name('admin.editar');
 
 
 /*********************************************
@@ -69,33 +69,33 @@ Route::put('/administradores/{id}', 'PagesController@editaradmin')->name('admin.
  *********************************************
  *********************************************/
 
-Route::get('/taxis', 'PagesController@taxi')->name('taxis');
+Route::get('/taxis', 'TaxisController@taxi')->name('taxis');
 
-Route::get('/taxis/detalle/{id?}', 'PagesController@detalletax')->name('taxi.detalle');
+Route::get('/taxis/detalle/{id?}', 'TaxisController@detalleTax')->name('taxi.detalle');
 
-Route::get('/taxis/create', 'PagesController@creatax')->name('taxi.crea');
+Route::get('/taxis/create', 'TaxisController@creaTax')->name('taxi.crea');
 
-Route::get('/taxis/asigna/{id}', 'PagesController@asignatax')->name('taxi.asigna');
+Route::post('/taxis', 'TaxisController@crearTax')->name('taxi.crear');
 
-Route::post('/taxis', 'PagesController@creartax')->name('taxi.crear');
+Route::get('/taxis/edita/{id?}', 'TaxisController@editaTax')->name('taxi.edita');
 
-Route::get('/taxis/edita/{id?}', 'PagesController@editatax')->name('taxi.edita');
+Route::put('/taxis/{id}', 'TaxisController@editarTax')->name('taxi.editar');
 
-Route::put('/taxis/{id}', 'PagesController@editartax')->name('taxi.editar');
+Route::get('/taxis/asigna/{id}', 'TaxisController@asignaTax')->name('taxi.asigna');
 
-Route::post('/taxis/asigna/{id}', 'PagesController@asignartax')->name('taxi.asignar');
+Route::post('/taxis/asigna/{id}', 'TaxisController@asignarTax')->name('taxi.asignar');
 
-Route::get('/taxis/documento/{id}', 'PagesController@soat')->name('taxi.soat');
+Route::get('/taxis/documento/{id}', 'TaxisController@documento')->name('taxi.documentos');
 
-Route::post('/taxis/documento/{id?}', 'PagesController@soatcargar')->name('taxi.soatcargar');
+Route::post('/taxis/documento/{id?}', 'TaxisController@cargarDocumento')->name('taxi.cargardocumento');
 
-Route::get('/taxis/reporta/{id}', 'PagesController@reporta')->name('taxi.reporta');
+Route::get('/taxis/reporta/{id}', 'TaxisController@reporta')->name('taxi.reporta');
 
-Route::put('/taxis/reporta/{id}', 'PagesController@reportar')->name('taxi.reportar');
+Route::put('/taxis/reporta/{id}', 'TaxisController@reportar')->name('taxi.reportar');
 
-Route::get('/taxis/gastos/{id}/{w}/{val}', 'PagesController@gastos')->name('taxi.gasto');
+Route::get('/taxis/gastos/{id}/{w}/{val}', 'TaxisController@gastos')->name('taxi.gasto');
 
-Route::post('/taxis/gasto/{id}', 'PagesController@gastosIngresar')->name('taxi.gastos');
+Route::post('/taxis/gasto/{id}', 'TaxisController@gastosIngresar')->name('taxi.gastos');
 
 
 /**********************************************
@@ -104,17 +104,17 @@ Route::post('/taxis/gasto/{id}', 'PagesController@gastosIngresar')->name('taxi.g
  **********************************************
  **********************************************/
 
-Route::get('/marcas', 'PagesController@marca')->name('marcas');
+Route::get('/marcas', 'BrandsController@marca')->name('marcas');
 
-Route::get('/marcas/create', 'PagesController@creamarca')->name('marca.crea');
+Route::get('/marcas/create', 'BrandsController@creaMarca')->name('marca.crea');
 
-Route::post('/marcas', 'PagesController@crearmarca')->name('marca.crear');
+Route::post('/marcas', 'BrandsController@crearMarca')->name('marca.crear');
 
-Route::get('/marcas/detalle/{id?}', 'PagesController@detallemarca')->name('marca.detalle');
+Route::get('/marcas/detalle/{id?}', 'BrandsController@detalleMarca')->name('marca.detalle');
 
-Route::get('/marcas/edita/{id?}', 'PagesController@editamarca')->name('marca.edita');
+Route::get('/marcas/edita/{id?}', 'BrandsController@editaMarca')->name('marca.edita');
 
-Route::put('/marcas/{id?}', 'PagesController@editarmarca')->name('marca.editar');
+Route::put('/marcas/{id?}', 'BrandsController@editarMarca')->name('marca.editar');
 
 
 /**********************************************
@@ -135,15 +135,21 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/calendar', 'PagesController@Calendario')->name('calendario');
 
-Route::get('calendario/form','PagesController@form');
-Route::post('evento/create','PagesController@create');
-Route::get('calendario/details/{id}','PagesController@details');
-Route::get('calendario','PagesController@index')->name('calendario');
-Route::get('calendario/{month}','PagesController@index_month');
-Route::post('evento/calendario','PagesController@calendario');
-Route::get('calendario/delete/{id}','PagesController@deleteEvent')->name('calendario.delete');
-Route::get('calendario/edit/{id}','PagesController@editaCalendario')->name('calendario.edita');
-Route::put('/calendario/{id}', 'PagesController@editarCalendario')->name('calendario.editar');
+Route::get('calendario/form','CalendarController@formulario');
+
+Route::post('evento/create','CalendarController@crearEvento');
+
+Route::get('calendario/details/{id}','CalendarController@detalles');
+
+Route::get('calendario','CalendarController@index')->name('calendario');
+
+Route::get('calendario/{month}','CalendarController@mes');
+
+Route::post('evento/calendario','CalendarController@calendario');
+
+Route::get('calendario/delete/{id}','CalendarController@eliminarEvento')->name('calendario.delete');
+Route::get('calendario/edit/{id}','CalendarController@editaCalendario')->name('calendario.edita');
+Route::put('/calendario/{id}', 'CalendarController@editarCalendario')->name('calendario.editar');
 
 /*************************************************
  *************************************************
@@ -151,7 +157,7 @@ Route::put('/calendario/{id}', 'PagesController@editarCalendario')->name('calend
  *************************************************
  *************************************************/
 
-Route::get('/socios', 'PagesController@socio')->name('socios');
+Route::get('/socios', 'PartnerController@socio')->name('socios');
 
 /*************************************************
  *************************************************
@@ -159,11 +165,11 @@ Route::get('/socios', 'PagesController@socio')->name('socios');
  *************************************************
  *************************************************/
 
-Route::get('/tarifa', 'PagesController@tarifa')->name('tarifa');
+Route::get('/tarifa', 'RatesController@tarifa')->name('tarifa');
 
-Route::get('/tarifa/edita', 'PagesController@editaTarifa')->name('tarifa.edita');
+Route::get('/tarifa/edita', 'RatesController@editaTarifa')->name('tarifa.edita');
 
-Route::put('/tarifa', 'PagesController@editarTarifa')->name('tarifa.editar');
+Route::put('/tarifa', 'RatesController@editarTarifa')->name('tarifa.editar');
 
 /*************************************************
  *************************************************
@@ -171,9 +177,9 @@ Route::put('/tarifa', 'PagesController@editarTarifa')->name('tarifa.editar');
  *************************************************
  *************************************************/
 
-Route::get('/categoria', 'PagesController@categoria')->name('categoria');
+Route::get('/categoria', 'ExpensesCategoryController@categoria')->name('categoria');
 
-Route::get('/categoria/detalle/{id?}', 'PagesController@destalleCategoria')->name('categoria.detalle');
+Route::get('/categoria/detalle/{id?}', 'ExpensesCategoryController@destalleCategoria')->name('categoria.detalle');
 
 /*************************************************
  *************************************************
@@ -181,11 +187,11 @@ Route::get('/categoria/detalle/{id?}', 'PagesController@destalleCategoria')->nam
  *************************************************
  *************************************************/
 
-Route::get('/administrativo/menus', 'PagesController@menus')->name('menus');
+Route::get('/administrativo/menus', 'MenusController@menus')->name('menus');
 
-Route::get('/administrativo/menus/edita/{id?}', 'PagesController@editamenu')->name('menu.edita');
+Route::get('/administrativo/menus/edita/{id?}', 'MenusController@editamenu')->name('menu.edita');
 
-Route::put('/administrativo/menus/{id}', 'PagesController@editarMenu')->name('menu.editar');
+Route::put('/administrativo/menus/{id}', 'MenusController@editarMenu')->name('menu.editar');
 
 /*************************************************
  *************************************************
@@ -193,15 +199,15 @@ Route::put('/administrativo/menus/{id}', 'PagesController@editarMenu')->name('me
  *************************************************
  *************************************************/
 
-Route::get('/administrativo/separadores', 'PagesController@separadores')->name('separador');
+Route::get('/administrativo/separadores', 'MenusController@separadores')->name('separador');
 
-Route::get('/administrativo/separadores/edita/{id?}', 'PagesController@editaSepara')->name('separador.edita');
+Route::get('/administrativo/separadores/edita/{id?}', 'MenusController@editaSepara')->name('separador.edita');
 
-Route::put('/administrativo/separadores/{id}', 'PagesController@editarSepara')->name('separador.editar');
+Route::put('/administrativo/separadores/{id}', 'MenusController@editarSepara')->name('separador.editar');
 
-Route::get('/administrativo/separadores/crea', 'PagesController@creaSepara')->name('separador.crea');
+Route::get('/administrativo/separadores/crea', 'MenusController@creaSepara')->name('separador.crea');
 
-Route::post('/administrativo/separadores', 'PagesController@crearSepara')->name('separador.crear');
+Route::post('/administrativo/separadores', 'MenusController@crearSepara')->name('separador.crear');
 
 /*************************************************
  *************************************************
@@ -209,11 +215,11 @@ Route::post('/administrativo/separadores', 'PagesController@crearSepara')->name(
  *************************************************
  *************************************************/
 
-Route::get('/administrativo/perfiles', 'PagesController@perfiles')->name('perfil');
+Route::get('/administrativo/perfiles', 'ProfilesController@perfiles')->name('perfil');
 
-Route::get('/administrativo/perfiles/edita/{id}', 'PagesController@editaPerfil')->name('perfil.edita');
+Route::get('/administrativo/perfiles/edita/{id}', 'ProfilesController@editaPerfil')->name('perfil.edita');
 
-Route::put('/administrativo/perfiles/{id}', 'PagesController@editarPerfil')->name('perfil.editar');
+Route::put('/administrativo/perfiles/{id}', 'ProfilesController@editarPerfil')->name('perfil.editar');
 
 /*************************************************
  *************************************************
@@ -221,6 +227,16 @@ Route::put('/administrativo/perfiles/{id}', 'PagesController@editarPerfil')->nam
  *************************************************
  *************************************************/
 
-Route::get('/administrativo/permisos', 'PagesController@permisos')->name('permisos');
+Route::get('/administrativo/permisos', 'PermissionsController@permisos')->name('permisos');
 
-Route::get('/administrativo/permisos/configurar/{id}', 'PagesController@configuraPermisos')->name('permisos.configura');
+Route::get('/administrativo/permisos/configurar/{id}', 'PermissionsController@configuraPermisos')->name('permisos.configura');
+
+/*************************************************
+ *************************************************
+ * Manejo de notificaciones y mensajes************
+ *************************************************
+ *************************************************/
+
+Route::get('/buzon', 'MessagesController@buzon')->name('buzon');
+
+Route::post('leido', 'MessagesController@leido');

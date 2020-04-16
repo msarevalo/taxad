@@ -3,7 +3,7 @@
 <title>Taxad | Taxis</title>
 
 @section('formulario')
-    <form action="{{route('taxi.soatcargar', $taxi->id)}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('taxi.cargardocumento', $taxi->id)}}" method="post" enctype="multipart/form-data">
     	@csrf
 
         <div class="form-group row">

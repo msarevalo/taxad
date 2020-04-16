@@ -81,7 +81,7 @@
             <td>
                 @if($conductor->estado==2)
                     <a href="{{route('conductor.permitir', $conductor)}}" style="text-decoration: none">
-                        <button style="width: 30px; height: 30px" class="btn btn-sm"><img src="../../img/aprobar.png" style="width: 130%; text-decoration: none"></button>
+                        <button style="width: 30px; height: 30px" class="btn btn-sm"><i class="fa fa-check" aria-hidden="true" title="Permitir"></i></button>
                     </a>
                     <form action="{{route('conductor.negar', $conductor)}}" method="post" class="d-inline">
                         @method('DELETE')
